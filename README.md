@@ -146,6 +146,28 @@ import type { Oklch } from '@abhc/spektral-ui';
 - **`oklchToHex(l, c, h)`** — converts OKLCH channels back to a hex string, with automatic gamut clamping.
 - **`hexToRgbChannels(hex)`** — returns the RGB channels as a comma-separated string (e.g. `"255, 128, 0"`), useful for CSS `rgb()` / `rgba()` variables.
 
+All component prop types are also exported from the main entry point, so you never need to reach into `dist/` internals:
+
+```ts
+// Data shapes (passed as arrays / objects to components)
+import type { CommandItem, CommandGroup } from '@abhc/spektral-ui';
+import type { BadgeItem }                 from '@abhc/spektral-ui';
+import type { Swatch }                    from '@abhc/spektral-ui';
+import type { Tile, TileMedia }           from '@abhc/spektral-ui';
+import type { Columns, HeroSpan }         from '@abhc/spektral-ui';
+
+// Prop union types (palette, direction, size…)
+import type { Elevation }                                          from '@abhc/spektral-ui';
+import type { PopoverPalette, PopoverElevation,
+              PopoverDirection, PopoverAlign }                     from '@abhc/spektral-ui';
+import type { SearchFieldSize, SearchFieldPalette }                from '@abhc/spektral-ui';
+import type { TooltipPalette, TooltipElevation,
+              TooltipDirection, TooltipAlign, TooltipSize }        from '@abhc/spektral-ui';
+import type { TimelineVariant, TimelinePalette, TimelineSize,
+              TimelineElevation, TimelineOrientation,
+              TimelineConnectorStyle }                             from '@abhc/spektral-ui';
+```
+
 ## Requirements
 
 - Svelte `^5.0.0`

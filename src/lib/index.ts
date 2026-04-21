@@ -50,6 +50,25 @@ export { default as Tooltip }         from './components/Tooltip/tooltip.svelte'
 export { default as LogoSpektral }    from './components/Support/LogoSpektral.svelte';
 export { default as Support }         from './components/Support/Support.svelte';
 
+// Types ----------------------------------------------------------------------
+
+// Data-shape types (passed as props by consumers)
+export { type CommandItem, type CommandGroup }                                from './components/Command/command.config.js';
+export { type BadgeItem }                                                     from './components/Badge/badge.config.js';
+export { type Swatch }                                                        from './components/SwatchRow/swatchRow.config.js';
+export { type Tile, type TileMedia, type Columns, type HeroSpan }            from './components/TileGrid/tilegrid.config.js';
+
+// Prop union types
+export { type Elevation }                                                     from './components/Modal/modal.config.js';
+export { type PopoverPalette, type PopoverElevation,
+         type PopoverDirection, type PopoverAlign }                           from './components/Popover/popover.config.js';
+export { type SearchFieldSize, type SearchFieldPalette }                      from './components/SearchField/searchfield.config.js';
+export { type TooltipPalette, type TooltipElevation,
+         type TooltipDirection, type TooltipAlign, type TooltipSize }         from './components/Tooltip/tooltip.config.js';
+export { type TimelineVariant, type TimelinePalette, type TimelineSize,
+         type TimelineElevation, type TimelineOrientation,
+         type TimelineConnectorStyle }                                        from './components/Timeline/timeline.config.js';
+
 // Utilities ------------------------------------------------------------------
 
 export { createVariant } from './utils/builder.js';
