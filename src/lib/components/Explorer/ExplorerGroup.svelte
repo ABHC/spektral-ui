@@ -156,7 +156,9 @@
 
     .explorer-group-headline hr {
         flex: 1;
-        border: 1px solid var(--explorer-text);
+        border-style: solid;                                                                                                                                                                                                            
+        border-width: 1px;
+        border-color: var(--explorer-text);
     }
 
     .explorer-group-label {

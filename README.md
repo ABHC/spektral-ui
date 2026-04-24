@@ -114,14 +114,39 @@ Not every prop applies to every component — check the [docs](https://spektral.
 
 `tokens.css` exposes CSS custom properties for colors (OKLCH palettes), typography, radii and shadows. Light and dark modes are built in and toggled via the `data-theme` attribute or the `ModeToggle` component.
 
-To customize the theme, override the CSS variables in your own stylesheet after importing `tokens.css`:
+### Customizing tokens
+
+To customize the theme, use the configurator at **https://spektral.combe.tf** to build your custom `tokens.css`. The tool exports a file that matches the package's variable API exactly.
+
+**1. Place your file in `static/`**
+
+Copy the downloaded `tokens.css` into your project's `static/` folder:
+
+```
+static/
+└── tokens.css   ← your custom file
+```
+
+**2. Import the package's `tokens.css` in `app.css`**
 
 ```css
-:root {
-  --sk-accent-hue: 260;
-  --sk-radius-md: 8px;
-}
+/* src/app.css */
+@import '@abhc/spektral-ui/tokens.css';
 ```
+
+This loads the package defaults first, bundled by Vite.
+
+**3. Link your custom file in the root layout**
+
+```svelte
+<!-- src/routes/+layout.svelte -->
+<svelte:head>
+    <link rel="stylesheet" href="/tokens.css" />
+</svelte:head>
+```
+
+Because `<svelte:head>` links are evaluated after the Vite bundle, your file always loads last — its values override the package defaults through normal CSS cascade.
+
 
 ## Utilities
 
