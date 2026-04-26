@@ -10,6 +10,7 @@
         palette?: Palette;
         rounded?: boolean;
         visible?: boolean;
+        padding?: string;
         leading?: Snippet;
         children?: Snippet;
         trailing?: Snippet;
@@ -19,6 +20,7 @@
         palette = "tone",
         rounded = false,
         visible = $bindable(true),
+        padding = undefined,
         leading,
         children,
         trailing
@@ -29,6 +31,8 @@
     const wrapper_classes = $derived(
         resolve({ palette, rounded }).trim()
     );
+
+    const style = $derived(padding ? `--header-padding: ${padding};` : undefined);
 
     let element: HTMLElement | undefined = $state();
 
@@ -46,6 +50,7 @@
 
 <header
     class="header-base {wrapper_classes}"
+    {style}
     bind:this={element}
 >
     {#if leading}
@@ -77,7 +82,7 @@
         justify-content: space-between;
         align-items: center;
         border-bottom: 4px solid var(--accent);
-        padding: 0 5%;
+        padding: var(--header-padding, 0 5%);
         z-index: 200;
     }
 

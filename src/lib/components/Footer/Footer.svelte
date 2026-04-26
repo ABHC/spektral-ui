@@ -15,6 +15,7 @@
         palette?: Palette;
         rounded?: boolean;
         visible?: boolean;
+        padding?: string;
         pattern?: PatternPreset | string;
         pattern_color?: string;
         pattern_opacity?: number;
@@ -33,6 +34,7 @@
         palette = "accent",
         rounded = false,
         visible = $bindable(true),
+        padding = undefined,
         pattern = "none",
         pattern_color = "white",
         pattern_opacity = 0.4,
@@ -83,6 +85,9 @@
         + ` --footer-effect-opacity: ${pattern_effect_opacity};`
     );
 
+    const padding_style = $derived(padding ? `--footer-padding: ${padding};` : "");
+    const style = $derived([pattern_style, padding_style].filter(Boolean).join(" "));
+
     let element: HTMLElement | undefined = $state();
 
     onMount(() => {
@@ -98,7 +103,7 @@
 
 <footer
     class="footer-base {wrapper_classes}"
-    style={pattern_style}
+    {style}
     bind:this={element}
 >
     {#if pattern_bg !== "none"}
@@ -134,7 +139,7 @@
         overflow: hidden;
         box-sizing: border-box;
         width: 100%;
-        padding: 10px 3%;
+        padding: var(--footer-padding, 10px 3%);
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
