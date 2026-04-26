@@ -45,7 +45,7 @@
 
 {#snippet card_inner()}
     {#if leading}
-        <div class="card-header">
+        <div class="card-leading">
             {@render leading()}
         </div>
     {/if}
@@ -57,7 +57,7 @@
     {/if}
 
     {#if trailing}
-        <div class="card-footer">
+        <div class="card-trailing">
             {@render trailing()}
         </div>
     {/if}
@@ -79,7 +79,6 @@
     /* Base ----------------------------------------------------------------- */
 
     .card {
-        --card-radius:  12px;
         --card-padding: 1.25rem;
 
         display: flex;
@@ -113,7 +112,7 @@
     /* Rounded -------------------------------------------------------------- */
 
     .card-rounded {
-        border-radius: var(--card-radius);
+        border-radius: var(--radius-round);
     }
 
     /* Elevation ------------------------------------------------------------ */
@@ -140,20 +139,15 @@
 
     /* Zones ---------------------------------------------------------------- */
 
-    /*
-        Header: no padding - images or custom content fill edge-to-edge.
-        If you need a padded header (e.g. avatar + name), add padding
-        directly inside the snippet.
-    */
-    .card-header {
+    .card-leading {
         flex-shrink: 0;
         overflow: hidden;
         border-bottom: 2px solid var(--tone-hover);
     }
 
-    /* Rounded top corners on the header image */
-    .card-rounded .card-header {
-        border-radius: var(--card-radius) var(--card-radius) 0 0;
+    /* Rounded top corners on the header (ex: if pics included) */
+    .card-rounded .card-leading {
+        border-radius: var(--radius-round) var(--radius-round) 0 0;
     }
 
     .card-body {
@@ -164,12 +158,9 @@
         gap: 0.75rem;
     }
 
-    .card-footer {
-        padding: calc(var(--card-padding) * 0.75) var(--card-padding);
-        border-top: 2px solid var(--tone-hover);
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
+    .card-trailing {
         flex-shrink: 0;
+        overflow: hidden;
+        border-top: 2px solid var(--tone-hover);
     }
 </style>

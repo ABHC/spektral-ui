@@ -10,7 +10,7 @@ export interface CardConfig {
 export const defaultCardConfig: CardConfig = {
     variant: "flat",
     rounded: false,
-    elevation: "hard",
+    elevation: "none",
 };
 
 export const cardConfig = {
