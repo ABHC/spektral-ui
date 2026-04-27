@@ -233,14 +233,4 @@
         to { opacity: 1; }
     }
 
-    /* Reduced motion --------------------------------------------------- */
-
-    @media (prefers-reduced-motion: reduce) {
-        .drawer-component {
-            transition: background var(--spk-duration-slow) ease, box-shadow var(--spk-duration-slow) ease, border-color var(--spk-duration-slow) ease;
-        }
-        .drawer-scrim {
-            animation: none;
-        }
-    }
 </style>

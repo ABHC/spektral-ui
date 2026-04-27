@@ -199,13 +199,6 @@
         to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-        .modal-scrim,
-        .modal-dialog {
-            animation: none;
-        }
-    }
-
     /* Palette ------------------------------------------------------------- */
 
     /* tone */

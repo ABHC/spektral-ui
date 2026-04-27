@@ -210,3 +210,14 @@ body {
     color: var(--text);
     font-family: var(--font-body);
 }
+
+/* --- Reduced motion ---------------------------------------------------
+   Collapses the tokenized durations to a near-zero value so transitionend
+   and animationend events still fire, while motion stays imperceptible. */
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --spk-duration-quick: 0.01ms;
+        --spk-duration-base: 0.01ms;
+        --spk-duration-slow: 0.01ms;
+    }
+}
