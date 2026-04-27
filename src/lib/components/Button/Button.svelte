@@ -145,7 +145,7 @@
     }
 
     .btn-ghost:hover {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .btn-ghost.btn-active.btn-rounded,
@@ -582,21 +582,21 @@
     /* Elevation - hover only (default) --------------------------------- */
 
     .btn-elevation-subtle:hover {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .btn-elevation-hard:hover {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Elevation - constant (raised=true) ------------------------------- */
 
     .btn-raised.btn-elevation-subtle {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .btn-raised.btn-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Sizes ------------------------------------------------------------- */

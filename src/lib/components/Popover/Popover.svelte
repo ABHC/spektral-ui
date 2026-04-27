@@ -224,10 +224,10 @@
     }
 
     .popover-elevation-subtle {
-        box-shadow: 0 8px 24px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .popover-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 </style>

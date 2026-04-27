@@ -420,21 +420,21 @@
     /* Elevation - hover only (default) -------------------------------- */
 
     .tg-elevation-subtle:hover {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .tg-elevation-hard:hover {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Elevation - constant (raised=true) ------------------------------ */
 
     .tg-raised.tg-elevation-subtle {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .tg-raised.tg-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Hero badge ------------------------------------------------------ */

@@ -148,7 +148,7 @@
         border-left: 4px solid var(--al-color);
         color: var(--text);
         font-family: var(--font-body);
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     /* Variants - set --al-color and --al-bg */

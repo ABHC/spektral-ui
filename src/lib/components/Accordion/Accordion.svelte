@@ -182,21 +182,21 @@
 
     /* Ghost: shadow on parent (items form a single visual block) */
     .accordion-ghost.accordion-elevation-subtle {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .accordion-ghost.accordion-elevation-hard {
-        box-shadow: 0.3rem 0.3rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Flat / Outlined: shadow on each child (items are separated by gap) */
     .accordion-flat.accordion-elevation-subtle > :global(.accordion-header),
     .accordion-outlined.accordion-elevation-subtle > :global(.accordion-header) {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .accordion-flat.accordion-elevation-hard > :global(.accordion-header),
     .accordion-outlined.accordion-elevation-hard > :global(.accordion-header) {
-        box-shadow: 0.3rem 0.3rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 </style>

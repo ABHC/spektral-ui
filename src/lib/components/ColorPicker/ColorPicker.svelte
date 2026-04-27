@@ -501,11 +501,11 @@
     }
 
     .color-picker-elevation-subtle {
-        box-shadow: 0 4px 12px var(--shadow-subtle);
+        box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
     }
 
     .color-picker-elevation-hard {
-        box-shadow: 0.4rem 0.4rem var(--shadow-hard);
+        box-shadow: var(--spk-elevation-hard) var(--shadow-hard);
     }
 
     /* Zones ---------------------------------------------------------------- */

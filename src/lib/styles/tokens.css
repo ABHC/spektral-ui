@@ -37,6 +37,10 @@
     --spk-ease-out: ease-out;
     --spk-ease-glide: cubic-bezier(0.4, 0, 0.2, 1);
 
+    /* --- Elevation (shape only — color is provided by --shadow-*) --- */
+    --spk-elevation-subtle: 0 4px 12px;
+    --spk-elevation-hard: 0.3rem 0.3rem;
+
     /* --- Focus ring --- */
     --focus-ring: var(--text);
     --focus-ring-width: 2px;
