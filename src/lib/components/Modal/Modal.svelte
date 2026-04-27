@@ -165,7 +165,7 @@
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.45);
-        z-index: 200;
+        z-index: var(--spk-z-dialog);
         animation: scrim-in 0.18s ease;
     }
 
@@ -175,7 +175,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: 201;
+        z-index: calc(var(--spk-z-dialog) + 1);
         display: flex;
         flex-direction: column;
         max-height: 90vh;

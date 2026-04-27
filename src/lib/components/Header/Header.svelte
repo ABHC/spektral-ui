@@ -83,7 +83,7 @@
         align-items: center;
         border-bottom: 4px solid var(--accent);
         padding: var(--header-padding, 0 5%);
-        z-index: 200;
+        z-index: var(--spk-z-sticky);
     }
 
     /* Rounded */

@@ -102,7 +102,7 @@
     .drawer-component {
         display: flex;
         position: fixed;
-        z-index: 300;
+        z-index: var(--spk-z-panel);
         overflow: hidden;
         overflow-y: auto;
         transition:
@@ -223,7 +223,7 @@
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.35);
-        z-index: 299;
+        z-index: calc(var(--spk-z-panel) - 1);
         cursor: pointer;
         animation: drawer-scrim-fade-in 0.3s ease forwards;
     }

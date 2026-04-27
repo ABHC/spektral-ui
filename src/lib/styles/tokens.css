@@ -22,6 +22,14 @@
     --radius-pill: 999px;
     --radius-circle: 50%;
 
+    /* --- Z-index ladder --- */
+    --spk-z-behind: -1;
+    --spk-z-floating: 100;
+    --spk-z-sticky: 200;
+    --spk-z-panel: 300;
+    --spk-z-dialog: 400;
+    --spk-z-notification: 1000;
+
     /* --- Focus ring --- */
     --focus-ring: var(--text);
     --focus-ring-width: 2px;

@@ -141,7 +141,7 @@
 
     .tooltip {
         position: absolute;
-        z-index: 100;
+        z-index: var(--spk-z-floating);
         display: flex;
         flex-direction: row;
         align-items: center;

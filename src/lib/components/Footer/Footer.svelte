@@ -147,7 +147,7 @@
         gap: 0.5rem;
         font-family: var(--font-body);
         margin-top: auto;
-        z-index: 200;
+        z-index: var(--spk-z-sticky);
     }
 
     /* Pattern layer -------------------------------------------------------- */
@@ -162,7 +162,7 @@
         opacity: var(--footer-pattern-opacity);
         mask-image: var(--footer-pattern-mask);
         -webkit-mask-image: var(--footer-pattern-mask);
-        z-index: -10;
+        z-index: var(--spk-z-behind);
     }
 
     /* Effect layer --------------------------------------------------------- */
@@ -172,7 +172,7 @@
         inset: 0;
         pointer-events: none;
         opacity: var(--footer-effect-opacity);
-        z-index: -10;
+        z-index: var(--spk-z-behind);
     }
 
     .footer-effect-glow {

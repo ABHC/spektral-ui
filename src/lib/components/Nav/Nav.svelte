@@ -77,7 +77,7 @@
         align-items: center;
         justify-content: space-evenly;
         transition: background 0.3s ease, box-shadow 0.3s ease;
-        z-index: 200;
+        z-index: var(--spk-z-sticky);
     }
 
     /* Rounded ------------------------------------------------------------- */

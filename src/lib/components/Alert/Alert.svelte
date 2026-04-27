@@ -136,7 +136,7 @@
     /* Base */
     .alert-base {
         position: fixed;
-        z-index: 1000;
+        z-index: var(--spk-z-notification);
         display: flex;
         align-items: center;
         gap: 0.75rem;

@@ -95,7 +95,7 @@
     .btt-wrapper {
         /*position: fixed;
         bottom: 5.5rem;*/
-        z-index: 100;
+        z-index: var(--spk-z-floating);
         transition: 
             opacity 0.25s ease, 
             transform 0.2s ease, 

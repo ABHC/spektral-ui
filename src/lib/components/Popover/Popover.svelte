@@ -89,7 +89,7 @@
 
     .popover {
         position: absolute;
-        z-index: 100;
+        z-index: var(--spk-z-floating);
         display: flex;
         flex-direction: column;
         overflow-y: auto;
