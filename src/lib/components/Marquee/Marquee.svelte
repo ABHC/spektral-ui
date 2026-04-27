@@ -167,7 +167,7 @@
 
     .marquee-outlined {
         background: transparent;
-        border: 2px solid var(--mrq-border);
+        border: var(--spk-border) solid var(--mrq-border);
     }
 
     .marquee-ghost {

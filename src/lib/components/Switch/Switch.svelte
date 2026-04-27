@@ -176,12 +176,12 @@
     /* Shapes ---------------------------------------------------------- */
 
     /* circle=true  → pill track + round knob */
-    .switch-circle .switch-track { border-radius: var(--radius-pill); }
-    .switch-circle .switch-knob  { border-radius: var(--radius-circle); }
+    .switch-circle .switch-track { border-radius: var(--spk-radius-pill); }
+    .switch-circle .switch-knob  { border-radius: var(--spk-radius-circle); }
 
     /* circle=false → rect track + square knob */
-    .switch-wrapper:not(.switch-circle) .switch-track { border-radius: var(--radius-edge); }
-    .switch-wrapper:not(.switch-circle) .switch-knob  { border-radius: var(--radius-edge); }
+    .switch-wrapper:not(.switch-circle) .switch-track { border-radius: var(--spk-radius-edge); }
+    .switch-wrapper:not(.switch-circle) .switch-knob  { border-radius: var(--spk-radius-edge); }
 
     /* Palette - ON state (track fill + knob color) -------------------- */
 
@@ -258,7 +258,7 @@
     /* Disabled -------------------------------------------------------- */
 
     .switch-disabled {
-        opacity:        0.45;
+        opacity: var(--spk-opacity-disabled);
         cursor:         not-allowed;
         pointer-events: none;
     }

@@ -134,7 +134,7 @@
         line-height: 1;
         font-family: var(--font-body);
         text-decoration: none;
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
     }
 
     /* Reset for button/link roots */
@@ -148,8 +148,8 @@
 
     /* Shape -------------------------------------------------------------- */
 
-    .badge-pill { border-radius: var(--radius-pill); }
-    .badge-rect { border-radius: var(--radius-edge); }
+    .badge-pill { border-radius: var(--spk-radius-pill); }
+    .badge-rect { border-radius: var(--spk-radius-edge); }
 
     /* Variants ----------------------------------------------------------- */
 
@@ -505,7 +505,7 @@
         margin: 0;
         cursor: pointer;
         color: inherit;
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
         transition: opacity var(--spk-duration-quick) ease;
         /*font-family: inherit;*/
     }

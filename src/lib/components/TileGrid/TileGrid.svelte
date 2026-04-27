@@ -414,7 +414,7 @@
     }
 
     .tg-rounded {
-        border-radius: var(--radius-round);
+        border-radius: var(--spk-radius-round);
     }
 
     /* Elevation - hover only (default) -------------------------------- */
@@ -472,12 +472,12 @@
 
     .tg-tile-flat {
         aspect-ratio: 4 / 3;
-        border-left: 4px solid transparent;
+        border-left: var(--spk-border-accent) solid transparent;
         background: var(--tone);
     }
 
     .tg-tile-flat.tg-tile-hero-border {
-        border-left: 4px solid var(--accent);
+        border-left: var(--spk-border-accent) solid var(--accent);
     }
 
     .tg-tile-flat.tg-tile-hero {
@@ -510,7 +510,7 @@
     }
 
     .tg-tile-deco.tg-tile-hero-border {
-        border-left: 4px solid var(--accent);
+        border-left: var(--spk-border-accent) solid var(--accent);
     }
 
     .tg-tile-deco.tg-tile-hero {
@@ -519,7 +519,7 @@
     }
 
     .tg-tile-deco:hover {
-        border-left: 4px solid var(--accent);
+        border-left: var(--spk-border-accent) solid var(--accent);
         background: var(--tone-hover);
     }
 
@@ -671,7 +671,7 @@
     .tg-abstract {
         font-style: italic;
         margin: 0;
-        opacity:0.85;
+        opacity: var(--spk-opacity-overlay);
     }
 
     .tg-overlay .tg-name,

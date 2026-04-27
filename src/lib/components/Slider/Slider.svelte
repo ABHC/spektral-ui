@@ -211,7 +211,7 @@
     }
 
     .slider-disabled {
-        opacity: 0.4;
+        opacity: var(--spk-opacity-disabled);
         pointer-events: none;
     }
 
@@ -233,14 +233,14 @@
 
     /* Rounded --------------------------------------------------------- */
 
-    .slider-rounded { border-radius: var(--radius-pill); }
-    .slider-rounded .slider-fill { border-radius: var(--radius-pill); }
+    .slider-rounded { border-radius: var(--spk-radius-pill); }
+    .slider-rounded .slider-fill { border-radius: var(--spk-radius-pill); }
 
     /* Outlined -------------------------------------------------------- */
 
     .slider-outlined {
         background: transparent;
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
     }
 
     /* Elevation ------------------------------------------------------- */
@@ -273,7 +273,7 @@
         top: 50%;
         width: 20px;
         height: 20px;
-        border-radius: var(--radius-circle);
+        border-radius: var(--spk-radius-circle);
         transform: translate(-50%, -50%);
         cursor: grab;
         transition: box-shadow var(--spk-duration-quick) ease, transform var(--spk-duration-quick) ease;

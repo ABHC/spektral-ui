@@ -131,7 +131,7 @@
 
     /* Shape */
     .avatar-circular {
-        border-radius: var(--radius-circle);
+        border-radius: var(--spk-radius-circle);
     }
     
     /* Image */
@@ -150,8 +150,8 @@
         transform: translate(-50%, -50%);
         width: 22%;
         height: 22%;
-        border-radius: var(--radius-circle);
-        border: 2px solid var(--dot-bg, var(--tone-bg));
+        border-radius: var(--spk-radius-circle);
+        border: var(--spk-border) solid var(--dot-bg, var(--tone-bg));
     }
 
     /* State dot - position 85%/85% = edge of the circle 45° */

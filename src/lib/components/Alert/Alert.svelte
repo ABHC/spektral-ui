@@ -145,7 +145,7 @@
         max-width: 460px;
         width: fit-content;
         background: var(--al-bg);
-        border-left: 4px solid var(--al-color);
+        border-left: var(--spk-border-accent) solid var(--al-color);
         color: var(--text);
         font-family: var(--font-body);
         box-shadow: var(--spk-elevation-subtle) var(--shadow-subtle);
@@ -190,7 +190,7 @@
     .alert-pos-bottom-right { bottom: 1.5rem; right: 1.5rem; }
 
     /* Rounded */
-    .alert-rounded { border-radius: var(--radius-soft); }
+    .alert-rounded { border-radius: var(--spk-radius-soft); }
 
     /* Slots */
     .alert-leading {
@@ -222,7 +222,7 @@
         color: var(--al-color);
         background: var(--al-bg);
         padding: 0.1em 0.35em;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
     }
 
     /* <a> inside content - inherits --al-color automatically */
@@ -234,7 +234,7 @@
     }
 
     .alert-content :global(a:hover) {
-        opacity: 0.75;
+        opacity: var(--spk-opacity-muted);
     }
 
     /* Button overrides - naked buttons inside an alert inherit --al-color */

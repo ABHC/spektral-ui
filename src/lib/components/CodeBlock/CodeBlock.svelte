@@ -342,8 +342,8 @@
 <style>
     /* Base */
     .codeblock {
-        border-radius: var(--radius-soft);
-        border: 2px solid var(--tone-hover);
+        border-radius: var(--spk-radius-soft);
+        border: var(--spk-border) solid var(--tone-hover);
         overflow: hidden;
         position: relative;
         margin: 20px 0;
@@ -357,7 +357,7 @@
         gap: 0.5rem;
         padding: 0 1rem;
         background: var(--tone);
-        border-bottom: 1px solid var(--tone-hover);
+        border-bottom: var(--spk-border-thin) solid var(--tone-hover);
         min-height: 2.75rem;
     }
 
@@ -386,8 +386,8 @@
         flex-shrink: 0;
         user-select: none;
         padding: 1px 4px 2px 6px;
-        border-radius: var(--radius-edge);
-        border: 2px solid var(--accent);
+        border-radius: var(--spk-radius-edge);
+        border: var(--spk-border) solid var(--accent);
     }
 
     .codeblock-terminal-title {
@@ -424,7 +424,7 @@
         height: 2.75rem;
         background: transparent;
         border: none;
-        border-bottom: 2px solid transparent;
+        border-bottom: var(--spk-border) solid transparent;
         color: var(--text-muted);
         font-size: 0.875rem;
         font-family: var(--font-body);
@@ -447,7 +447,7 @@
     .codeblock-lang {
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         background: var(--tone-hover);
         color: var(--text-muted);
         text-transform: uppercase;
@@ -487,7 +487,7 @@
     .codeblock-description {
         padding: 1.25rem 1.5rem;
         background: var(--tone);
-        border-right: 1px solid var(--tone-hover);
+        border-right: var(--spk-border-thin) solid var(--tone-hover);
         color: var(--text-muted);
         font-size: 0.875rem;
         line-height: 1.7;
@@ -505,7 +505,7 @@
         font-size: 0.8em;
         background: var(--tone-hover);
         padding: 0.1em 0.35em;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         color: var(--text);
     }
 
@@ -542,10 +542,10 @@
         text-align: right;
         color: var(--text-muted);
         user-select: none;
-        opacity: 0.5;
+        opacity: var(--spk-opacity-faded);
         font-size: 0.8em;
         padding-right: 0.5rem;
-        border-right: 1px solid var(--tone-hover);
+        border-right: var(--spk-border-thin) solid var(--tone-hover);
     }
 
     /* Sizes */

@@ -129,8 +129,8 @@
     .drawer-direction-right.drawer-closed { transform: translateX(100%); }
 
     /* Rounded - inner edge only */
-    .drawer-direction-left.drawer-rounded { border-radius: 0 var(--radius-round) var(--radius-round) 0; }
-    .drawer-direction-right.drawer-rounded { border-radius: var(--radius-round) 0 0 var(--radius-round); }
+    .drawer-direction-left.drawer-rounded { border-radius: 0 var(--spk-radius-round) var(--spk-radius-round) 0; }
+    .drawer-direction-right.drawer-rounded { border-radius: var(--spk-radius-round) 0 0 var(--spk-radius-round); }
 
     /* Direction: top / bottom (horizontal drawer) --------------------- */
 
@@ -149,8 +149,8 @@
     .drawer-direction-bottom.drawer-closed { transform: translateY(100%); }
 
     /* Rounded - inner edge only */
-    .drawer-direction-top.drawer-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
-    .drawer-direction-bottom.drawer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
+    .drawer-direction-top.drawer-rounded { border-radius: 0 0 var(--spk-radius-round) var(--spk-radius-round); }
+    .drawer-direction-bottom.drawer-rounded { border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0; }
 
     /* Open state (shared) --------------------------------------------- */
 
@@ -194,7 +194,7 @@
         display: flex;
         align-items: center;
         padding: 1rem 1rem 0.75rem;
-        border-bottom: 2px solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
+        border-bottom: var(--spk-border) solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
         flex-shrink: 0;
     }
 
@@ -213,7 +213,7 @@
         display: flex;
         align-items: center;
         padding: 0.75rem 1rem 1rem;
-        border-top: 2px solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
+        border-top: var(--spk-border) solid var(--drawer-separator, rgba(128, 128, 128, 0.2));
         flex-shrink: 0;
     }
 

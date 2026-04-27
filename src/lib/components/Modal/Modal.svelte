@@ -181,7 +181,7 @@
         max-height: 90vh;
         max-width: calc(100vw - 2rem);
         box-sizing: border-box;
-        border: 2px solid var(--modal-border);
+        border: var(--spk-border) solid var(--modal-border);
         animation: dialog-in var(--spk-duration-base) var(--spk-ease-out);
     }
 
@@ -227,7 +227,7 @@
 
     /* Rounded -------------------------------------------------------------- */
     .modal-rounded {
-        border-radius: var(--radius-round);
+        border-radius: var(--spk-radius-round);
     }
 
     /* Elevation ------------------------------------------------------------ */
@@ -246,7 +246,7 @@
     /* Header -------------------------------------------------------------- */
     .modal-header {
         padding: 1.25rem;
-        border-bottom: 2px solid var(--modal-border);
+        border-bottom: var(--spk-border) solid var(--modal-border);
         flex-shrink: 0;
         display: flex;
         align-items: center;

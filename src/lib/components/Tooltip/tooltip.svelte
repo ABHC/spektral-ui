@@ -150,7 +150,7 @@
         width: max-content;
         background: var(--tooltip-bg);
         color: var(--tooltip-text);
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
         --tooltip-arrow-size: 10px;
     }
 
@@ -254,7 +254,7 @@
         height: var(--tooltip-arrow-size);
         background: var(--tooltip-bg);
         box-sizing: border-box;
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
         pointer-events: none;
         transform: rotate(45deg);
     }
@@ -371,7 +371,7 @@
     /* Rounded --------------------------------------------------------- */
 
     .tooltip-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Elevation ------------------------------------------------------- */

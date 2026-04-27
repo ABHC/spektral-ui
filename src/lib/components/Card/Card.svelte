@@ -102,7 +102,7 @@
 
     .card-outlined {
         background: transparent;
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
     }
 
     .card-ghost {
@@ -112,7 +112,7 @@
     /* Rounded -------------------------------------------------------------- */
 
     .card-rounded {
-        border-radius: var(--radius-round);
+        border-radius: var(--spk-radius-round);
     }
 
     /* Elevation ------------------------------------------------------------ */
@@ -142,12 +142,12 @@
     .card-leading {
         flex-shrink: 0;
         overflow: hidden;
-        border-bottom: 2px solid var(--tone-hover);
+        border-bottom: var(--spk-border) solid var(--tone-hover);
     }
 
     /* Rounded top corners on the header (ex: if pics included) */
     .card-rounded .card-leading {
-        border-radius: var(--radius-round) var(--radius-round) 0 0;
+        border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0;
     }
 
     .card-body {
@@ -161,6 +161,6 @@
     .card-trailing {
         flex-shrink: 0;
         overflow: hidden;
-        border-top: 2px solid var(--tone-hover);
+        border-top: var(--spk-border) solid var(--tone-hover);
     }
 </style>

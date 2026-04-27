@@ -66,13 +66,13 @@
         gap: 0.75rem;
         padding: 0.9rem 1.1rem;
         background: var(--cb-bg);
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
         color: var(--text);
         font-family: var(--font-body);
     }
 
     /* Rounded */
-    .callout-rounded { border-radius: var(--radius-soft); }
+    .callout-rounded { border-radius: var(--spk-radius-soft); }
 
     /* Bordered */ 
     .callout-bordered {
@@ -159,7 +159,7 @@
     .callout-content :global(p) {
         font-size: 0.85rem;
         line-height: 1.55;
-        opacity: 0.85;
+        opacity: var(--spk-opacity-overlay);
         margin: 0;
     }
 
@@ -178,7 +178,7 @@
         color: var(--text);
         background: var(--cb-ghost);
         padding: 0.1em 0.35em;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
     }
 
     /* Icon in leading slot */

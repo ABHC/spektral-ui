@@ -59,7 +59,7 @@
     /* Container - carries the left border indicator */
     .explorer-link {
         margin-left: 0.35rem;
-        border-left: 2px solid var(--explorer-border);
+        border-left: var(--spk-border) solid var(--explorer-border);
     }
 
     .explorer-link-active {
@@ -81,7 +81,7 @@
         background: transparent;
         color: var(--explorer-muted, currentColor);
         cursor: pointer;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         text-decoration: none;
         transition: background var(--spk-duration-quick) ease;
         text-align: left;

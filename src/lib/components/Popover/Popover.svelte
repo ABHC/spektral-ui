@@ -188,7 +188,7 @@
 
     .popover-palette-tone {
         background: var(--tone);
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
         color: var(--text);
         scrollbar-color: var(--tone-hover) var(--tone)
     }
@@ -197,7 +197,7 @@
 
     .popover-palette-accent {
         background: var(--accent);
-        border: 2px solid var(--accent-hover);
+        border: var(--spk-border) solid var(--accent-hover);
         color: var(--text-accent);
         scrollbar-color: var(--accent-muted) var(--accent)
     }
@@ -206,7 +206,7 @@
 
     .popover-palette-accentbg {
         background: var(--accent-bg);
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
         color: var(--text-accent);
         scrollbar-color: var(--accent-hover) var(--accent-bg)
     }
@@ -214,7 +214,7 @@
     /* Rounded --------------------------------------------------------- */
 
     .popover-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Elevation ------------------------------------------------------- */

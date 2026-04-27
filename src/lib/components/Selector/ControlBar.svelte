@@ -46,17 +46,17 @@
         gap: 0.85rem;
         padding: 1rem 1.25rem;
         margin-bottom:  1.5rem;
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
     }
 
     .control-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Header - separator only, no box border */
     .control-header {
         padding-bottom: 0.6rem;
-        border-bottom:  2px solid var(--tone-hover);
+        border-bottom:  var(--spk-border) solid var(--tone-hover);
         color: var(--text);
     }
 

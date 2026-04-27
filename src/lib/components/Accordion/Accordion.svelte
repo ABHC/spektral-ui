@@ -155,7 +155,7 @@
     /* Ghost: separator between items */
     .accordion-ghost > :global(.accordion-header + .accordion-header),
     .accordion-ghost > :global(.accordion-item + .accordion-header) {
-        border-top: 2px solid var(--acc-border, var(--tone-hover));
+        border-top: var(--spk-border) solid var(--acc-border, var(--tone-hover));
     }
 
     /* Sizes --------------------------------------------------------------- */

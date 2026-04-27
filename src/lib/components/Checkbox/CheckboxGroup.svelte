@@ -131,8 +131,8 @@
         flex-shrink: 0;
         width: var(--checkbox-size, 18px);
         height: var(--checkbox-size, 18px);
-        border-radius: var(--radius-edge);
-        border: 2px solid var(--text-muted);
+        border-radius: var(--spk-radius-edge);
+        border: var(--spk-border) solid var(--text-muted);
         background: transparent;
         transition: border-color var(--spk-duration-base) ease, background var(--spk-duration-base) ease;
     }
@@ -145,7 +145,7 @@
         left: 50%;
         width: var(--checkbox-check-w, 5px);
         height: var(--checkbox-check-h, 9px);
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
         border-top: none;
         border-left: none;
         transform: translate(-50%, -50%) rotate(45deg) scale(0);
@@ -212,14 +212,14 @@
 
     /* Whole group disabled */
     .checkbox-disabled {
-        opacity: 0.45;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
         pointer-events: none;
     }
 
     /* Single item disabled (only when group is not disabled, to avoid double opacity) */
     .checkbox-item-disabled {
-        opacity: 0.45;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
         pointer-events: none;
     }

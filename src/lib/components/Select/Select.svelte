@@ -259,8 +259,8 @@
         justify-content: space-between;
         width: 100%;
         background: var(--tone);
-        border: 2px solid var(--tone-hover);
-        border-radius: var(--radius-edge);
+        border: var(--spk-border) solid var(--tone-hover);
+        border-radius: var(--spk-radius-edge);
         color: var(--text);
         font-family: var(--font-body);
         cursor: pointer;
@@ -289,7 +289,7 @@
 
     .select-value.is-placeholder {
         color: var(--text-muted);
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
     }
 
     /* Chevron --------------------------------------------------------- */
@@ -310,7 +310,7 @@
 
     .select-header {
         padding: 0.5rem;
-        border-bottom: 1px solid var(--tone-hover);
+        border-bottom: var(--spk-border-thin) solid var(--tone-hover);
         flex-shrink: 0;
     }
 
@@ -331,7 +331,7 @@
         width: 100%;
         background: none;
         border: none;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         color: var(--text);
         font-family: var(--font-body);
         cursor: pointer;
@@ -396,7 +396,7 @@
 
     .select-footer {
         padding: 0.5rem;
-        border-top: 1px solid var(--tone-hover);
+        border-top: var(--spk-border-thin) solid var(--tone-hover);
         flex-shrink: 0;
     }
 
@@ -421,7 +421,7 @@
     .select-sm .select-trigger {
         font-size: 0.8rem;
         padding: 0.35rem 0.65rem;
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
     }
 
     .select-sm .select-label {
@@ -450,7 +450,7 @@
     .select-lg .select-trigger {
         font-size: 1rem;
         padding: 0.85rem 1.1rem;
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     .select-lg .select-label {
@@ -485,7 +485,7 @@
     /* Disabled -------------------------------------------------------- */
 
     .select-disabled {
-        opacity: 0.5;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
     }
 

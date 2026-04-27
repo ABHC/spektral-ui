@@ -124,7 +124,7 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
-        border: 2px solid var(--sf-border);
+        border: var(--spk-border) solid var(--sf-border);
         padding: 0 0.5rem;
         background: var(--sf-bg);
         transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
@@ -158,7 +158,7 @@
 
     .search-field-input::placeholder {
         color: var(--text-muted);
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
     }
 
     /* Clear button ---------------------------------------------------- */
@@ -172,7 +172,7 @@
         padding: 0.15rem;
         cursor: pointer;
         color: var(--text-muted);
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         transition: color var(--spk-duration-quick) ease, background var(--spk-duration-quick) ease;
     }
 
@@ -216,7 +216,7 @@
     /* Rounded --------------------------------------------------------- */
 
     .search-field-rounded {
-        border-radius: var(--radius-round);
+        border-radius: var(--spk-radius-round);
     }
 
     /* Naked ----------------------------------------------------------- */
@@ -235,7 +235,7 @@
     /* Disabled -------------------------------------------------------- */
 
     .search-field-disabled {
-        opacity: 0.5;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
     }
 

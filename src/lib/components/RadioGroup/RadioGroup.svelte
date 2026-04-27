@@ -131,8 +131,8 @@
         flex-shrink: 0;
         width: var(--radio-size, 18px);
         height: var(--radio-size, 18px);
-        border-radius: var(--radius-circle);
-        border: 2px solid var(--text-muted);
+        border-radius: var(--spk-radius-circle);
+        border: var(--spk-border) solid var(--text-muted);
         background: transparent;
         transition: border-color var(--spk-duration-base) ease;
     }
@@ -145,7 +145,7 @@
         left: 50%;
         width: var(--radio-dot, 8px);
         height: var(--radio-dot, 8px);
-        border-radius: var(--radius-circle);
+        border-radius: var(--spk-radius-circle);
         transform: translate(-50%, -50%) scale(0);
         transition: transform var(--spk-duration-base) var(--spk-ease-glide);
     }
@@ -204,14 +204,14 @@
 
     /* Whole group disabled */
     .radio-disabled {
-        opacity: 0.45;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
         pointer-events: none;
     }
 
     /* Single item disabled (only when group is not disabled, to avoid double opacity) */
     .radio-item-disabled {
-        opacity: 0.45;
+        opacity: var(--spk-opacity-disabled);
         cursor: not-allowed;
         pointer-events: none;
     }

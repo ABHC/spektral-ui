@@ -144,30 +144,30 @@
     }
 
     .data-table-flat td {
-        border-top: 1px solid var(--dt-border);
+        border-top: var(--spk-border-thin) solid var(--dt-border);
     }
 
     .data-table-outlined {
-        border: 2px solid var(--dt-border);
+        border: var(--spk-border) solid var(--dt-border);
     }
 
     .data-table-outlined th {
-        border-bottom: 2px solid var(--dt-border);
+        border-bottom: var(--spk-border) solid var(--dt-border);
         color: var(--dt-header-text);
         background: var(--dt-header-bg);
     }
 
     .data-table-outlined td {
-        border-top: 1px solid var(--dt-border);
+        border-top: var(--spk-border-thin) solid var(--dt-border);
     }
 
     .data-table-ghost th {
-        border-bottom: 2px solid var(--dt-border);
+        border-bottom: var(--spk-border) solid var(--dt-border);
         color: var(--text-muted);
     }
 
     .data-table-ghost td {
-        border-top: 1px solid var(--dt-border);
+        border-top: var(--spk-border-thin) solid var(--dt-border);
     }
 
     /* Sizes -------------------------------------------------------------- */
@@ -208,7 +208,7 @@
     /* Rounded ------------------------------------------------------------ */
 
     .data-table-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
         overflow: hidden;
     }
 
@@ -266,7 +266,7 @@
         }
 
         .data-table-card-row + .data-table-card-row {
-            border-top: 1px solid var(--dt-border);
+            border-top: var(--spk-border-thin) solid var(--dt-border);
         }
 
         .data-table-card-label {

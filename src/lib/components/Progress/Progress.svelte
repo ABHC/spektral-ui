@@ -101,18 +101,18 @@
     /* Rounded --------------------------------------------------------- */
 
     .progress-rounded {
-        border-radius: var(--radius-pill);
+        border-radius: var(--spk-radius-pill);
     }
 
     .progress-rounded .progress-fill {
-        border-radius: var(--radius-pill);
+        border-radius: var(--spk-radius-pill);
     }
 
     /* Outlined -------------------------------------------------------- */
 
     .progress-outlined {
         background: transparent;
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
         /*box-shadow: inset 0 0 0 2px var(--tone-hover);*/
     }
 

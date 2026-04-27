@@ -117,13 +117,13 @@
 
     /* Flat - solid fill */
     .btn-flat {
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
     }
 
     /* Outlined - transparent bg, visible border */
     .btn-outlined {
         background: transparent;
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
     }
 
     /* Ghost - transparent, nav-style bg-on-hover + active indicator */
@@ -132,8 +132,8 @@
         border: none;
         gap: 0.25rem;
         padding: 0.25rem;
-        border-top: 2px solid transparent;
-        border-bottom: 2px solid transparent;
+        border-top: var(--spk-border) solid transparent;
+        border-bottom: var(--spk-border) solid transparent;
     }
 
     /* Textual - transparent, opacity-only hover */
@@ -141,7 +141,7 @@
         border: none;
         background: transparent;
         padding: 0.25rem 0.5rem;
-        border-bottom: 2px solid transparent;
+        border-bottom: var(--spk-border) solid transparent;
     }
 
     .btn-ghost:hover {
@@ -150,7 +150,7 @@
 
     .btn-ghost.btn-active.btn-rounded,
     .btn-naked.btn-active.btn-rounded {
-        border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+        border-radius: var(--spk-radius-soft) var(--spk-radius-soft) 0 0;
     }
 
     /* Palette × Variant colors ------------------------------------------ */
@@ -629,7 +629,7 @@
     /* Rounded ----------------------------------------------------------- */
 
     .btn-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Direction --------------------------------------------------------- */

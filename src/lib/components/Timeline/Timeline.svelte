@@ -207,7 +207,7 @@
     }
 
     .timeline-outlined {
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
         padding: var(--tl-container-pad);
     }
 
@@ -215,7 +215,7 @@
 
     .timeline-rounded.timeline-flat,
     .timeline-rounded.timeline-outlined {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Elevation ----------------------------------------------------------- */

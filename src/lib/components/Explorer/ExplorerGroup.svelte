@@ -113,7 +113,7 @@
         background: transparent;
         border: none;
         color: var(--explorer-text, currentColor);
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         transition: background var(--spk-duration-quick) ease;
         width: 90%;
         text-align: left;
@@ -129,7 +129,7 @@
         border: none;
         cursor: pointer;
         color: var(--explorer-text, currentColor);
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
         transition: background var(--spk-duration-quick) ease;
         width: 100%;
         text-align: left;
@@ -156,9 +156,7 @@
 
     .explorer-group-headline hr {
         flex: 1;
-        border-style: solid;                                                                                                                                                                                                            
-        border-width: 1px;
-        border-color: var(--explorer-text);
+        border: var(--spk-border-thin) solid var(--explorer-text);
     }
 
     .explorer-group-label {

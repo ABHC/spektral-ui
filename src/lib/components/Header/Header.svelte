@@ -81,13 +81,13 @@
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        border-bottom: 4px solid var(--accent);
+        border-bottom: var(--spk-border-accent) solid var(--accent);
         padding: var(--header-padding, 0 5%);
         z-index: var(--spk-z-sticky);
     }
 
     /* Rounded */
-    .header-rounded { border-radius: 0 0 var(--radius-round) var(--radius-round); }
+    .header-rounded { border-radius: 0 0 var(--spk-radius-round) var(--spk-radius-round); }
 
     /* Palette - tone (default: card background) */
     .header-palette-tone {

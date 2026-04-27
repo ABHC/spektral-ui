@@ -134,7 +134,7 @@
     }
 
     :global(.accordion-outlined) .accordion-header {
-        border: 2px solid var(--acc-border, var(--tone-hover));
+        border: var(--spk-border) solid var(--acc-border, var(--tone-hover));
     }
 
     :global(.accordion-outlined) .accordion-header-btn:hover,
@@ -146,27 +146,27 @@
     /* Rounded + flat/outlined: radius on each item */
     :global(.accordion-rounded.accordion-outlined) .accordion-header,
     :global(.accordion-rounded.accordion-flat) .accordion-header {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
         overflow: hidden;
     }
 
     /* Rounded + ghost: first/last/only rounding (items form a single block) */
     :global(.accordion-rounded.accordion-ghost) .accordion-header:first-child .accordion-header-btn {
-        border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+        border-radius: var(--spk-radius-soft) var(--spk-radius-soft) 0 0;
     }
 
     :global(.accordion-rounded.accordion-ghost) .accordion-header:last-child .accordion-header-btn {
-        border-radius: 0 0 var(--radius-soft) var(--radius-soft);
+        border-radius: 0 0 var(--spk-radius-soft) var(--spk-radius-soft);
     }
 
     :global(.accordion-rounded.accordion-ghost) .accordion-header:only-child .accordion-header-btn {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Disabled ------------------------------------------------------------ */
 
     .accordion-header-disabled .accordion-header-btn {
-        opacity: 0.5;
+        opacity: var(--spk-opacity-faded);
         cursor: not-allowed;
     }
 
@@ -198,7 +198,7 @@
         align-items: center;
         transition: transform var(--spk-duration-base) var(--spk-ease-glide);
         flex-shrink: 0;
-        opacity: 0.6;
+        opacity: var(--spk-opacity-faded);
     }
 
     .accordion-header-open .accordion-header-chevron {

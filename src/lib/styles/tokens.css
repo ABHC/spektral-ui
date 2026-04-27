@@ -16,11 +16,11 @@
 
 :root {
     /* --- Border radius --- */
-    --radius-edge: 4px;
-    --radius-soft: 8px;
-    --radius-round: 12px;
-    --radius-pill: 999px;
-    --radius-circle: 50%;
+    --spk-radius-edge: 4px;
+    --spk-radius-soft: 8px;
+    --spk-radius-round: 12px;
+    --spk-radius-pill: 999px;
+    --spk-radius-circle: 50%;
 
     /* --- Z-index ladder --- */
     --spk-z-behind: -1;
@@ -40,6 +40,17 @@
     /* --- Elevation (shape only — color is provided by --shadow-*) --- */
     --spk-elevation-subtle: 0 4px 12px;
     --spk-elevation-hard: 0.3rem 0.3rem;
+
+    /* --- Border width --- */
+    --spk-border: 2px;
+    --spk-border-thin: 1px;
+    --spk-border-accent: 4px;
+
+    /* --- Opacity --- */
+    --spk-opacity-disabled: 0.5;
+    --spk-opacity-faded: 0.6;
+    --spk-opacity-muted: 0.7;
+    --spk-opacity-overlay: 0.85;
 
     /* --- Focus ring --- */
     --focus-ring: var(--text);

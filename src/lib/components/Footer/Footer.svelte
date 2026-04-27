@@ -196,7 +196,7 @@
     }
 
     /* Rounded - top corners only */
-    .footer-rounded { border-radius: var(--radius-round) var(--radius-round) 0 0; }
+    .footer-rounded { border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0; }
 
     /* Palette - accent (default: matches layout footer) */
     .footer-palette-accent {
@@ -208,7 +208,7 @@
     .footer-palette-tone {
         background: var(--tone);
         color: var(--text);
-        border-top: 4px solid var(--accent);
+        border-top: var(--spk-border-accent) solid var(--accent);
     }
 
     /* Slots layout */

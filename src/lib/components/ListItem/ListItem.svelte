@@ -100,7 +100,7 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
-        border: 2px solid transparent;
+        border: var(--spk-border) solid transparent;
         transition: background var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease, box-shadow var(--spk-duration-base) ease;
     }
 
@@ -237,7 +237,7 @@
     /* Rounded ----------------------------------------------------------- */
 
     .list-item-rounded {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     /* Inner elements ---------------------------------------------------- */
@@ -267,7 +267,7 @@
 
     .extra-supporting {
         font-size: 0.8em;
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
         margin-top: 0.1rem;
         white-space: pre-line;
     }

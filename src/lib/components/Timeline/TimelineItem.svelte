@@ -146,7 +146,7 @@
     }
 
     .timeline-dot-rounded {
-        border-radius: var(--radius-circle);
+        border-radius: var(--spk-radius-circle);
     }
 
     /* Wide marker: auto-grows horizontally to fit long content (e.g. version
@@ -170,7 +170,7 @@
     /* Outlined variant: dot uses outline instead of fill */
     :global(.timeline-outlined) .timeline-dot {
         background: transparent;
-        border: 2px solid var(--tone-hover);
+        border: var(--spk-border) solid var(--tone-hover);
     }
 
     :global(.timeline-outlined) .timeline-item-on .timeline-dot {

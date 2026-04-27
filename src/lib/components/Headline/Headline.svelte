@@ -66,7 +66,7 @@
 
     .headline hr {
         flex: 1;
-        border: 1px solid var(--color, var(--text));
+        border: var(--spk-border-thin) solid var(--color, var(--text));
     }
 
     .headline-xs {

@@ -115,8 +115,8 @@
     .field-wrapper {
         display: flex;
         background: var(--tone);
-        border: 2px solid var(--tone-hover);
-        border-radius: var(--radius-edge);
+        border: var(--spk-border) solid var(--tone-hover);
+        border-radius: var(--spk-radius-edge);
         overflow: hidden;
         transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
     }
@@ -143,7 +143,7 @@
 
     .textarea-field::placeholder {
         color: var(--text-muted);
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
     }
 
     /* Message --------------------------------------------------------- */
@@ -165,7 +165,7 @@
     /* Sizes ----------------------------------------------------------- */
 
     .textarea-sm .field-wrapper {
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
     }
 
     .textarea-sm .textarea-field { 
@@ -187,7 +187,7 @@
     }
 
     .textarea-lg .field-wrapper {
-        border-radius: var(--radius-soft);
+        border-radius: var(--spk-radius-soft);
     }
 
     .textarea-lg .textarea-field { 
@@ -220,7 +220,7 @@
     /* Disabled -------------------------------------------------------- */
 
     .textarea-disabled {
-        opacity: 0.5;
+        opacity: var(--spk-opacity-disabled);
         cursor:  not-allowed;
     }
 

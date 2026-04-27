@@ -81,15 +81,15 @@
     }
 
     /* Rounded ------------------------------------------------------------- */
-    .nav-rounded { border-radius: var(--radius-round); }
+    .nav-rounded { border-radius: var(--spk-radius-round); }
 
     /* Top / bottom bars only round the inner edge */
     .nav-direction-top.nav-rounded    { 
-            border-radius: 0 0 var(--radius-round) var(--radius-round); 
+            border-radius: 0 0 var(--spk-radius-round) var(--spk-radius-round); 
     }
     
     .nav-direction-bottom.nav-rounded { 
-        border-radius: var(--radius-round) var(--radius-round) 0 0; 
+        border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0; 
     }
 
     /* Layouts & Itemps ---------------------------------------------------- */

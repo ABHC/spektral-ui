@@ -74,7 +74,7 @@
         flex-direction: column;
         justify-content: space-around;
         gap: 2px;
-        border: 1px solid var(--tone-ghost-hover);
+        border: var(--spk-border-thin) solid var(--tone-ghost-hover);
         overflow: hidden;
     }
 
@@ -88,7 +88,7 @@
     .sw-label {
         font-size: 0.55rem;
         font-weight: 600;
-        opacity: 0.7;
+        opacity: var(--spk-opacity-muted);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -111,7 +111,7 @@
         font-size: 0.55rem;
         font-weight: 700;
         font-family: monospace;
-        opacity: 0.6;
+        opacity: var(--spk-opacity-faded);
     }
 
     /* Compact --------------------------------------------------------- */
@@ -145,6 +145,6 @@
     /* Rounded --------------------------------------------------------- */
 
     .swatch-row-rounded .sw {
-        border-radius: var(--radius-edge);
+        border-radius: var(--spk-radius-edge);
     }
 </style>
