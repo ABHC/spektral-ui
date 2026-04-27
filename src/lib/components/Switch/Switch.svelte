@@ -113,7 +113,7 @@
         position:    relative;
         flex-shrink: 0;
         overflow:    visible;
-        transition:  background 0.2s ease, box-shadow 0.2s ease;
+        transition: background var(--spk-duration-base) ease, box-shadow var(--spk-duration-base) ease;
     }
 
     /* OFF state - outline and knob adapt via currentColor.
@@ -139,8 +139,8 @@
         transform:  translate(0, -50%);
         background: var(--text-muted);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                    background 0.2s ease;
+        transition: transform var(--spk-duration-base) var(--spk-ease-glide),
+                    background var(--spk-duration-base) ease;
     }
 
     .switch-track.switch-checked .switch-knob {

@@ -114,7 +114,7 @@
         border: none;
         color: var(--explorer-text, currentColor);
         border-radius: var(--radius-edge);
-        transition: background 0.15s;
+        transition: background var(--spk-duration-quick) ease;
         width: 90%;
         text-align: left;
     }
@@ -130,7 +130,7 @@
         cursor: pointer;
         color: var(--explorer-text, currentColor);
         border-radius: var(--radius-edge);
-        transition: background 0.15s;
+        transition: background var(--spk-duration-quick) ease;
         width: 100%;
         text-align: left;
     }
@@ -172,7 +172,7 @@
     .explorer-group-chevron {
         display: flex;
         align-items: center;
-        transition: transform 0.2s ease;
+        transition: transform var(--spk-duration-base) var(--spk-ease-glide);
         opacity: 1;
         flex-shrink: 0;
     }

@@ -127,14 +127,14 @@
 
     .card-elevation-hard {
         box-shadow: 0.4rem 0.4rem var(--shadow-hard);
-        transition: box-shadow 0.15s ease, transform 0.15s ease;
+        transition: box-shadow var(--spk-duration-quick) ease, transform var(--spk-duration-quick) ease;
     }
 
     /* Hover - link cards only ---------------------------------------------- */
 
     a.card-outlined:hover {
         border-color: var(--accent);
-        transition: border-color 0.2s ease;
+        transition: border-color var(--spk-duration-base) ease;
     }
 
     /* Zones ---------------------------------------------------------------- */

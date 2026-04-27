@@ -101,7 +101,7 @@
         align-items: center;
         gap: 0.75rem;
         border: 2px solid transparent;
-        transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        transition: background var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease, box-shadow var(--spk-duration-base) ease;
     }
 
     /* Palette - tone ---------------------------------------------------- */

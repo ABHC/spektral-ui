@@ -134,7 +134,7 @@
         border-radius: var(--radius-edge);
         border: 2px solid var(--text-muted);
         background: transparent;
-        transition: border-color 0.2s ease, background 0.2s ease;
+        transition: border-color var(--spk-duration-base) ease, background var(--spk-duration-base) ease;
     }
 
     /* Checkmark */
@@ -149,7 +149,7 @@
         border-top: none;
         border-left: none;
         transform: translate(-50%, -50%) rotate(45deg) scale(0);
-        transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
     }
 
     /* Checked state */

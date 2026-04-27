@@ -106,10 +106,10 @@
         overflow: hidden;
         overflow-y: auto;
         transition:
-            background 0.3s ease,
-            box-shadow 0.3s ease,
-            transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.3s ease;
+            background var(--spk-duration-slow) ease,
+            box-shadow var(--spk-duration-slow) ease,
+            transform var(--spk-duration-slow) var(--spk-ease-glide),
+            border-color var(--spk-duration-slow) ease;
     }
 
     /* Direction: left / right (vertical drawer) ----------------------- */
@@ -225,7 +225,7 @@
         background: rgba(0, 0, 0, 0.35);
         z-index: calc(var(--spk-z-panel) - 1);
         cursor: pointer;
-        animation: drawer-scrim-fade-in 0.3s ease forwards;
+        animation: drawer-scrim-fade-in var(--spk-duration-slow) var(--spk-ease-out) forwards;
     }
 
     @keyframes drawer-scrim-fade-in {
@@ -237,7 +237,7 @@
 
     @media (prefers-reduced-motion: reduce) {
         .drawer-component {
-            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: background var(--spk-duration-slow) ease, box-shadow var(--spk-duration-slow) ease, border-color var(--spk-duration-slow) ease;
         }
         .drawer-scrim {
             animation: none;

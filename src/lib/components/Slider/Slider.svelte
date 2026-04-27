@@ -276,7 +276,7 @@
         border-radius: var(--radius-circle);
         transform: translate(-50%, -50%);
         cursor: grab;
-        transition: box-shadow 0.15s ease, transform 0.15s ease;
+        transition: box-shadow var(--spk-duration-quick) ease, transform var(--spk-duration-quick) ease;
         outline: none;
         z-index: 1;
     }

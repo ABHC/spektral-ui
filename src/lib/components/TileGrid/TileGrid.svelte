@@ -406,7 +406,7 @@
         text-decoration: none;
         color: inherit;
         cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: transform var(--spk-duration-slow) ease, box-shadow var(--spk-duration-slow) ease;
     }
 
     .tg-tile:not([href]) {
@@ -624,7 +624,7 @@
         justify-content: flex-end;
         padding: 1.5rem;
         z-index: 2;
-        transition: background 0.3s ease;
+        transition: background var(--spk-duration-slow) ease;
     }
 
     .tg-overlay {

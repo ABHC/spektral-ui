@@ -100,7 +100,7 @@
         text-align: left;
         width: 100%;
         border-radius: 0;
-        transition: background 0.15s ease, color 0.15s ease;
+        transition: background var(--spk-duration-quick) ease, color var(--spk-duration-quick) ease;
     }
 
     .accordion-header-btn:hover {
@@ -196,7 +196,7 @@
     .accordion-header-chevron {
         display: flex;
         align-items: center;
-        transition: transform 0.2s ease;
+        transition: transform var(--spk-duration-base) var(--spk-ease-glide);
         flex-shrink: 0;
         opacity: 0.6;
     }

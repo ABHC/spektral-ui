@@ -96,11 +96,11 @@
         gap: 0.5rem;
         cursor: pointer;
         transition:
-            background   0.2s ease-out,
-            color        0.2s ease-out,
-            border-color 0.2s ease-out,
-            box-shadow   0.2s ease-out,
-            transform    0.2s ease-out;
+            background   var(--spk-duration-base) var(--spk-ease-out),
+            color        var(--spk-duration-base) var(--spk-ease-out),
+            border-color var(--spk-duration-base) var(--spk-ease-out),
+            box-shadow   var(--spk-duration-base) var(--spk-ease-out),
+            transform    var(--spk-duration-base) var(--spk-ease-out);
         width: fit-content;
         height: fit-content;
         line-height: 1;

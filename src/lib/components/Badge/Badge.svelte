@@ -506,7 +506,7 @@
         cursor: pointer;
         color: inherit;
         opacity: 0.7;
-        transition: opacity 0.15s ease;
+        transition: opacity var(--spk-duration-quick) ease;
         /*font-family: inherit;*/
     }
 

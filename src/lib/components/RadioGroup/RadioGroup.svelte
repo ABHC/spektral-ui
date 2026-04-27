@@ -134,7 +134,7 @@
         border-radius: var(--radius-circle);
         border: 2px solid var(--text-muted);
         background: transparent;
-        transition: border-color 0.2s ease;
+        transition: border-color var(--spk-duration-base) ease;
     }
 
     /* Inner dot */
@@ -147,7 +147,7 @@
         height: var(--radio-dot, 8px);
         border-radius: var(--radius-circle);
         transform: translate(-50%, -50%) scale(0);
-        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: transform var(--spk-duration-base) var(--spk-ease-glide);
     }
 
     /* Checked state */

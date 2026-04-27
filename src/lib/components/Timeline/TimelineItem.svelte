@@ -142,7 +142,7 @@
         font-weight: 700;
         line-height: 1;
         flex-shrink: 0;
-        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        transition: background var(--spk-duration-base) ease, color var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease;
     }
 
     .timeline-dot-rounded {
@@ -191,7 +191,7 @@
     .timeline-connector {
         --tl-conn: var(--tone-hover);
         background: var(--tl-conn);
-        transition: background 0.2s ease;
+        transition: background var(--spk-duration-base) ease;
     }
 
     :global(.timeline-vertical) .timeline-connector {
@@ -286,7 +286,7 @@
         font-weight: 600;
         color: var(--text);
         line-height: 1.3;
-        transition: color 0.2s ease;
+        transition: color var(--spk-duration-base) ease;
     }
 
     .timeline-item-on .timeline-title {

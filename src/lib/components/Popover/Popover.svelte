@@ -100,22 +100,22 @@
 
     .popover-direction-bottom {
         top: calc(100% + var(--popover-gap, 6px));
-        animation: popover-in-bottom 0.12s ease;
+        animation: popover-in-bottom var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .popover-direction-top {
         bottom: calc(100% + var(--popover-gap, 6px));
-        animation: popover-in-top 0.12s ease;
+        animation: popover-in-top var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .popover-direction-left {
         right: calc(100% + var(--popover-gap, 6px));
-        animation: popover-in-left 0.12s ease;
+        animation: popover-in-left var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .popover-direction-right {
         left: calc(100% + var(--popover-gap, 6px));
-        animation: popover-in-right 0.12s ease;
+        animation: popover-in-right var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     /* Align - cross axis for top/bottom ------------------------------- */

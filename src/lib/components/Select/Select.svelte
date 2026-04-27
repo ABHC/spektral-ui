@@ -264,7 +264,7 @@
         color: var(--text);
         font-family: var(--font-body);
         cursor: pointer;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
         gap: 0.5rem;
         text-align: left;
     }
@@ -299,7 +299,7 @@
         height: 1.1em;
         flex-shrink: 0;
         color: var(--text-muted);
-        transition: transform 0.15s ease;
+        transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
     }
 
     .select-chevron-open {
@@ -336,7 +336,7 @@
         font-family: var(--font-body);
         cursor: pointer;
         text-align: left;
-        transition: background 0.1s ease;
+        transition: background var(--spk-duration-quick) ease;
         gap: 0.5rem;
     }
 

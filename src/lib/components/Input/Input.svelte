@@ -214,7 +214,7 @@
         border: 2px solid var(--tone-hover);
         border-radius: var(--radius-edge);
         overflow: hidden;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
     }
 
     .input-field:focus-within {
@@ -266,7 +266,7 @@
         cursor: pointer;
         padding: 0;
         color: var(--text-muted);
-        transition: color 0.15s ease;
+        transition: color var(--spk-duration-quick) ease;
     }
 
     .input-pw-toggle:hover {
@@ -405,7 +405,7 @@
         cursor: pointer;
         color: var(--text-muted);
         padding: 0.2rem 0.4rem;
-        transition: background 0.15s ease, color 0.15s ease;
+        transition: background var(--spk-duration-quick) ease, color var(--spk-duration-quick) ease;
         line-height: 0;
     }
 

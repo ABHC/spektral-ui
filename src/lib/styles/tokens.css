@@ -30,6 +30,13 @@
     --spk-z-dialog: 400;
     --spk-z-notification: 1000;
 
+    /* --- Motion --- */
+    --spk-duration-quick: 0.15s;
+    --spk-duration-base: 0.2s;
+    --spk-duration-slow: 0.3s;
+    --spk-ease-out: ease-out;
+    --spk-ease-glide: cubic-bezier(0.4, 0, 0.2, 1);
+
     /* --- Focus ring --- */
     --focus-ring: var(--text);
     --focus-ring-width: 2px;

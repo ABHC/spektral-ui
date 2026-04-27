@@ -232,7 +232,7 @@
         padding: 0.55rem 0.75rem;
         cursor: pointer;
         text-align: left;
-        transition: background 0.08s ease;
+        transition: background var(--spk-duration-quick) ease;
         gap: 0.75rem;
     }
 

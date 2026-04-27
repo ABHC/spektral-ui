@@ -76,7 +76,7 @@
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-        transition: background 0.3s ease, box-shadow 0.3s ease;
+        transition: background var(--spk-duration-slow) ease, box-shadow var(--spk-duration-slow) ease;
         z-index: var(--spk-z-sticky);
     }
 

@@ -118,7 +118,7 @@
         border: 2px solid var(--tone-hover);
         border-radius: var(--radius-edge);
         overflow: hidden;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
     }
 
     .field-wrapper:focus-within {

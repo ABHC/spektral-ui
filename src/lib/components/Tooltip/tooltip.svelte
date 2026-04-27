@@ -191,22 +191,22 @@
 
     .tooltip-direction-bottom {
         top: calc(100% + var(--tooltip-gap, 8px));
-        animation: tooltip-in-bottom 0.12s ease;
+        animation: tooltip-in-bottom var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .tooltip-direction-top {
         bottom: calc(100% + var(--tooltip-gap, 8px));
-        animation: tooltip-in-top 0.12s ease;
+        animation: tooltip-in-top var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .tooltip-direction-left {
         right: calc(100% + var(--tooltip-gap, 8px));
-        animation: tooltip-in-left 0.12s ease;
+        animation: tooltip-in-left var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     .tooltip-direction-right {
         left: calc(100% + var(--tooltip-gap, 8px));
-        animation: tooltip-in-right 0.12s ease;
+        animation: tooltip-in-right var(--spk-duration-quick) var(--spk-ease-out);
     }
 
     /* Align - cross axis for top/bottom ------------------------------- */

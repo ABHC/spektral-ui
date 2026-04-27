@@ -429,7 +429,7 @@
         font-size: 0.875rem;
         font-family: var(--font-body);
         cursor: pointer;
-        transition: color 0.2s ease, border-color 0.2s ease;
+        transition: color var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease;
         white-space: nowrap;
     }
 

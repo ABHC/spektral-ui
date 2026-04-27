@@ -83,7 +83,7 @@
         cursor: pointer;
         border-radius: var(--radius-edge);
         text-decoration: none;
-        transition: background 0.15s;
+        transition: background var(--spk-duration-quick) ease;
         text-align: left;
         font-family: inherit;
         font-size: 0.82rem;

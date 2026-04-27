@@ -166,7 +166,7 @@
         inset: 0;
         background: rgba(0, 0, 0, 0.45);
         z-index: var(--spk-z-dialog);
-        animation: scrim-in 0.18s ease;
+        animation: scrim-in var(--spk-duration-base) var(--spk-ease-out);
     }
 
     /* Dialog --------------------------------------------------------------- */
@@ -182,7 +182,7 @@
         max-width: calc(100vw - 2rem);
         box-sizing: border-box;
         border: 2px solid var(--modal-border);
-        animation: dialog-in 0.18s ease;
+        animation: dialog-in var(--spk-duration-base) var(--spk-ease-out);
     }
 
     .modal-dialog:focus {

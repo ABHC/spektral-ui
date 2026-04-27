@@ -131,7 +131,7 @@
     .progress-fill {
         height: 100%;
         width: var(--pct, 0%);
-        transition: width 0.4s ease;
+        transition: width var(--spk-duration-slow) ease;
     }
 
     /* Entry animation: 0 to value when first rendered */

@@ -127,7 +127,7 @@
         border: 2px solid var(--sf-border);
         padding: 0 0.5rem;
         background: var(--sf-bg);
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
     }
 
     .search-field:focus-within {
@@ -173,7 +173,7 @@
         cursor: pointer;
         color: var(--text-muted);
         border-radius: var(--radius-edge);
-        transition: color 0.1s ease, background 0.1s ease;
+        transition: color var(--spk-duration-quick) ease, background var(--spk-duration-quick) ease;
     }
 
     .search-field-clear:hover {

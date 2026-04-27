@@ -96,13 +96,13 @@
         /*position: fixed;
         bottom: 5.5rem;*/
         z-index: var(--spk-z-floating);
-        transition: 
-            opacity 0.25s ease, 
-            transform 0.2s ease, 
-            box-shadow 0.2s ease, 
-            background 0.2s ease, 
-            color 0.2s ease, 
-            border-color 0.2s ease;
+        transition:
+            opacity var(--spk-duration-base) var(--spk-ease-out),
+            transform var(--spk-duration-base) var(--spk-ease-out),
+            box-shadow var(--spk-duration-base) var(--spk-ease-out),
+            background var(--spk-duration-base) var(--spk-ease-out),
+            color var(--spk-duration-base) var(--spk-ease-out),
+            border-color var(--spk-duration-base) var(--spk-ease-out);
     }
 
     /* Visibility -------------------------------------- */
