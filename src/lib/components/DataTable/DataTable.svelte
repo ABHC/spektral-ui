@@ -13,6 +13,7 @@
     interface Column {
         key: string;
         label: string;
+        width?: string;
         cell?: Snippet<[any]>;
     }
 
@@ -51,10 +52,21 @@
             rounded: rounded ? true : undefined,
         }).trim()
     );
+
+    // True as soon as one column declares a width: we then switch the
+    // table to fixed layout and emit a <colgroup> so widths are honored.
+    const has_widths = $derived(columns.some((c) => c.width != null));
 </script>
 
 <!-- Desktop: standard table -->
-<table class="{classes} data-table-desktop">
+<table class="{classes} data-table-desktop" class:data-table-fixed={has_widths}>
+    {#if has_widths}
+        <colgroup>
+            {#each columns as col}
+                <col style={col.width ? `width: ${col.width}` : undefined} />
+            {/each}
+        </colgroup>
+    {/if}
     <thead>
         <tr>
             {#each columns as col}
@@ -108,6 +120,10 @@
         border-spacing: 0;
         font-family: var(--spk-font-body);
         color: var(--spk-text);
+    }
+
+    .data-table-fixed {
+        table-layout: fixed;
     }
 
     /* Palette ------------------------------------------------------------ */
