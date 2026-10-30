@@ -47,7 +47,7 @@
         size = "md",
         uppercase = false,
         elevation = "none",
-        pill = true,
+        pill = false,
         href = undefined,
         onclick = undefined,
         selected = false,
