@@ -129,15 +129,17 @@
 	}
 
 	.avatar-xl {
-		width: 160px;
-		height: 160px;
-		font-size: 1.5rem;
+		/* Fluid between lg (112px/1.1rem @ 375px viewport) and the fixed 160px/1.5rem (@ 1280px+) */
+		width: clamp(112px, calc(92px + 5.3vw), 160px);
+		height: clamp(112px, calc(92px + 5.3vw), 160px);
+		font-size: clamp(1.1rem, calc(0.93rem + 0.044vw), 1.5rem);
 	}
 
 	.avatar-2xl {
-		width: 320px;
-		height: 320px;
-		font-size: 2.5rem;
+		/* Fluid between 140px/1.5rem (@ 375px viewport) and the fixed 320px/2.5rem (@ 1280px+) */
+		width: clamp(140px, calc(65px + 19.9vw), 320px);
+		height: clamp(140px, calc(65px + 19.9vw), 320px);
+		font-size: clamp(1.5rem, calc(1.09rem + 0.11vw), 2.5rem);
 	}
 
 	/* Shape ------------------------------------------------------------------ */
