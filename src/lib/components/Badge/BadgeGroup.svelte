@@ -41,7 +41,7 @@
         palette = "accent",
         size = "md",
         elevation = "none",
-        pill = true,
+        pill = false,
         gap = "0.5rem",
     }: Props = $props();
 
@@ -68,7 +68,7 @@
             {size}
             {pill}
             {elevation}
-            selected={selected.includes(badge.value)}
+            active={selected.includes(badge.value)}
             onclick={() => toggle(badge.value)}
         >
             {badge.label}

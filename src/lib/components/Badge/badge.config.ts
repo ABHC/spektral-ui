@@ -33,6 +33,10 @@ export const badgeConfig = {
             true: "badge-uppercase"
         },
 
+        pill: {
+            true: "badge-pill"
+        },
+
         elevation: {
             none: "badge-elevation-none",
             subtle: "badge-elevation-subtle",

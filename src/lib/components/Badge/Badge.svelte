@@ -19,6 +19,7 @@
                false → rounded rectangle
         href : Renders as <a>
         onclick: Renders as <button>. Implicit - no extra prop needed.
+        leading : leading slot for icons or other content
         trailing : trailing slot for icons or other content
         on_trailing_click : Makes the trailing icon an actionable button
         trailing_label : aria-label for the trailing slot
@@ -34,7 +35,8 @@
         pill?: boolean;
         href?: string;
         onclick?: () => void;
-        selected?: boolean;
+        active?: boolean;
+        leading?: Snippet;
         trailing?: Snippet;
         on_trailing_click?: () => void;
         trailing_label?: string;
@@ -50,7 +52,8 @@
         pill = false,
         href = undefined,
         onclick = undefined,
-        selected = false,
+        active = false,
+        leading = undefined,
         trailing = undefined,
         on_trailing_click = undefined,
         trailing_label = undefined,
@@ -61,14 +64,12 @@
 
     const resolve = createVariant(badgeConfig);
 
-    const type_classes = $derived(resolve({ variant, palette, size, uppercase, elevation }));
+    const type_classes = $derived(resolve({ variant, palette, size, uppercase, elevation, pill }));
 
-    const shape_class = $derived(pill ? "badge-pill" : "badge-rect");
-
-    const selected_class = $derived(selected ? "badge-selected" : "");
+    const active_class = $derived(active ? "badge-active" : "");
 
     const classes = $derived(
-        `${type_classes} ${shape_class} ${selected_class}`.trim()
+        `${type_classes} ${active_class}`.trim()
     );
 
     // Root is interactive when onclick or href is provided (implicit)
@@ -79,6 +80,16 @@
         on_trailing_click?.();
     }
 </script>
+
+<!-- Leading icon snippet ------------------------------------------------------ -->
+
+{#snippet leading_slot()}
+    {#if leading}
+        <span class="badge-leading-icon" aria-hidden="true">
+            {@render leading()}
+        </span>
+    {/if}
+{/snippet}
 
 <!-- Trailing icon snippet --------------------------------------------------- -->
 
@@ -108,16 +119,19 @@
 
 {#if href}
     <a {href} class={classes}>
+        {@render leading_slot()}
         {@render children?.()}
         {@render trailing_slot()}
     </a>
 {:else if onclick}
-    <button class={classes} {onclick} type="button" aria-pressed={selected}>
+    <button class={classes} {onclick} type="button" aria-pressed={active}>
+        {@render leading_slot()}
         {@render children?.()}
         {@render trailing_slot()}
     </button>
 {:else}
     <span class={classes}>
+        {@render leading_slot()}
         {@render children?.()}
         {@render trailing_slot()}
     </span>
@@ -135,21 +149,25 @@
         font-family: var(--spk-font-body);
         text-decoration: none;
         border: var(--spk-border) solid transparent;
+        border-radius: var(--spk-radius-edge);
     }
 
     /* Reset for button/link roots */
     button.badge {
+        font-family: inherit;
+        font-size: inherit;
         cursor: pointer;
     }
 
     a.badge {
+        font-family: inherit;
+        font-size: inherit;
         cursor: pointer;
     }
 
     /* Shape -------------------------------------------------------------- */
 
     .badge-pill { border-radius: var(--spk-radius-pill); }
-    .badge-rect { border-radius: var(--spk-radius-edge); }
 
     /* Variants ----------------------------------------------------------- */
 
@@ -386,101 +404,114 @@
     /* Selected - mirrors hover styles ------------------------------------ */
 
     /* accent */
-    button.badge-flat.badge-palette-accent.badge-selected,
-    a.badge-flat.badge-palette-accent.badge-selected {
+    button.badge-flat.badge-palette-accent.badge-active,
+    a.badge-flat.badge-palette-accent.badge-active {
         background: var(--spk-accent-hover);
         border-color: var(--spk-accent-muted);
     }
 
-    button.badge-outlined.badge-palette-accent.badge-selected,
-    a.badge-outlined.badge-palette-accent.badge-selected {
+    button.badge-outlined.badge-palette-accent.badge-active,
+    a.badge-outlined.badge-palette-accent.badge-active {
         background: var(--spk-accent);
         border-color: var(--spk-accent);
         color: var(--spk-text-accent);
     }
 
     /* Tone */
-    button.badge-flat.badge-palette-tone.badge-selected,
-    a.badge-flat.badge-palette-tone.badge-selected {
+    button.badge-flat.badge-palette-tone.badge-active,
+    a.badge-flat.badge-palette-tone.badge-active {
         background: var(--spk-tone-hover);
         border-color: var(--spk-tone-muted);
     }
 
-    button.badge-outlined.badge-palette-tone.badge-selected,
-    a.badge-outlined.badge-palette-tone.badge-selected {
+    button.badge-outlined.badge-palette-tone.badge-active,
+    a.badge-outlined.badge-palette-tone.badge-active {
         background: var(--spk-tone-hover);
         border-color: var(--spk-accent);
         color: var(--spk-text);
     }
 
     /* Error */
-    button.badge-flat.badge-palette-error.badge-selected,
-    a.badge-flat.badge-palette-error.badge-selected {
+    button.badge-flat.badge-palette-error.badge-active,
+    a.badge-flat.badge-palette-error.badge-active {
         background: var(--spk-error-hover);
         border-color: var(--spk-error-muted);
     }
 
-    button.badge-outlined.badge-palette-error.badge-selected,
-    a.badge-outlined.badge-palette-error.badge-selected {
+    button.badge-outlined.badge-palette-error.badge-active,
+    a.badge-outlined.badge-palette-error.badge-active {
         background: var(--spk-error);
         border-color: var(--spk-error);
         color: var(--spk-text-error);
     }
 
     /* Warning */
-    button.badge-flat.badge-palette-warning.badge-selected,
-    a.badge-flat.badge-palette-warning.badge-selected {
+    button.badge-flat.badge-palette-warning.badge-active,
+    a.badge-flat.badge-palette-warning.badge-active {
         background: var(--spk-warning-hover);
         border-color: var(--spk-warning-muted);
     }
 
-    button.badge-outlined.badge-palette-warning.badge-selected,
-    a.badge-outlined.badge-palette-warning.badge-selected {
+    button.badge-outlined.badge-palette-warning.badge-active,
+    a.badge-outlined.badge-palette-warning.badge-active {
         background: var(--spk-warning);
         border-color: var(--spk-warning);
         color: var(--spk-text-warning);
     }
 
     /* Success */
-    button.badge-flat.badge-palette-success.badge-selected,
-    a.badge-flat.badge-palette-success.badge-selected {
+    button.badge-flat.badge-palette-success.badge-active,
+    a.badge-flat.badge-palette-success.badge-active {
         background: var(--spk-success-hover);
         border-color: var(--spk-success-muted);
     }
 
-    button.badge-outlined.badge-palette-success.badge-selected,
-    a.badge-outlined.badge-palette-success.badge-selected {
+    button.badge-outlined.badge-palette-success.badge-active,
+    a.badge-outlined.badge-palette-success.badge-active {
         background: var(--spk-success);
         border-color: var(--spk-success);
         color: var(--spk-text-success);
     }
 
     /* Info */
-    button.badge-flat.badge-palette-info.badge-selected,
-    a.badge-flat.badge-palette-info.badge-selected {
+    button.badge-flat.badge-palette-info.badge-active,
+    a.badge-flat.badge-palette-info.badge-active {
         background: var(--spk-info-hover);
         border-color: var(--spk-info-muted);
     }
 
-    button.badge-outlined.badge-palette-info.badge-selected,
-    a.badge-outlined.badge-palette-info.badge-selected {
+    button.badge-outlined.badge-palette-info.badge-active,
+    a.badge-outlined.badge-palette-info.badge-active {
         background: var(--spk-info);
         border-color: var(--spk-info);
         color: var(--spk-text-info);
     }
 
     /* Neutral */
-    button.badge-flat.badge-palette-neutral.badge-selected,
-    a.badge-flat.badge-palette-neutral.badge-selected {
+    button.badge-flat.badge-palette-neutral.badge-active,
+    a.badge-flat.badge-palette-neutral.badge-active {
         background: var(--spk-neutral-hover);
         border-color: var(--spk-neutral-muted);
     }
 
-    button.badge-outlined.badge-palette-neutral.badge-selected,
-    a.badge-outlined.badge-palette-neutral.badge-selected {
+    button.badge-outlined.badge-palette-neutral.badge-active,
+    a.badge-outlined.badge-palette-neutral.badge-active {
         background: var(--spk-neutral);
         border-color: var(--spk-neutral);
         color: var(--spk-text-neutral);
+    }
+
+    /* Leading icon --------------------------------------------------------- */
+
+    .badge-leading-icon {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1;
+    }
+
+    .badge-leading-icon :global(*) {
+        font-size: 1em;
+        line-height: 1;
     }
 
     /* Trailing icon ------------------------------------------------------ */
