@@ -1433,5 +1433,22 @@ export function tintPattern(raw: string, color: string): string {
         .replaceAll("fill:white", `fill:${encoded}`);
 }
 
+/*
+    Resolve a pattern (preset name or raw CSS background-image value) plus a
+    tint color into the final `background-image` value. Shared by TileGrid
+    (grid-wide default) and Tile (per-tile override) so both resolve presets
+    the same way.
+*/
+export function resolvePatternBackground(
+    pattern: PatternPreset | string | undefined,
+    color: string
+): string {
+    if (!pattern || pattern === "none") return "none";
+    if (pattern in PATTERN_PRESETS) {
+        return tintPattern(PATTERN_PRESETS[pattern as Exclude<PatternPreset, "none">], color);
+    }
+    return pattern;
+}
+
 
 

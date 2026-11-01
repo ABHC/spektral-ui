@@ -42,6 +42,7 @@ export { default as SwatchRow }       from './components/SwatchRow/SwatchRow.sve
 export { default as Switch }          from './components/Switch/Switch.svelte';
 export { default as Textarea }        from './components/Textarea/Textarea.svelte';
 export { default as TileGrid }        from './components/TileGrid/TileGrid.svelte';
+export { default as Tile }            from './components/TileGrid/Tile.svelte';
 export { default as Timeline }        from './components/Timeline/Timeline.svelte';
 export { default as TimelineItem }    from './components/Timeline/TimelineItem.svelte';
 export { default as Tooltip }         from './components/Tooltip/tooltip.svelte';
@@ -56,10 +57,10 @@ export { default as Support }         from './components/Support/Support.svelte'
 export { type CommandItem, type CommandGroup }                                from './components/Command/command.config.js';
 export { type BadgeItem }                                                     from './components/Badge/badge.config.js';
 export { type Swatch }                                                        from './components/SwatchRow/swatchRow.config.js';
-export { type Tile, type TileMedia, type Columns, type HeroSpan,
-         type ImageMode, type ImagePosition, type TileGridElevation,
-         type TileGridEffect, type TileGridMask,
-         type TileGridMaskDirection }                                         from './components/TileGrid/tilegrid.config.js';
+export { type Columns, type HeroSpan,
+         type TileImageDisplay, type ImagePosition, type TileVariant, type TilePalette,
+         type TileGridElevation, type TileGridEffect, type TileGridMask,
+         type TileGridMaskDirection, type TileAspectRatio }                   from './components/TileGrid/tilegrid.config.js';
 
 // Prop union types
 export { type AvatarSize, type AvatarStatus, type AvatarPalette,
