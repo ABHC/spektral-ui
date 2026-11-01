@@ -1,50 +1,4 @@
-// TileGrid configuration
-
-/*
-    Tile interface
-    Minimal shape that TileGrid requires. Any object that structurally matches
-    this interface is accepted.
-*/
-
-/*
-    TileMedia
-    src : Relative or absolute URL to the image asset
-    type :  Media type ex: "image", "video". Currently only "image" is rendered.
-*/
-
-export interface TileMedia {
-    src: string;
-    type: string;
-}
-
-/*
-    Tile
-    id : Unique identifier
-    name : Short display name shown on the tile
-    origin : Badge label indicating origin (client, personal, open source...) - optional
-    years : Year or range string, e.g. "2023" or "2022-24" - optional
-    display : Whether this tile should be rendered at all
-    hero : Whether this tile is a featured/hero item.
-    media : Array of media assets. The first item is used as the background image, in "background" image mode
-    abstract : Localised abstract. Record key is a locale string (ex: "fr", "en").
-
-    Hero tiles span more columns on desktop and receive visual differentiator on mobile.
-*/
-
-export interface Tile {
-    id?: string;
-    name: string;
-    origin?: string;
-    years?: string;
-    display: boolean;
-    hero?: boolean;
-    hero_text?: Record<string, string>; 
-    hero_icon?: string; 
-    media?: TileMedia[];
-    abstract: Record<string, string>;
-}
-
-// Config types
+// TileGrid / Tile configuration
 
 /*
     Controls image placement.
@@ -60,12 +14,26 @@ export type ImagePosition =
     | string;
 
 /*
-    Whether tiles display a background image (DesignGallery style),
-    a flat card (AppsGallery style), or a flat card with a decorative
-    image anchored to a corner/edge (mockup style).
-    Controlled at the grid level. A tile with no media falls back to flat.
+    How a tile displays its `src` image, layered on top of its variant/palette card:
+    - "background" : the image fills the tile as a background (DesignGallery style).
+    - "preview" : the card keeps its flat/outlined look, with the image floating
+      as a decorative element anchored to a corner/edge (AppsGallery mockup style).
+    A tile with no `src` always renders as a plain flat/outlined card regardless
+    of this value.
 */
-export type ImageMode = "image" | "mockup" | "flat";
+export type TileImageDisplay = "background" | "preview";
+
+/*
+    Base card look, shared vocabulary with Accordion/Timeline.
+    "flat" : filled background using the resolved palette token.
+    "outlined" : transparent background, border using the resolved palette token.
+*/
+export type TileVariant = "flat" | "outlined";
+
+/*
+    Semantic palette resolved to the matching --spk-* tokens for background/border/hover.
+*/
+export type TilePalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
 
 /*
     Number of grid columns on desktop (>= 1024px).
@@ -81,7 +49,7 @@ export type Columns = 2 | 3 | 4;
 export type HeroSpan = "half" | "full";
 
 /*
-    Elevation level applied to every tile.
+    Elevation level applied to a tile.
     "none" → no shadow
     "subtle" → light shadow
     "hard" → strong shadow
@@ -92,6 +60,40 @@ export type TileGridElevation = "none" | "subtle" | "hard";
     Visual effect overlaying the whole grid (decorative layer behind the tiles).
 */
 export type TileGridEffect = "none" | "glow" | "blur" | "fade";
+
+/*
+    Aspect ratio applied to a *normal* tile.
+    "square" → 1/1, "portrait" → 3/4, "video" → 16/9, "wide" → 21/9.
+    "auto" → no ratio constraint, height follows content (like Card). Tile.svelte floors
+    this at a min-height, since background/preview content is absolutely positioned and
+    has no intrinsic height of its own to fall back on.
+    Any other string is passed through as a raw CSS aspect-ratio value (e.g. "4/3").
+    Hero tiles deliberately ignore this: a hero keeps a fixed per-breakpoint ratio
+    (auto on desktop hero-half - stretched by CSS Grid to match the row height set by
+    its normal-tile neighbours, 8/3 elsewhere) regardless of what's set here - see the
+    `.tile-hero-*` rules in Tile.svelte. A hero's box is sized by its 2-column span
+    (width) and by the normal tiles sharing its row (height), not by its own ratio.
+*/
+export type TileAspectRatio = "square" | "portrait" | "video" | "wide" | "auto" | string;
+
+const ASPECT_RATIO_PRESETS = {
+    square: "1 / 1",
+    portrait: "3 / 4",
+    video: "16 / 9",
+    wide: "21 / 9",
+} as const;
+
+/*
+    Resolve a TileAspectRatio (preset name or raw CSS aspect-ratio value) into the final
+    CSS value. Shared by TileGrid (grid-wide default) and Tile (per-tile override).
+*/
+export function resolveAspectRatio(aspect_ratio: TileAspectRatio): string {
+    if (aspect_ratio === "auto") return "auto";
+    if (aspect_ratio in ASPECT_RATIO_PRESETS) {
+        return ASPECT_RATIO_PRESETS[aspect_ratio as keyof typeof ASPECT_RATIO_PRESETS];
+    }
+    return aspect_ratio;
+}
 
 /*
     Mask shape applied to the pattern layer.
@@ -105,48 +107,79 @@ export type TileGridMask = "none" | "ellipse" | "fade";
 */
 export type TileGridMaskDirection = "top" | "bottom" | "left" | "right";
 
-// Config interface
+// Context ----------------------------------------------------------------------
 
 /*
-    image_mode : Image display mode - controls the entire grid, not individual tiles
-    image_position : CSS background-position applied to all image-mode tiles
+    TileGrid sets this context; Tile reads it as its fallback default and can
+    override each value locally through its own matching prop.
+
+    Pattern-related values (background, opacity, size, mask) are *not* part of
+    this context - they cascade as plain CSS custom properties from
+    `.tile-grid-section` instead, since they're pure style values with no
+    markup/class branching involved. A Tile overrides them by setting the same
+    custom property locally. Only values that affect which class/markup branch
+    a Tile renders go through context.
+*/
+
+export const TILEGRID_KEY = Symbol("tilegrid");
+
+export interface TileGridContext {
+    readonly image: TileImageDisplay;
+    readonly image_position: ImagePosition;
+    readonly image_size: string | undefined;
+    readonly variant: TileVariant;
+    readonly palette: TilePalette;
+    readonly hero_span: HeroSpan;
+    readonly rounded: boolean;
+    readonly elevation: TileGridElevation;
+    readonly elevation_persist: boolean;
+    readonly aspect_ratio: TileAspectRatio;
+}
+
+// Config interface ---------------------------------------------------------
+
+/*
+    image : Default image display mode ("background" | "preview"), inherited by every Tile
+        unless it overrides it. Only takes effect on tiles that have a `src`.
+    image_position : Default CSS background-position, inherited by every Tile
+    variant : Default card look ("flat" | "outlined"), inherited by every Tile
+    palette : Default semantic palette, inherited by every Tile
     columns : Number of columns on the desktop breakpoint
     hero_span : How hero tiles span on desktop
     gap : Gap between tiles - any valid CSS length value
-    show_hero_badge : Show a "Featured" badge on hero tiles at all breakpoints
-    excerpt_length : Maximum number of characters for the localised abstract excerpt on normal tiles.
-    href_base : Base path used to build tile hrefs: "{href_base}/{tile.id}
-    rounded : Apply --spk-radius-round to every tile
-    elevation : Tile elevation level
+    rounded : Default --spk-radius-round on every tile
+    elevation : Default tile elevation level
     elevation_persist : When true, elevation shadow is shown permanently. When false, only on hover.
+    aspect_ratio : Default aspect ratio for normal tiles, inherited by every Tile unless it
+        overrides it. Ignored by hero tiles - see TileAspectRatio above.
 */
 
 export interface TileGridConfig {
-    image_mode: ImageMode;
+    image: TileImageDisplay;
     image_position: ImagePosition;
+    variant: TileVariant;
+    palette: TilePalette;
     columns: Columns;
     hero_span: HeroSpan;
     gap: string;
-    show_hero_badge: boolean;
-    excerpt_length: number;
-    href_base: string;
     rounded: boolean;
     elevation: TileGridElevation;
     elevation_persist: boolean;
+    aspect_ratio: TileAspectRatio;
 }
 
 // Defaults
 
 export const defaultTileGridConfig: TileGridConfig = {
-    image_mode: "image",
+    image: "background",
     image_position: "center",
+    variant: "flat",
+    palette: "tone",
     columns: 3,
     hero_span: "half",
     gap: "1.5rem",
-    show_hero_badge: true,
-    excerpt_length: 52,
-    href_base: "/projects",
     rounded: false,
     elevation: "none",
     elevation_persist: false,
+    aspect_ratio: "4/3",
 };
