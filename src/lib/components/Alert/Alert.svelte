@@ -5,7 +5,7 @@
     import { alertConfig } from './alert.config.js';
     import Button from '../Button/Button.svelte';
 
-    type Variant  = "neutral" | "info" | "success" | "warning" | "error";
+    type Palette  = "neutral" | "info" | "success" | "warning" | "error";
     type Position = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
     type AnimDir  = "top" | "bottom" | "left" | "right" | false;
 
@@ -17,7 +17,7 @@
         dismiss_label : Show a btn-text dismiss button with this label. Takes priority over `dismissable`
     */
     interface Props {
-        variant?: Variant;
+        palette?: Palette;
         position?: Position;
         rounded?: boolean;
         animate?: AnimDir;
@@ -32,7 +32,7 @@
     }
 
     let {
-        variant = "info",
+        palette = "info",
         position = "bottom-right",
         rounded = false,
         animate = false,
@@ -63,7 +63,7 @@
     const resolve = createVariant(alertConfig);
 
     const wrapper_classes = $derived(
-        resolve({ variant, position, rounded }).trim()
+        resolve({ palette, position, rounded }).trim()
     );
 
     function flyParams() {
@@ -151,30 +151,30 @@
         box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
     }
 
-    /* Variants - set --al-color and --al-bg */
-    .alert-variant-neutral { 
-        --al-color: var(--spk-neutral); 
-        --al-bg: var(--spk-neutral-bg); 
+    /* Palette - set --al-color and --al-bg */
+    .alert-palette-neutral {
+        --al-color: var(--spk-neutral);
+        --al-bg: var(--spk-neutral-bg);
     }
 
-    .alert-variant-info { 
-        --al-color: var(--spk-info); 
-        --al-bg: var(--spk-info-bg); 
+    .alert-palette-info {
+        --al-color: var(--spk-info);
+        --al-bg: var(--spk-info-bg);
     }
 
-    .alert-variant-success { 
-        --al-color: var(--spk-success); 
-        --al-bg: var(--spk-success-bg); 
+    .alert-palette-success {
+        --al-color: var(--spk-success);
+        --al-bg: var(--spk-success-bg);
     }
 
-    .alert-variant-warning { 
-        --al-color: var(--spk-warning); 
-        --al-bg: var(--spk-warning-bg); 
+    .alert-palette-warning {
+        --al-color: var(--spk-warning);
+        --al-bg: var(--spk-warning-bg);
     }
 
-    .alert-variant-error { 
-        --al-color: var(--spk-error); 
-        --al-bg: var(--spk-error-bg); 
+    .alert-palette-error {
+        --al-color: var(--spk-error);
+        --al-bg: var(--spk-error-bg);
     }
 
     /*

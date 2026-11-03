@@ -9,10 +9,10 @@
         open?: boolean;
         direction?: TooltipDirection;
         align?: TooltipAlign;
-        maxWidth?: string;
+        max_width?: string;
         gap?: string;
-        showDelay?: number;
-        hideDelay?: number;
+        show_delay?: number;
+        hide_delay?: number;
         palette?: TooltipPalette;
         rounded?: boolean;
         bordered?: boolean;
@@ -30,9 +30,9 @@
         direction = defaultTooltipConfig.direction,
         align = defaultTooltipConfig.align,
         gap = "8px",
-        maxWidth = "320px",
-        showDelay = 120,
-        hideDelay = 80,
+        max_width = "320px",
+        show_delay = 120,
+        hide_delay = 80,
         palette = defaultTooltipConfig.palette,
         rounded = defaultTooltipConfig.rounded,
         bordered = defaultTooltipConfig.bordered,
@@ -50,7 +50,7 @@
     const panel_classes = $derived(resolve({ palette, rounded, bordered, elevation, size }));
 
     const panel_style = $derived(
-        `max-width: ${maxWidth};` +
+        `max-width: ${max_width};` +
         ` --tooltip-gap: ${gap};`
     );
 
@@ -71,7 +71,7 @@
         show_timer = setTimeout(() => {
             open = true;
             show_timer = null;
-        }, showDelay);
+        }, show_delay);
     }
 
     function schedule_close() {
@@ -80,7 +80,7 @@
         hide_timer = setTimeout(() => {
             open = false;
             hide_timer = null;
-        }, hideDelay);
+        }, hide_delay);
     }
 
     function handle_keydown(e: KeyboardEvent) {

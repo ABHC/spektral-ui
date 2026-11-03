@@ -3,11 +3,11 @@
     import { createVariant } from "../../utils/builder.js";
     import { calloutConfig } from './callout.config.js';
 
-    type Variant = "accent" | "neutral" | "error" | "warning" | "success" | "info";
+    type Palette = "accent" | "neutral" | "error" | "warning" | "success" | "info";
     type Align = "center" | "start";
 
     interface Props {
-        variant?: Variant;
+        palette?: Palette;
         align?: Align;
         rounded?: boolean;
         bordered?: boolean;
@@ -18,7 +18,7 @@
     }
 
     let {
-        variant = "info",
+        palette = "info",
         align = "center",
         rounded = false,
         bordered = false,
@@ -31,7 +31,7 @@
     const resolve = createVariant(calloutConfig);
 
     const wrapper_classes = $derived(
-        resolve({ variant, align, rounded, bordered }).trim()
+        resolve({ palette, align, rounded, bordered }).trim()
     );
 </script>
 
@@ -83,51 +83,51 @@
     .callout-align-center { align-items: center; }
     .callout-align-start { align-items: flex-start; }
 
-    /* Variants - set --cb-color, --cb-bg, --cb-border */
-    .callout-variant-accent { 
-        --cb-color: var(--spk-accent); 
-        --cb-bg: var(--spk-accent-bg); 
+    /* Palette - set --cb-color, --cb-bg, --cb-border */
+    .callout-palette-accent {
+        --cb-color: var(--spk-accent);
+        --cb-bg: var(--spk-accent-bg);
         --cb-muted: var(--spk-accent-muted);
         --cb-hover: var(--spk-accent-hover);
         --cb-ghost: var(--spk-accent-ghost-hover);
     }
-    .callout-variant-neutral { 
-        --cb-color: var(--spk-neutral); 
-        --cb-bg: var(--spk-neutral-bg); 
+    .callout-palette-neutral {
+        --cb-color: var(--spk-neutral);
+        --cb-bg: var(--spk-neutral-bg);
         --cb-muted: var(--spk-neutral-muted);
         --cb-hover: var(--spk-neutral-hover);
         --cb-ghost: var(--spk-neutral-ghost-hover);
-        --cb-text: var(--spk-text-neutral);  
+        --cb-text: var(--spk-text-neutral);
     }
 
-    .callout-variant-error { 
-        --cb-color: var(--spk-error); 
-        --cb-bg: var(--spk-error-bg); 
+    .callout-palette-error {
+        --cb-color: var(--spk-error);
+        --cb-bg: var(--spk-error-bg);
         --cb-muted: var(--spk-error-muted);
         --cb-hover: var(--spk-error-hover);
         --cb-ghost: var(--spk-error-ghost-hover);
     }
 
-    .callout-variant-warning { 
-        --cb-color: var(--spk-warning); 
-        --cb-bg: var(--spk-warning-bg); 
+    .callout-palette-warning {
+        --cb-color: var(--spk-warning);
+        --cb-bg: var(--spk-warning-bg);
         --cb-muted: var(--spk-warning-muted);
         --cb-hover: var(--spk-warning-hover);
         --cb-ghost: var(--spk-warning-ghost-hover);
-        --cb-text: var(--spk-text-warning);  
+        --cb-text: var(--spk-text-warning);
     }
 
-    .callout-variant-success { 
-        --cb-color: var(--spk-success); 
-        --cb-bg: var(--spk-success-bg); 
+    .callout-palette-success {
+        --cb-color: var(--spk-success);
+        --cb-bg: var(--spk-success-bg);
         --cb-muted: var(--spk-success-muted);
         --cb-hover: var(--spk-success-hover);
         --cb-ghost: var(--spk-success-ghost-hover);
     }
 
-    .callout-variant-info { 
-        --cb-color: var(--spk-info); 
-        --cb-bg: var(--spk-info-bg); 
+    .callout-palette-info {
+        --cb-color: var(--spk-info);
+        --cb-bg: var(--spk-info-bg);
         --cb-muted: var(--spk-info-muted);
         --cb-hover: var(--spk-info-hover);
         --cb-ghost: var(--spk-info-ghost-hover);

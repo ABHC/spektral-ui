@@ -5,7 +5,7 @@
     // Types ------------------------------------------------------------------
 
     type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
-    type Palette = "transparent" | "tone" | "accent" | "accent-bg";
+    type Palette = "transparent" | "tone" | "accent" | "accentbg";
     type Effect = "none" | "glow" | "blur" | "fade";
     type Mask = "none" | "ellipse" | "fade";
     type MaskDirection = "top" | "bottom" | "left" | "right";
@@ -155,7 +155,7 @@
         color: var(--spk-text-accent);
     }
 
-    .hero-palette-accent-bg {
+    .hero-palette-accentbg {
         background: var(--spk-accent-bg);
         color: var(--spk-text);
     }
@@ -166,7 +166,7 @@
 
     .hero-palette-transparent :global(h3),
     .hero-palette-tone :global(h3),
-    .hero-palette-accent-bg :global(h3) {
+    .hero-palette-accentbg :global(h3) {
         color: var(--spk-text);
     }
 

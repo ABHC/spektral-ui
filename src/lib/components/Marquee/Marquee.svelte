@@ -22,7 +22,7 @@
         direction?: Direction;
         duration?: number;
         repeat?: number;
-        pauseOnHover?: boolean;
+        pause_on_hover?: boolean;
         fade?: Fade;
         gap?: string;
         rounded?: boolean;
@@ -37,7 +37,7 @@
         direction = defaultMarqueeConfig.direction,
         duration = defaultMarqueeConfig.duration,
         repeat = defaultMarqueeConfig.repeat,
-        pauseOnHover = defaultMarqueeConfig.pauseOnHover,
+        pause_on_hover = defaultMarqueeConfig.pause_on_hover,
         fade = defaultMarqueeConfig.fade,
         gap = defaultMarqueeConfig.gap,
         rounded = defaultMarqueeConfig.rounded,
@@ -57,7 +57,7 @@
             direction,
             fade,
             rounded: rounded ? true : undefined,
-            pauseOnHover: pauseOnHover ? true : undefined,
+            pause_on_hover: pause_on_hover ? true : undefined,
         }).trim()
     );
 

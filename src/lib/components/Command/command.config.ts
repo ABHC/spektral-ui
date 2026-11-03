@@ -27,7 +27,7 @@ export interface CommandDefaults {
 export const defaultCommandConfig: CommandDefaults = {
     palette: "tone",
     rounded: false,
-    elevation: "subtle",
+    elevation: "none",
     width: "560px",
     placeholder: "Search\u2026",
     empty_placeholder: "No results"

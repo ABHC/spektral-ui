@@ -22,7 +22,7 @@
         disabled?: boolean;
         required?: boolean;
         searchable?: boolean;
-        searchPlaceholder?: string;
+        search_placeholder?: string;
         name?: string;
         id?: string;
         onchange?: (value: T) => void;
@@ -46,7 +46,7 @@
         disabled = false,
         required = false,
         searchable = false,
-        searchPlaceholder = "Search\u2026",
+        search_placeholder = "Search\u2026",
         name,
         id,
         onchange,
@@ -139,7 +139,7 @@
     <Popover
         bind:open
         onclose={close}
-        matchWidth
+        match_width
         {palette}
         {rounded}
         {elevation}
@@ -178,7 +178,7 @@
                         {:else if searchable}
                             <SearchField
                                 bind:value={search}
-                                placeholder={searchPlaceholder}
+                                placeholder={search_placeholder}
                                 {size}
                                 palette={palette}
                                 autofocus

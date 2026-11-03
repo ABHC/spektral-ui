@@ -12,7 +12,7 @@ export interface MarqueeConfig {
     // Use >1 when the content is narrower than the viewport so the loop
     // stays visually continuous (no empty gap on the trailing edge).
     repeat: number;
-    pauseOnHover: boolean;
+    pause_on_hover: boolean;
     fade: "none" | "start" | "end" | "both";
     // Any CSS length (e.g. "1rem", "24px") - applied between items and between duplicated groups.
     gap: string;
@@ -27,7 +27,7 @@ export const defaultMarqueeConfig: MarqueeConfig = {
     direction: "normal",
     duration: 25,
     repeat: 1,
-    pauseOnHover: true,
+    pause_on_hover: true,
     fade: "both",
     gap: "1rem",
     rounded: false,
@@ -73,7 +73,7 @@ export const marqueeConfig = {
         rounded: {
             true: "marquee-rounded",
         },
-        pauseOnHover: {
+        pause_on_hover: {
             true: "marquee-pause-on-hover",
         },
     },

@@ -3,13 +3,13 @@ export const alertConfig = {
     base: "alert-base",
 
     variants: {
-        // Semantic colour variant - drives --al-color, background, border and shadow.
-        variant: {
-            neutral: "alert-variant-neutral",
-            info: "alert-variant-info",
-            success: "alert-variant-success",
-            warning: "alert-variant-warning",
-            error: "alert-variant-error",
+        // Semantic colour palette - drives --al-color, background, border and shadow.
+        palette: {
+            neutral: "alert-palette-neutral",
+            info: "alert-palette-info",
+            success: "alert-palette-success",
+            warning: "alert-palette-warning",
+            error: "alert-palette-error",
         },
 
         // Fixed position in the viewport.

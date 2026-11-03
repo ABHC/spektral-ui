@@ -7,9 +7,9 @@
     interface Props {
         open?: boolean;
         onclose?: () => void;
-        maxHeight?: string;
+        max_height?: string;
         width?: string;
-        matchWidth?: boolean;
+        match_width?: boolean;
         direction?: PopoverDirection;
         align?: PopoverAlign;
         gap?: string;
@@ -23,9 +23,9 @@
     let {
         open = $bindable(false),
         onclose,
-        maxHeight = "320px",
+        max_height = "320px",
         width,
-        matchWidth = false,
+        match_width = false,
         direction = defaultPopoverConfig.direction,
         align = defaultPopoverConfig.align,
         gap = "6px",
@@ -41,7 +41,7 @@
     const panel_classes = $derived(resolve({ palette, rounded, elevation }));
 
     const panel_style = $derived(
-        `max-height: ${maxHeight};` +
+        `max-height: ${max_height};` +
         (width ? ` width: ${width};` : '') +
         ` --popover-gap: ${gap};`
     );
@@ -70,7 +70,7 @@
     {#if open}
         <div
             class="{panel_classes} popover-direction-{direction} popover-align-{align}"
-            class:popover-match-width={matchWidth}
+            class:popover-match-width={match_width}
             style={panel_style}
         >
             {@render children()}
