@@ -26,6 +26,7 @@
         pattern_mask_size?: number;
         height?: string;
         gap?: string;
+        collapsed_reverse?: boolean;
         cell_1?: Snippet;
         cell_2?: Snippet;
         cell_3?: Snippet;
@@ -46,6 +47,7 @@
         pattern_mask_size = 70,
         height = "85dvh",
         gap = "0",
+        collapsed_reverse = false,
         cell_1,
         cell_2,
         cell_3,
@@ -93,6 +95,7 @@
 
 <section
     class="hero hero-palette-{palette}"
+    class:hero-collapsed-reverse={collapsed_reverse}
     style={root_style}
 >
     {#if pattern_bg !== "none"}
@@ -279,6 +282,10 @@
     /* Mobile collapse (< 640px) -------------------------------------------- */
 
     @media (max-width: 639px) {
+        .hero {
+            min-height: auto;
+        }
+
         .hero-content {
             flex-direction: column;
             min-height: auto;
@@ -294,6 +301,10 @@
             flex: 1 1 auto;
             width: 100%;
             min-height: auto;
+        }
+
+        .hero-collapsed-reverse .hero-content {
+            flex-direction: column-reverse;
         }
     }
 </style>
