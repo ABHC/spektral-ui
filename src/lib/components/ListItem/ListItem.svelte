@@ -3,12 +3,14 @@
     import { createVariant } from "../../utils/builder.js";
     import { listItemConfig } from './listItem.config.js';
 
+    type Variant = "flat" | "outlined" | "ghost" | "ambient";
     type Size = "sm" | "md" | "lg";
-    type Palette = "tone" | "accent" | "ghost" | "neutral" | "error" | "warning" | "success" | "info";
+    type Palette = "tone" | "accent" | "neutral" | "error" | "warning" | "success" | "info";
     type Elevation = "none" | "subtle" | "hard";
 
     interface Props {
         label: string;
+        variant?: Variant;
         size?: Size;
         palette?: Palette;
         elevation?: Elevation;
@@ -22,6 +24,7 @@
 
     let {
         label,
+        variant = "flat",
         size = "md",
         palette = "tone",
         elevation = "none",
@@ -36,6 +39,7 @@
     const resolve = createVariant(listItemConfig);
     const wrapper_classes = $derived(
         resolve({
+            variant,
             size,
             palette,
             elevation,
@@ -104,124 +108,131 @@
         transition: background var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease, box-shadow var(--spk-duration-base) ease;
     }
 
-    /* Palette - tone ---------------------------------------------------- */
+    /* Palette variables */
 
-    .list-item-tone {
-        background: var(--spk-tone);
+    .list-item-palette-tone {
+        --li-bg: var(--spk-tone);
+        --li-text: var(--spk-text);
+        --li-hover: var(--spk-tone-hover);
+        --li-ghost-hover: var(--spk-tone-ghost-hover);
+        --li-border: var(--spk-accent);
+    }
+
+    .list-item-palette-accent {
+        --li-bg: var(--spk-accent);
+        --li-text: var(--spk-text-accent);
+        --li-hover: var(--spk-accent-hover);
+        --li-ghost-hover: var(--spk-accent-ghost-hover);
+        --li-border: var(--spk-accent-muted);
+    }
+
+    .list-item-palette-error {
+        --li-bg: var(--spk-error);
+        --li-text: var(--spk-text-error);
+        --li-hover: var(--spk-error-hover);
+        --li-ghost-hover: var(--spk-error-ghost-hover);
+        --li-border: var(--spk-error-muted);
+    }
+
+    .list-item-palette-warning {
+        --li-bg: var(--spk-warning);
+        --li-text: var(--spk-text-warning);
+        --li-hover: var(--spk-warning-hover);
+        --li-ghost-hover: var(--spk-warning-ghost-hover);
+        --li-border: var(--spk-warning-muted);
+    }
+
+    .list-item-palette-success {
+        --li-bg: var(--spk-success);
+        --li-text: var(--spk-text-success);
+        --li-hover: var(--spk-success-hover);
+        --li-ghost-hover: var(--spk-success-ghost-hover);
+        --li-border: var(--spk-success-muted);
+    }
+
+    .list-item-palette-info {
+        --li-bg: var(--spk-info);
+        --li-text: var(--spk-text-info);
+        --li-hover: var(--spk-info-hover);
+        --li-ghost-hover: var(--spk-info-ghost-hover);
+        --li-border: var(--spk-info-muted);
+    }
+
+    .list-item-palette-neutral {
+        --li-bg: var(--spk-neutral);
+        --li-text: var(--spk-text-neutral);
+        --li-hover: var(--spk-neutral-hover);
+        --li-ghost-hover: var(--spk-neutral-ghost-hover);
+        --li-border: var(--spk-neutral-muted);
+    }
+
+    /* Variant - flat (solid fill, current default look) ----------------- */
+
+    .list-item-flat {
+        background: var(--li-bg);
+        color: var(--li-text);
+    }
+
+    button.list-item-flat:hover {
+        background: var(--li-hover);
+    }
+
+    button.list-item-flat.list-item-active {
+        border-color: var(--li-border);
+    }
+
+    /* Variant - outlined (transparent fill, palette-coloured border) ---- */
+
+    .list-item-outlined {
+        background: transparent;
         color: var(--spk-text);
+        border-color: var(--li-bg);
     }
 
-    button.list-item-tone:hover {
-        background: var(--spk-tone-hover);
+    button.list-item-outlined:hover {
+        background: var(--li-hover);
     }
 
-    button.list-item-tone.list-item-active {
-        border-color: var(--spk-accent);
+    button.list-item-outlined.list-item-active {
+        border-color: var(--li-border);
     }
 
-    /* Palette - accent -------------------------------------------------- */
-
-    .list-item-accent {
-        background: var(--spk-accent);
-        color: var(--spk-text-accent);
-    }
-
-    button.list-item-accent:hover {
-        background: var(--spk-accent-hover);
-    }
-
-    button.list-item-accent.list-item-active {
-        border-color: var(--spk-accent-muted);
-    }
-
-    /* Palette - ghost (adapts to context via currentColor) -------------- */
+    /* Variant - ghost (transparent fill palette-coloured) */
 
     .list-item-ghost {
+        background: transparent;
+        color: var(--spk-text);
+        padding: 0.25rem;
+        border: none;
+        border-left: var(--spk-border) solid transparent;
+        border-right: var(--spk-border) solid transparent;
+    }
+
+    button.list-item-ghost.list-item-active {
+        border-left-color: var(--li-border);
+    }
+
+    button.list-item-ghost:hover {
+        background: var(--li-ghost-hover);
+    }
+
+    .list-item-ghost.list-item-active.list-item-rounded {
+        border-radius: 0 var(--spk-radius-soft) var(--spk-radius-soft) 0;
+    }
+
+    /* Variant - ambient (adapts to context via currentColor, ignores palette) */
+
+    .list-item-ambient {
         background: color-mix(in srgb, currentColor 8%, transparent);
         color: inherit;
     }
 
-    button.list-item-ghost:hover {
+    button.list-item-ambient:hover {
         background: color-mix(in srgb, currentColor 15%, transparent);
     }
 
-    button.list-item-ghost.list-item-active {
+    button.list-item-ambient.list-item-active {
         border-color: color-mix(in srgb, currentColor 30%, transparent);
-    }
-
-    /* Palette - error --------------------------------------------------- */
-
-    .list-item-error {
-        background: var(--spk-error);
-        color: var(--spk-text-error);
-    }
-
-    button.list-item-error:hover {
-        background: var(--spk-error-hover);
-    }
-
-    button.list-item-error.list-item-active {
-        border-color: var(--spk-error-muted);
-    }
-
-    /* Palette - warning ------------------------------------------------- */
-
-    .list-item-warning {
-        background: var(--spk-warning);
-        color: var(--spk-text-warning);
-    }
-
-    button.list-item-warning:hover {
-        background: var(--spk-warning-hover);
-    }
-
-    button.list-item-warning.list-item-active {
-        border-color: var(--spk-warning-muted);
-    }
-
-    /* Palette - success ------------------------------------------------- */
-
-    .list-item-success {
-        background: var(--spk-success);
-        color: var(--spk-text-success);
-    }
-
-    button.list-item-success:hover {
-        background: var(--spk-success-hover);
-    }
-
-    button.list-item-success.list-item-active {
-        border-color: var(--spk-success-muted);
-    }
-
-    /* Palette - info ---------------------------------------------------- */
-
-    .list-item-info {
-        background: var(--spk-info);
-        color: var(--spk-text-info);
-    }
-
-    button.list-item-info:hover {
-        background: var(--spk-info-hover);
-    }
-
-    button.list-item-info.list-item-active {
-        border-color: var(--spk-info-muted);
-    }
-
-    /* Palette - neutral ------------------------------------------------- */
-
-    .list-item-neutral {
-        background: var(--spk-neutral);
-        color: var(--spk-text-neutral);
-    }
-
-    button.list-item-neutral:hover {
-        background: var(--spk-neutral-hover);
-    }
-
-    button.list-item-neutral.list-item-active {
-        border-color: var(--spk-neutral-muted);
     }
 
     /* Elevation --------------------------------------------------------- */
