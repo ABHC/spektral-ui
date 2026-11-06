@@ -5,7 +5,7 @@
     import { alertConfig } from './alert.config.js';
     import Button from '../Button/Button.svelte';
 
-    type Palette  = "neutral" | "info" | "success" | "warning" | "error";
+    type Palette  = "accent" | "neutral" | "info" | "success" | "warning" | "error";
     type Position = "top-left" | "top-center" | "top-right" | "bottom-left" | "bottom-center" | "bottom-right";
     type AnimDir  = "top" | "bottom" | "left" | "right" | false;
 
@@ -32,7 +32,7 @@
     }
 
     let {
-        palette = "info",
+        palette = "accent",
         position = "bottom-right",
         rounded = false,
         animate = false,
@@ -152,6 +152,11 @@
     }
 
     /* Palette - set --al-color and --al-bg */
+    .alert-palette-accent {
+        --al-color: var(--spk-accent-muted);
+        --al-bg: var(--spk-accent-bg);
+    }
+
     .alert-palette-neutral {
         --al-color: var(--spk-neutral);
         --al-bg: var(--spk-neutral-bg);

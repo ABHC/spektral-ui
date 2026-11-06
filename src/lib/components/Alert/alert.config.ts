@@ -5,6 +5,7 @@ export const alertConfig = {
     variants: {
         // Semantic colour palette - drives --al-color, background, border and shadow.
         palette: {
+            accent: "alert-palette-accent",
             neutral: "alert-palette-neutral",
             info: "alert-palette-info",
             success: "alert-palette-success",
