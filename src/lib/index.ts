@@ -3,7 +3,7 @@
 export { default as Accordion }       from './components/Accordion/Accordion.svelte';
 export { default as AccordionHeader } from './components/Accordion/AccordionHeader.svelte';
 export { default as Alert }           from './components/Alert/Alert.svelte';
-export { default as Avatar }          from './components/Avatar/avatar.svelte';
+export { default as Avatar }          from './components/Avatar/Avatar.svelte';
 export { default as BackToTop }       from './components/Button/BackToTop.svelte';
 export { default as Badge }           from './components/Badge/Badge.svelte';
 export { default as BadgeGroup }      from './components/Badge/BadgeGroup.svelte';
@@ -45,7 +45,7 @@ export { default as TileGrid }        from './components/TileGrid/TileGrid.svelt
 export { default as Tile }            from './components/TileGrid/Tile.svelte';
 export { default as Timeline }        from './components/Timeline/Timeline.svelte';
 export { default as TimelineItem }    from './components/Timeline/TimelineItem.svelte';
-export { default as Tooltip }         from './components/Tooltip/tooltip.svelte';
+export { default as Tooltip }         from './components/Tooltip/Tooltip.svelte';
 
 // Branding assets
 export { default as LogoSpektral }    from './components/Support/LogoSpektral.svelte';
