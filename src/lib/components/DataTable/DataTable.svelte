@@ -6,7 +6,7 @@
     // Types ----------------------------------------------------------------
 
     type Variant = "flat" | "outlined" | "ghost";
-    type Palette = "accent" | "tone" | "neutral";
+    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     type Size = "sm" | "md" | "lg";
     type Elevation = "none" | "subtle" | "hard";
 
@@ -149,6 +149,38 @@
         --dt-header-bg: var(--spk-neutral);
         --dt-header-text: var(--spk-text-neutral);
         --dt-row-bg: var(--spk-neutral-bg);
+        --dt-hover: var(--spk-tone-ghost-hover);
+    }
+
+    .data-table-palette-error {
+        --dt-border: var(--spk-error);
+        --dt-header-bg: var(--spk-error);
+        --dt-header-text: var(--spk-text-error);
+        --dt-row-bg: var(--spk-error-bg);
+        --dt-hover: var(--spk-tone-ghost-hover);
+    }
+
+    .data-table-palette-warning {
+        --dt-border: var(--spk-warning);
+        --dt-header-bg: var(--spk-warning);
+        --dt-header-text: var(--spk-text-warning);
+        --dt-row-bg: var(--spk-warning-bg);
+        --dt-hover: var(--spk-tone-ghost-hover);
+    }
+
+    .data-table-palette-success {
+        --dt-border: var(--spk-success);
+        --dt-header-bg: var(--spk-success);
+        --dt-header-text: var(--spk-text-success);
+        --dt-row-bg: var(--spk-success-bg);
+        --dt-hover: var(--spk-tone-ghost-hover);
+    }
+
+    .data-table-palette-info {
+        --dt-border: var(--spk-info);
+        --dt-header-bg: var(--spk-info);
+        --dt-header-text: var(--spk-text-info);
+        --dt-row-bg: var(--spk-info-bg);
         --dt-hover: var(--spk-tone-ghost-hover);
     }
 

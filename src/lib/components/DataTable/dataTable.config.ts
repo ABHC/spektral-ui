@@ -1,6 +1,6 @@
 export interface DataTableConfig {
     variant: "flat" | "outlined" | "ghost";
-    palette: "accent" | "tone" | "neutral";
+    palette: "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
     size: "sm" | "md" | "lg";
     elevation: "none" | "subtle" | "hard";
     rounded: boolean;
@@ -27,6 +27,10 @@ export const dataTableConfig = {
             accent: "data-table-palette-accent",
             tone: "data-table-palette-tone",
             neutral: "data-table-palette-neutral",
+            error: "data-table-palette-error",
+            warning: "data-table-palette-warning",
+            success: "data-table-palette-success",
+            info: "data-table-palette-info",
         },
         size: {
             sm: "data-table-sm",
