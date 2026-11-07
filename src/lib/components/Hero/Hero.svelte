@@ -1,14 +1,14 @@
 <script lang="ts">
     import type { Snippet } from "svelte";
     import { type PatternPreset, PATTERN_PRESETS, tintPattern } from "../../utils/patterns.js";
-
-    // Types ------------------------------------------------------------------
-
-    type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
-    type Palette = "transparent" | "tone" | "accent" | "accentbg";
-    type Effect = "none" | "glow" | "blur" | "fade";
-    type Mask = "none" | "ellipse" | "fade";
-    type MaskDirection = "top" | "bottom" | "left" | "right";
+    import {
+        defaultHeroConfig,
+        type Layout,
+        type Palette,
+        type Effect,
+        type Mask,
+        type MaskDirection,
+    } from "./hero.config.js";
 
     // Props ------------------------------------------------------------------
 
@@ -34,20 +34,20 @@
     }
 
     let {
-        layout = "single",
-        palette = "transparent",
+        layout = defaultHeroConfig.layout,
+        palette = defaultHeroConfig.palette,
         pattern = "none",
-        pattern_color = "white",
-        pattern_opacity = 0.6,
+        pattern_color = defaultHeroConfig.pattern_color,
+        pattern_opacity = defaultHeroConfig.pattern_opacity,
         pattern_size = undefined,
-        pattern_effect = "none",
-        pattern_effect_opacity = 1,
-        pattern_mask = "none",
-        pattern_mask_direction = "bottom",
-        pattern_mask_size = 70,
-        height = "85dvh",
-        gap = "0",
-        collapsed_reverse = false,
+        pattern_effect = defaultHeroConfig.pattern_effect,
+        pattern_effect_opacity = defaultHeroConfig.pattern_effect_opacity,
+        pattern_mask = defaultHeroConfig.pattern_mask,
+        pattern_mask_direction = defaultHeroConfig.pattern_mask_direction,
+        pattern_mask_size = defaultHeroConfig.pattern_mask_size,
+        height = defaultHeroConfig.height,
+        gap = defaultHeroConfig.gap,
+        collapsed_reverse = defaultHeroConfig.collapsed_reverse,
         cell_1,
         cell_2,
         cell_3,
