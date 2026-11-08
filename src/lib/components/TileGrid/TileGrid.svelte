@@ -154,7 +154,11 @@
         <div class="tg-effect tg-effect-{pattern_effect}"></div>
     {/if}
 
-    <div class="tg-grid" data-columns={columns}>
+    <div 
+        class="tg-grid" 
+        class:tg-grid-list={columns === 1} 
+        data-columns={columns}
+    >
         {@render children()}
     </div>
 </section>
@@ -173,7 +177,8 @@
         Grid
         Mobile  (< 640px)  : 1 column, forced
         Tablet  (640-1023) : 2 columns, forced
-        Desktop (>= 1024px) : --tg-columns (2, 3, or 4), injected via style=""
+        Desktop (>= 1024px) : --tg-columns (2 to 6), injected via style=""
+        columns=1 (.tg-grid-list) : flex column at every breakpoint instead
     */
 
     /* Effect layer ---------------------------------------------------- */
@@ -225,5 +230,11 @@
         .tg-grid {
             grid-template-columns: repeat(var(--tg-columns, 3), 1fr);
         }
+    }
+
+    /* columns=1: plain stacked list, overrides the grid at every breakpoint. */
+    .tg-grid.tg-grid-list {
+        display: flex;
+        flex-direction: column;
     }
 </style>

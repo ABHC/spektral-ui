@@ -103,7 +103,6 @@
 
     const use_image = $derived(resolved_image === "background" && !!src);
     const use_preview = $derived(resolved_image === "preview" && !!src);
-
     const preview_pos_class = $derived(use_preview ? `tile-preview-${resolved_image_position}` : "");
 
     /*
@@ -467,10 +466,12 @@
         Hero tiles deliberately ignore --tile-aspect (the aspect_ratio prop) - a hero's
         box is sized by its 2-column span (width) and, on desktop hero-half, by the
         normal tiles sharing its grid row (height, via CSS Grid's default stretch acting
-        on this `auto` ratio - see the columns=2 floor below for when there's no such
-        sibling). hero-full/tablet get a fixed panoramic ratio instead since they're
-        always alone in their row with nothing to stretch to.
-        Desktop (>= 1024px), hero-half, aspect-ratio auto (stretched to row height)
+        on this `auto` ratio). hero-full/tablet get a fixed panoramic ratio instead since
+        they're always alone in their row with nothing to stretch to - same for hero-half
+        at columns=2 (see below): half of 2 columns is the whole row, so there's never a
+        normal-tile sibling there either.
+        Desktop (>= 1024px), hero-half, columns >= 3, aspect-ratio auto (stretched to row height)
+        Desktop (>= 1024px), hero-half, columns = 2, aspect-ratio 8/3, hero alone in its line
         Desktop (>= 1024px), hero-full, aspect-ratio 8/3, hero alone in its line
         Tablet (640-1023px), aspect-ratio 8/3, hero alone in its line
         Mobile (< 640px), aspect-ratio 4/3, like other tiles
@@ -486,17 +487,13 @@
         }
 
         /*
-            Floor, scoped to columns=2 only: that's the only case where hero-half ends up
-            alone in its grid row (half of 2 columns = the whole row), with no normal tile
-            left to stretch to - it would otherwise collapse to 0 (see .tile-aspect-auto
-            above). With 3 or 4 columns a normal tile always shares the row and already
-            sets its height; applying this floor there too would fight that tile whenever
-            its own ratio (e.g. "video", "wide") computes shorter than 12rem, since a
-            ratio'd grid item won't stretch past its own ratio - breaking the match instead
-            of protecting it.
+            columns=2: half spans the whole row here too (half of 2 = both columns), so
+            there's no normal-tile sibling for the auto ratio above to stretch against -
+            force the same fixed ratio hero-full already uses instead of guessing at a
+            min-height floor.
         */
         :global(.tg-grid[data-columns="2"]) .tile.tile-hero-half {
-            min-height: 12rem;
+            aspect-ratio: 8 / 3;
         }
     }
 
@@ -504,6 +501,16 @@
         .tile.tile-hero {
             aspect-ratio: 8 / 3;
         }
+    }
+
+    /*
+        columns=1: the grid is a flex column (see TileGrid's .tg-grid-list), so a hero's
+        span has no sibling row to line up with at any breakpoint - it's just another
+        stacked tile. Reset it back to the normal ratio-driven sizing above. Specificity
+        (4 selectors) beats the media-query rules regardless of source order.
+    */
+    :global(.tg-grid[data-columns="1"]) .tile.tile-hero {
+        aspect-ratio: var(--tile-aspect, 4 / 3);
     }
 
     /* Inside styles of the tile (layout, overlay, content, etc...) --- */

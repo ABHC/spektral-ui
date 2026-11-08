@@ -38,8 +38,12 @@ export type TilePalette = "accent" | "tone" | "neutral" | "error" | "warning" | 
 /*
     Number of grid columns on desktop (>= 1024px).
     Tablet always uses 2 columns. Mobile always uses 1 column.
+    1 is a special case: the grid switches to a single flex column at every
+    breakpoint instead (a plain stacked list) - tablet/mobile forcing no longer
+    applies since there's nothing left to force. Hero tiles lose their span
+    (half/full have no meaning in a single column) and render like normal tiles.
 */
-export type Columns = 2 | 3 | 4;
+export type Columns = 1 | 2 | 3 | 4 | 5 | 6;
 
 /*
     How a hero tile spans on desktop.
@@ -69,10 +73,14 @@ export type TileGridEffect = "none" | "glow" | "blur" | "fade";
     has no intrinsic height of its own to fall back on.
     Any other string is passed through as a raw CSS aspect-ratio value (e.g. "4/3").
     Hero tiles deliberately ignore this: a hero keeps a fixed per-breakpoint ratio
-    (auto on desktop hero-half - stretched by CSS Grid to match the row height set by
-    its normal-tile neighbours, 8/3 elsewhere) regardless of what's set here - see the
-    `.tile-hero-*` rules in Tile.svelte. A hero's box is sized by its 2-column span
-    (width) and by the normal tiles sharing its row (height), not by its own ratio.
+    (auto on desktop hero-half with columns >= 3 - stretched by CSS Grid to match the
+    row height set by its normal-tile neighbours, 8/3 elsewhere) regardless of what's
+    set here - see the `.tile-hero-*` rules in Tile.svelte. A hero's box is sized by
+    its 2-column span (width) and by the normal tiles sharing its row (height), not by
+    its own ratio. Two exceptions, both because a hero then has no normal-tile sibling
+    to size against: at columns=1 a hero has no span left to matter at all, so it falls
+    back to being sized like a normal tile (this ratio applies again); at columns=2,
+    half spans the whole row just like full does, so it takes full's fixed 8/3 ratio.
 */
 export type TileAspectRatio = "square" | "portrait" | "video" | "wide" | "auto" | string;
 
