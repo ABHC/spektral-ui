@@ -1,37 +1,42 @@
 export const listItemConfig = {
-    base: "list-item",
+	base: 'list-item',
 
-    variants: {
-        palette: {
-            tone: "list-item-tone",
-            highlight: "list-item-highlight",
-            ghost: "list-item-ghost",
-            accent: "list-item-accent",
-            neutral: "list-item-neutral",
-            error: "list-item-error",
-            warning: "list-item-warning",
-            success: "list-item-success",
-            info: "list-item-info",
-        },
+	variants: {
+		variant: {
+			flat: 'list-item-flat',
+			outlined: 'list-item-outlined',
+			ghost: 'list-item-ghost',
+			ambient: 'list-item-ambient'
+		},
 
-        size: {
-            sm: "list-item-sm",
-            md: "list-item-md",
-            lg: "list-item-lg"
-        },
+		palette: {
+			tone: 'list-item-palette-tone',
+			accent: 'list-item-palette-accent',
+			neutral: 'list-item-palette-neutral',
+			error: 'list-item-palette-error',
+			warning: 'list-item-palette-warning',
+			success: 'list-item-palette-success',
+			info: 'list-item-palette-info'
+		},
 
-        elevation: {
-            none:   "list-item-elevation-none",
-            subtle: "list-item-elevation-subtle",
-            hard:   "list-item-elevation-hard",
-        },
+		size: {
+			sm: 'list-item-sm',
+			md: 'list-item-md',
+			lg: 'list-item-lg'
+		},
 
-        rounded: {
-            true: "list-item-rounded"
-        },
+		elevation: {
+			none: 'list-item-elevation-none',
+			subtle: 'list-item-elevation-subtle',
+			hard: 'list-item-elevation-hard'
+		},
 
-        active: {
-            true: "list-item-active"
-        },
-    }
+		rounded: {
+			true: 'list-item-rounded'
+		},
+
+		active: {
+			true: 'list-item-active'
+		}
+	}
 };

@@ -1,23 +1,23 @@
 export const inputConfig = {
-    base: "input-root",
+	base: 'input-root',
 
-    variants: {
-        size: {
-            sm: "input-sm",
-            md: "input-md",
-            lg: "input-lg",
-        },
+	variants: {
+		size: {
+			sm: 'input-sm',
+			md: 'input-md',
+			lg: 'input-lg'
+		},
 
-        disabled: {
-            true: "input-disabled",
-        },
+		disabled: {
+			true: 'input-disabled'
+		},
 
-        has_error: {
-            true: "input-has-error",
-        },
+		has_error: {
+			true: 'input-has-error'
+		},
 
-        has_success: {
-            true: "input-has-success",
-        },
-    },
+		has_success: {
+			true: 'input-has-success'
+		}
+	}
 };

@@ -1,13 +1,13 @@
 <script lang="ts">
-    import Badge from "./Badge.svelte";
-    import type { BadgeItem } from "./badge.config.js";
+	import Badge from './Badge.svelte';
+	import type { BadgeItem } from './badge.config.js';
 
-    type Variant = "flat" | "outlined";
-    type Palette = "accent" | "tone" | "error" | "warning" | "success" | "info" | "neutral";
-    type Size = "sm" | "md" | "lg";
-    type Elevation = "none" | "subtle" | "hard";
+	type Variant = 'flat' | 'outlined';
+	type Palette = 'accent' | 'tone' | 'error' | 'warning' | 'success' | 'info' | 'neutral';
+	type Size = 'sm' | 'md' | 'lg';
+	type Elevation = 'none' | 'subtle' | 'hard';
 
-    /*
+	/*
         Props _________________________________________________________
         badges : Array of BadgeItem - each needs { value, label }
         selected : Bindable array of active `value` strings
@@ -21,66 +21,66 @@
         gap : Flex gap between badges - any valid CSS length
     */
 
-    interface Props {
-        badges: BadgeItem[];
-        selected?: string[];
-        multiple?: boolean;
-        variant?: Variant;
-        palette?: Palette;
-        size?: Size;
-        elevation?: Elevation;
-        pill?: boolean;
-        gap?: string;
-    }
+	interface Props {
+		badges: BadgeItem[];
+		selected?: string[];
+		multiple?: boolean;
+		variant?: Variant;
+		palette?: Palette;
+		size?: Size;
+		elevation?: Elevation;
+		pill?: boolean;
+		gap?: string;
+	}
 
-    let {
-        badges,
-        selected = $bindable([]),
-        multiple = true,
-        variant = "flat",
-        palette = "accent",
-        size = "md",
-        elevation = "none",
-        pill = true,
-        gap = "0.5rem",
-    }: Props = $props();
+	let {
+		badges,
+		selected = $bindable([]),
+		multiple = true,
+		variant = 'flat',
+		palette = 'accent',
+		size = 'md',
+		elevation = 'none',
+		pill = false,
+		gap = '0.5rem'
+	}: Props = $props();
 
-    // Selection logic --------------------------------------------------------
+	// Selection logic --------------------------------------------------------
 
-    function toggle(value: string) {
-        if (multiple) {
-            if (selected.includes(value)) {
-                selected = selected.filter(v => v !== value);
-            } else {
-                selected = [...selected, value];
-            }
-        } else {
-            selected = selected.includes(value) ? [] : [value];
-        }
-    }
+	function toggle(value: string) {
+		if (multiple) {
+			if (selected.includes(value)) {
+				selected = selected.filter((v) => v !== value);
+			} else {
+				selected = [...selected, value];
+			}
+		} else {
+			selected = selected.includes(value) ? [] : [value];
+		}
+	}
 </script>
 
 <div class="badge-group" style="--badge-group-gap: {gap};" role="group">
-    {#each badges as badge (badge.value)}
-        <Badge
-            {variant}
-            {palette}
-            {size}
-            {pill}
-            {elevation}
-            selected={selected.includes(badge.value)}
-            onclick={() => toggle(badge.value)}
-        >
-            {badge.label}
-        </Badge>
-    {/each}
+	{#each badges as badge (badge.value)}
+		<Badge
+			{variant}
+			{palette}
+			{size}
+			{pill}
+			{elevation}
+			active={selected.includes(badge.value)}
+			onclick={() => toggle(badge.value)}
+		>
+			{badge.label}
+		</Badge>
+	{/each}
 </div>
 
 <style>
-    .badge-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--badge-group-gap, 0.5rem);
-        align-items: center;
-    }
+	.badge-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--badge-group-gap, 0.5rem);
+		align-items: center;
+	}
 </style>

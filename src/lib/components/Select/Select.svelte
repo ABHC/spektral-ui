@@ -1,495 +1,512 @@
 <script lang="ts" generics="T extends string | number">
-    import type { Snippet } from 'svelte';
-    import { createVariant } from '../../utils/builder.js';
-    import { selectConfig } from './select.config.js';
-    import SearchField from '../SearchField/SearchField.svelte';
-    import Popover from '../Popover/Popover.svelte';
-    import type { PopoverPalette, PopoverElevation } from '../Popover/popover.config.js';
+	import type { Snippet } from 'svelte';
+	import { createVariant } from '../../utils/builder.js';
+	import { selectConfig } from './select.config.js';
+	import SearchField from '../SearchField/SearchField.svelte';
+	import Popover from '../Popover/Popover.svelte';
+	import type { PopoverPalette, PopoverElevation } from '../Popover/popover.config.js';
 
-    type Size = "sm" | "md" | "lg";
-    type OptionEntry = { value: T; label?: string };
-    type Direction = "bottom" | "top" | "left" | "right"
+	type Size = 'sm' | 'md' | 'lg';
+	type OptionEntry = { value: T; label?: string };
+	type Direction = 'bottom' | 'top' | 'left' | 'right';
 
-    interface Props {
-        value?: T;
-        options: readonly (T | OptionEntry)[];
-        placeholder?: string;
-        label?: string;
-        hint?: string;
-        error?: string;
-        success?: string;
-        size?: Size;
-        disabled?: boolean;
-        required?: boolean;
-        searchable?: boolean;
-        searchPlaceholder?: string;
-        name?: string;
-        id?: string;
-        onchange?: (value: T) => void;
-        leading?: Snippet;
-        trailing?: Snippet;
-        palette?: PopoverPalette;
-        rounded?: boolean;
-        elevation?: PopoverElevation;
-        direction?: Direction;
-    }
+	interface Props {
+		value?: T;
+		options: readonly (T | OptionEntry)[];
+		placeholder?: string;
+		label?: string;
+		hint?: string;
+		error?: string;
+		success?: string;
+		size?: Size;
+		disabled?: boolean;
+		required?: boolean;
+		searchable?: boolean;
+		search_placeholder?: string;
+		name?: string;
+		id?: string;
+		onchange?: (value: T) => void;
+		leading?: Snippet;
+		trailing?: Snippet;
+		palette?: PopoverPalette;
+		rounded?: boolean;
+		elevation?: PopoverElevation;
+		direction?: Direction;
+	}
 
-    let {
-        value = $bindable(),
-        options,
-        placeholder = "Select an option",
-        label,
-        hint,
-        error,
-        success,
-        size = "md",
-        disabled = false,
-        required = false,
-        searchable = false,
-        searchPlaceholder = "Search\u2026",
-        name,
-        id,
-        onchange,
-        leading,
-        trailing,
-        palette = "tone",
-        rounded = false,
-        elevation = "none",
-        direction = "bottom",
-    }: Props = $props();
+	let {
+		value = $bindable(),
+		options,
+		placeholder = 'Select an option',
+		label,
+		hint,
+		error,
+		success,
+		size = 'md',
+		disabled = false,
+		required = false,
+		searchable = false,
+		search_placeholder = 'Search\u2026',
+		name,
+		id,
+		onchange,
+		leading,
+		trailing,
+		palette = 'tone',
+		rounded = false,
+		elevation = 'none',
+		direction = 'bottom'
+	}: Props = $props();
 
-    const uid = id ?? `select-${Math.random().toString(36).slice(2, 7)}`;
+	const uid = id ?? `select-${Math.random().toString(36).slice(2, 7)}`;
 
-    const resolve = createVariant(selectConfig);
+	const resolve = createVariant(selectConfig);
 
-    let open: boolean = $state(false);
-    let search: string = $state("");
+	let open: boolean = $state(false);
+	let search: string = $state('');
 
-    // Normalise options to { value, label }
-    function to_entry(o: T | OptionEntry): OptionEntry {
-        if (typeof o === 'object' && o !== null) return o as OptionEntry;
-        return { value: o as T, label: String(o) };
-    }
+	// Normalise options to { value, label }
+	function to_entry(o: T | OptionEntry): OptionEntry {
+		if (typeof o === 'object' && o !== null) return o as OptionEntry;
+		return { value: o as T, label: String(o) };
+	}
 
-    const entries = $derived(options.map(to_entry));
+	const entries = $derived(options.map(to_entry));
 
-    const filtered = $derived(
-        searchable && search.trim()
-            ? entries.filter(e => {
-                const text = (e.label ?? String(e.value)).toLowerCase();
-                return text.includes(search.trim().toLowerCase());
-            })
-            : entries
-    );
+	const filtered = $derived(
+		searchable && search.trim()
+			? entries.filter((e) => {
+					const text = (e.label ?? String(e.value)).toLowerCase();
+					return text.includes(search.trim().toLowerCase());
+				})
+			: entries
+	);
 
-    const selected_label = $derived(
-        value !== undefined
-            ? entries.find(e => e.value === value)?.label ?? String(value)
-            : undefined
-    );
+	const selected_label = $derived(
+		value !== undefined
+			? (entries.find((e) => e.value === value)?.label ?? String(value))
+			: undefined
+	);
 
-    const root_classes = $derived(
-        resolve({
-            size,
-            palette,
-            disabled: disabled ? true : undefined,
-            has_error: error ? true : undefined,
-            has_success: success && !error ? true : undefined,
-        }).trim()
-    );
+	const root_classes = $derived(
+		resolve({
+			size,
+			palette,
+			disabled: disabled ? true : undefined,
+			has_error: error ? true : undefined,
+			has_success: success && !error ? true : undefined
+		}).trim()
+	);
 
-    function toggle() {
-        if (disabled) return;
-        open = !open;
-        if (open) search = "";
-    }
+	function toggle() {
+		if (disabled) return;
+		open = !open;
+		if (open) search = '';
+	}
 
-    function select_entry(entry: OptionEntry) {
-        value = entry.value;
-        onchange?.(entry.value);
-        open = false;
-    }
+	function select_entry(entry: OptionEntry) {
+		value = entry.value;
+		onchange?.(entry.value);
+		open = false;
+	}
 
-    function handle_trigger_keydown(e: KeyboardEvent) {
-        if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            toggle();
-        }
-        if (e.key === "Escape" && open) {
-            e.preventDefault();
-            open = false;
-        }
-    }
+	function handle_trigger_keydown(e: KeyboardEvent) {
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			toggle();
+		}
+		if (e.key === 'Escape' && open) {
+			e.preventDefault();
+			open = false;
+		}
+	}
 
-    function close() {
-        open = false;
-    }
+	function close() {
+		open = false;
+	}
 </script>
 
 <div class={root_classes}>
-    {#if label}
-        <label class="select-label" for={uid}>
-            {label}
-            {#if required}
-                <span class="select-required" aria-hidden="true">*</span>
-            {/if}
-        </label>
-    {/if}
+	{#if label}
+		<label class="select-label" for={uid}>
+			{label}
+			{#if required}
+				<span class="select-required" aria-hidden="true">*</span>
+			{/if}
+		</label>
+	{/if}
 
-    <Popover
-        bind:open
-        onclose={close}
-        matchWidth
-        {palette}
-        {rounded}
-        {elevation}
-        {direction}
-    >
-        {#snippet trigger()}
-            <button
-                class="select-trigger"
-                type="button"
-                id={uid}
-                {disabled}
-                aria-haspopup="listbox"
-                aria-expanded={open}
-                onclick={toggle}
-                onkeydown={handle_trigger_keydown}
-            >
-                <span class="select-value" class:is-placeholder={value === undefined}>
-                    {selected_label ?? placeholder}
-                </span>
-                <svg class="select-chevron" class:select-chevron-open={open} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <polyline points="6 9 12 15 18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+	<Popover bind:open onclose={close} match_width {palette} {rounded} {elevation} {direction}>
+		{#snippet trigger()}
+			<button
+				class="select-trigger"
+				type="button"
+				id={uid}
+				{disabled}
+				aria-haspopup="listbox"
+				aria-expanded={open}
+				onclick={toggle}
+				onkeydown={handle_trigger_keydown}
+			>
+				<span class="select-value" class:is-placeholder={value === undefined}>
+					{selected_label ?? placeholder}
+				</span>
+				<svg
+					class="select-chevron"
+					class:select-chevron-open={open}
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					fill="none"
+					aria-hidden="true"
+				>
+					<polyline
+						points="6 9 12 15 18 9"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
+			</button>
 
-            {#if name}
-                <input type="hidden" {name} value={value ?? ""} />
-            {/if}
-        {/snippet}
+			{#if name}
+				<input type="hidden" {name} value={value ?? ''} />
+			{/if}
+		{/snippet}
 
-        {#snippet children()}
-            <div role="listbox" aria-labelledby={uid}>
-                {#if leading || searchable}
-                    <div class="select-header">
-                        {#if leading}
-                            {@render leading()}
-                        {:else if searchable}
-                            <SearchField
-                                bind:value={search}
-                                placeholder={searchPlaceholder}
-                                {size}
-                                palette={palette}
-                                autofocus
-                            />
-                        {/if}
-                    </div>
-                {/if}
+		<div role="listbox" aria-labelledby={uid}>
+			{#if leading || searchable}
+				<div class="select-header">
+					{#if leading}
+						{@render leading()}
+					{:else if searchable}
+						<SearchField
+							bind:value={search}
+							placeholder={search_placeholder}
+							{size}
+							{palette}
+							autofocus
+						/>
+					{/if}
+				</div>
+			{/if}
 
-                <div class="select-options">
-                    {#each filtered as entry (entry.value)}
-                        <button
-                            class="select-option"
-                            class:select-option-active={value === entry.value}
-                            type="button"
-                            role="option"
-                            aria-selected={value === entry.value}
-                            onclick={() => select_entry(entry)}
-                        >
-                            {entry.label ?? String(entry.value)}
-                            {#if value === entry.value}
-                                <svg class="select-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <polyline points="4 12 10 18 20 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            {/if}
-                        </button>
-                    {:else}
-                        <div class="select-empty">No results</div>
-                    {/each}
-                </div>
+			<div class="select-options">
+				{#each filtered as entry (entry.value)}
+					<button
+						class="select-option"
+						class:select-option-active={value === entry.value}
+						type="button"
+						role="option"
+						aria-selected={value === entry.value}
+						onclick={() => select_entry(entry)}
+					>
+						{entry.label ?? String(entry.value)}
+						{#if value === entry.value}
+							<svg
+								class="select-check"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="none"
+								aria-hidden="true"
+							>
+								<polyline
+									points="4 12 10 18 20 6"
+									stroke="currentColor"
+									stroke-width="2.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						{/if}
+					</button>
+				{:else}
+					<div class="select-empty">No results</div>
+				{/each}
+			</div>
 
-                {#if trailing}
-                    <div class="select-footer">
-                        {@render trailing()}
-                    </div>
-                {/if}
-            </div>
-        {/snippet}
-    </Popover>
+			{#if trailing}
+				<div class="select-footer">
+					{@render trailing()}
+				</div>
+			{/if}
+		</div>
+	</Popover>
 
-    {#if error}
-        <span class="select-message select-message-error" role="alert">{error}</span>
-    {:else if success}
-        <span class="select-message select-message-success">{success}</span>
-    {:else if hint}
-        <span class="select-message">{hint}</span>
-    {/if}
+	{#if error}
+		<span class="select-message select-message-error" role="alert">{error}</span>
+	{:else if success}
+		<span class="select-message select-message-success">{success}</span>
+	{:else if hint}
+		<span class="select-message">{hint}</span>
+	{/if}
 </div>
 
 <style>
-    /* Root ------------------------------------------------------------ */
+	/* Root ------------------------------------------------------------ */
 
-    .select-root {
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem;
-        width: 100%;
-        position: relative;
-    }
+	.select-root {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		width: 100%;
+		position: relative;
+	}
 
-    /* Label ----------------------------------------------------------- */
+	/* Label ----------------------------------------------------------- */
 
-    .select-label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: var(--spk-text);
-        line-height: 1.3;
-    }
+	.select-label {
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--spk-text);
+		line-height: 1.3;
+	}
 
-    .select-required {
-        color: var(--spk-error);
-    }
+	.select-required {
+		color: var(--spk-error);
+	}
 
-    /* Trigger --------------------------------------------------------- */
+	/* Trigger --------------------------------------------------------- */
 
-    .select-trigger {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        background: var(--spk-tone);
-        border: var(--spk-border) solid var(--spk-tone-hover);
-        border-radius: var(--spk-radius-edge);
-        color: var(--spk-text);
-        font-family: var(--spk-font-body);
-        cursor: pointer;
-        transition: border-color var(--spk-duration-quick) ease, box-shadow var(--spk-duration-quick) ease;
-        gap: 0.5rem;
-        text-align: left;
-    }
+	.select-trigger {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		background: var(--spk-tone);
+		border: var(--spk-border) solid var(--spk-tone-hover);
+		border-radius: var(--spk-radius-edge);
+		color: var(--spk-text);
+		font-family: var(--spk-font-body);
+		cursor: pointer;
+		transition:
+			border-color var(--spk-duration-quick) ease,
+			box-shadow var(--spk-duration-quick) ease;
+		gap: 0.5rem;
+		text-align: left;
+	}
 
-    .select-trigger:hover:not(:disabled) {
-        border-color: var(--spk-accent-muted);
-    }
+	.select-trigger:hover:not(:disabled) {
+		border-color: var(--spk-accent-muted);
+	}
 
-    .select-trigger:focus-visible {
-        outline: none;
-        border-color: var(--spk-accent-muted);
-        box-shadow: 0 0 0 3px var(--spk-accent-ghost-hover);
-    }
+	.select-trigger:focus-visible {
+		outline: none;
+		border-color: var(--spk-accent-muted);
+		box-shadow: 0 0 0 3px var(--spk-accent-ghost-hover);
+	}
 
-    .select-value {
-        flex: 1;
-        min-width: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+	.select-value {
+		flex: 1;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 
-    .select-value.is-placeholder {
-        color: var(--spk-text-muted);
-        opacity: var(--spk-opacity-muted);
-    }
+	.select-value.is-placeholder {
+		color: var(--spk-text-muted);
+		opacity: var(--spk-opacity-muted);
+	}
 
-    /* Chevron --------------------------------------------------------- */
+	/* Chevron --------------------------------------------------------- */
 
-    .select-chevron {
-        width: 1.1em;
-        height: 1.1em;
-        flex-shrink: 0;
-        color: var(--spk-text-muted);
-        transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
-    }
+	.select-chevron {
+		width: 1.1em;
+		height: 1.1em;
+		flex-shrink: 0;
+		color: var(--spk-text-muted);
+		transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
+	}
 
-    .select-chevron-open {
-        transform: rotate(180deg);
-    }
+	.select-chevron-open {
+		transform: rotate(180deg);
+	}
 
-    /* Header ---------------------------------------------------------- */
+	/* Header ---------------------------------------------------------- */
 
-    .select-header {
-        padding: 0.5rem;
-        border-bottom: var(--spk-border-thin) solid var(--spk-tone-hover);
-        flex-shrink: 0;
-    }
+	.select-header {
+		padding: 0.5rem;
+		border-bottom: var(--spk-border-thin) solid var(--spk-tone-hover);
+		flex-shrink: 0;
+	}
 
-    /* Options list ---------------------------------------------------- */
+	/* Options list ---------------------------------------------------- */
 
-    .select-options {
-        flex: 1;
-        overflow-y: auto;
-        padding: 0.25rem;
-    }
+	.select-options {
+		flex: 1;
+		overflow-y: auto;
+		padding: 0.25rem;
+	}
 
-    /* Single option --------------------------------------------------- */
+	/* Single option --------------------------------------------------- */
 
-    .select-option {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        background: none;
-        border: none;
-        border-radius: var(--spk-radius-edge);
-        color: var(--spk-text);
-        font-family: var(--spk-font-body);
-        cursor: pointer;
-        text-align: left;
-        transition: background var(--spk-duration-quick) ease;
-        gap: 0.5rem;
-    }
+	.select-option {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		background: none;
+		border: none;
+		border-radius: var(--spk-radius-edge);
+		color: var(--spk-text);
+		font-family: var(--spk-font-body);
+		cursor: pointer;
+		text-align: left;
+		transition: background var(--spk-duration-quick) ease;
+		gap: 0.5rem;
+	}
 
-    .select-option-active {
-        font-weight: 700;
-    }
+	.select-option-active {
+		font-weight: 700;
+	}
 
-    .select-check {
-        width: 1em;
-        height: 1em;
-        flex-shrink: 0;
-    }
+	.select-check {
+		width: 1em;
+		height: 1em;
+		flex-shrink: 0;
+	}
 
-    /* Option palette - tone ------------------------------------------- */
+	/* Option palette - tone ------------------------------------------- */
 
-    .select-option-tone .select-option:hover {
-        background: var(--spk-tone-ghost-hover);
-    }
+	.select-option-tone .select-option:hover {
+		background: var(--spk-tone-ghost-hover);
+	}
 
-    .select-option-tone .select-option-active {
-        background: var(--spk-accent-ghost-hover);
-        color: var(--spk-accent-muted);
-    }
+	.select-option-tone .select-option-active {
+		background: var(--spk-accent-ghost-hover);
+		color: var(--spk-accent-muted);
+	}
 
-    /* Option palette - accent ----------------------------------------- */
+	/* Option palette - accent ----------------------------------------- */
 
-    .select-option-accent .select-option:hover {
-        background: var(--spk-accent-hover);
-    }
+	.select-option-accent .select-option:hover {
+		background: var(--spk-accent-hover);
+	}
 
-    .select-option-accent .select-option-active {
-        background: var(--spk-accent-hover);
-        color: var(--spk-text-accent);
-    }
+	.select-option-accent .select-option-active {
+		background: var(--spk-accent-hover);
+		color: var(--spk-text-accent);
+	}
 
-    /* Option palette - accentbg --------------------------------------- */
+	/* Option palette - accentbg --------------------------------------- */
 
-    .select-option-accentbg .select-option:hover {
-        background: var(--spk-accent-ghost-hover);
-    }
+	.select-option-accentbg .select-option:hover {
+		background: var(--spk-accent-ghost-hover);
+	}
 
-    .select-option-accentbg .select-option-active {
-        background: var(--spk-accent-ghost-hover);
-        color: var(--spk-text-accent);
-    }
+	.select-option-accentbg .select-option-active {
+		background: var(--spk-accent-ghost-hover);
+		color: var(--spk-text-accent);
+	}
 
-    /* Empty state ----------------------------------------------------- */
+	/* Empty state ----------------------------------------------------- */
 
-    .select-empty {
-        padding: 0.75rem;
-        text-align: center;
-        color: var(--spk-text-muted);
-        font-size: 0.85rem;
-    }
+	.select-empty {
+		padding: 0.75rem;
+		text-align: center;
+		color: var(--spk-text-muted);
+		font-size: 0.85rem;
+	}
 
-    /* Footer ---------------------------------------------------------- */
+	/* Footer ---------------------------------------------------------- */
 
-    .select-footer {
-        padding: 0.5rem;
-        border-top: var(--spk-border-thin) solid var(--spk-tone-hover);
-        flex-shrink: 0;
-    }
+	.select-footer {
+		padding: 0.5rem;
+		border-top: var(--spk-border-thin) solid var(--spk-tone-hover);
+		flex-shrink: 0;
+	}
 
-    /* Message --------------------------------------------------------- */
+	/* Message --------------------------------------------------------- */
 
-    .select-message {
-        font-size: 0.75rem;
-        color: var(--spk-text-muted);
-        line-height: 1.4;
-    }
+	.select-message {
+		font-size: 0.75rem;
+		color: var(--spk-text-muted);
+		line-height: 1.4;
+	}
 
-    .select-message-error {
-        color: var(--spk-error);
-    }
+	.select-message-error {
+		color: var(--spk-error);
+	}
 
-    .select-message-success {
-        color: var(--spk-success);
-    }
+	.select-message-success {
+		color: var(--spk-success);
+	}
 
-    /* Sizes ----------------------------------------------------------- */
+	/* Sizes ----------------------------------------------------------- */
 
-    .select-sm .select-trigger {
-        font-size: 0.8rem;
-        padding: 0.35rem 0.65rem;
-        border-radius: var(--spk-radius-edge);
-    }
+	.select-sm .select-trigger {
+		font-size: 0.8rem;
+		padding: 0.35rem 0.65rem;
+		border-radius: var(--spk-radius-edge);
+	}
 
-    .select-sm .select-label {
-        font-size: 0.78rem;
-    }
+	.select-sm .select-label {
+		font-size: 0.78rem;
+	}
 
-    .select-sm .select-message {
-        font-size: 0.7rem;
-    }
+	.select-sm .select-message {
+		font-size: 0.7rem;
+	}
 
-    .select-sm .select-option {
-        font-size: 0.8rem;
-        padding: 0.3rem 0.5rem;
-    }
+	.select-sm .select-option {
+		font-size: 0.8rem;
+		padding: 0.3rem 0.5rem;
+	}
 
-    .select-md .select-trigger {
-        font-size: 0.9rem;
-        padding: 0.6rem 0.9rem;
-    }
+	.select-md .select-trigger {
+		font-size: 0.9rem;
+		padding: 0.6rem 0.9rem;
+	}
 
-    .select-md .select-option {
-        font-size: 0.9rem;
-        padding: 0.45rem 0.65rem;
-    }
+	.select-md .select-option {
+		font-size: 0.9rem;
+		padding: 0.45rem 0.65rem;
+	}
 
-    .select-lg .select-trigger {
-        font-size: 1rem;
-        padding: 0.85rem 1.1rem;
-        border-radius: var(--spk-radius-soft);
-    }
+	.select-lg .select-trigger {
+		font-size: 1rem;
+		padding: 0.85rem 1.1rem;
+		border-radius: var(--spk-radius-soft);
+	}
 
-    .select-lg .select-label {
-        font-size: 0.9rem;
-    }
+	.select-lg .select-label {
+		font-size: 0.9rem;
+	}
 
-    .select-lg .select-option {
-        font-size: 1rem;
-        padding: 0.55rem 0.75rem;
-    }
+	.select-lg .select-option {
+		font-size: 1rem;
+		padding: 0.55rem 0.75rem;
+	}
 
-    /* Validation states ----------------------------------------------- */
+	/* Validation states ----------------------------------------------- */
 
-    .select-has-error .select-trigger {
-        border-color: var(--spk-error);
-    }
+	.select-has-error .select-trigger {
+		border-color: var(--spk-error);
+	}
 
-    .select-has-error .select-trigger:focus-visible {
-        border-color: var(--spk-error);
-        box-shadow: 0 0 0 3px var(--spk-error-ghost-hover);
-    }
+	.select-has-error .select-trigger:focus-visible {
+		border-color: var(--spk-error);
+		box-shadow: 0 0 0 3px var(--spk-error-ghost-hover);
+	}
 
-    .select-has-success .select-trigger {
-        border-color: var(--spk-success);
-    }
+	.select-has-success .select-trigger {
+		border-color: var(--spk-success);
+	}
 
-    .select-has-success .select-trigger:focus-visible {
-        border-color: var(--spk-success);
-        box-shadow: 0 0 0 3px var(--spk-success-ghost-hover);
-    }
+	.select-has-success .select-trigger:focus-visible {
+		border-color: var(--spk-success);
+		box-shadow: 0 0 0 3px var(--spk-success-ghost-hover);
+	}
 
-    /* Disabled -------------------------------------------------------- */
+	/* Disabled -------------------------------------------------------- */
 
-    .select-disabled {
-        opacity: var(--spk-opacity-disabled);
-        cursor: not-allowed;
-    }
+	.select-disabled {
+		opacity: var(--spk-opacity-disabled);
+		cursor: not-allowed;
+	}
 
-    .select-disabled .select-trigger {
-        cursor: not-allowed;
-    }
+	.select-disabled .select-trigger {
+		cursor: not-allowed;
+	}
 </style>

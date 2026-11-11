@@ -1,225 +1,222 @@
 <script lang="ts">
-    import { createVariant } from '../../utils/builder.js';
-    import { radioGroupConfig } from './radiogroup.config.js';
+	import { createVariant } from '../../utils/builder.js';
+	import { radioGroupConfig } from './radiogroup.config.js';
 
-    type Palette = "accent" | "tone";
-    type Size = "sm" | "md" | "lg";
-    type LabelPosition = "right" | "left" | "top" | "bottom";
+	type Palette = 'accent' | 'tone';
+	type Size = 'sm' | 'md' | 'lg';
+	type LabelPosition = 'right' | 'left' | 'top' | 'bottom';
 
-    interface Option {
-        value: string;
-        label: string;
-        disabled?: boolean;
-    }
+	interface Option {
+		value: string;
+		label: string;
+		disabled?: boolean;
+	}
 
-    interface Props {
-        value?: string;
-        options?: Option[];
-        name: string;
-        palette?: Palette;
-        size?: Size;
-        label_position?: LabelPosition;
-        disabled?: boolean;
-        aria_label?: string;
-    }
+	interface Props {
+		value?: string;
+		options?: Option[];
+		name: string;
+		palette?: Palette;
+		size?: Size;
+		label_position?: LabelPosition;
+		disabled?: boolean;
+		aria_label?: string;
+	}
 
-    let {
-        value = $bindable(undefined),
-        options = [],
-        name,
-        palette = "accent",
-        size = "md",
-        label_position = "right",
-        disabled = false,
-        aria_label,
-    }: Props = $props();
+	let {
+		value = $bindable(undefined),
+		options = [],
+		name,
+		palette = 'accent',
+		size = 'md',
+		label_position = 'right',
+		disabled = false,
+		aria_label
+	}: Props = $props();
 
-    const resolve = createVariant(radioGroupConfig);
+	const resolve = createVariant(radioGroupConfig);
 
-    const group_classes = $derived(
-        resolve({
-            palette,
-            size,
-            label_position,
-            disabled: disabled ? true : undefined,
-        }).trim()
-    );
+	const group_classes = $derived(
+		resolve({
+			palette,
+			size,
+			label_position,
+			disabled: disabled ? true : undefined
+		}).trim()
+	);
 </script>
 
 <div class={group_classes} role="radiogroup" aria-label={aria_label}>
-    {#each options as option}
-        {@const item_disabled = disabled || !!option.disabled}
-        <label
-            class="radio-item"
-            class:radio-item-disabled={!disabled && !!option.disabled}
-        >
-            <input
-                type="radio"
-                class="radio-input"
-                bind:group={value}
-                value={option.value}
-                {name}
-                disabled={item_disabled}
-            />
-            <span class="radio-control" aria-hidden="true"></span>
-            <span class="radio-label-text">{option.label}</span>
-        </label>
-    {/each}
+	{#each options as option (option.value)}
+		{@const item_disabled = disabled || !!option.disabled}
+		<label class="radio-item" class:radio-item-disabled={!disabled && !!option.disabled}>
+			<input
+				type="radio"
+				class="radio-input"
+				bind:group={value}
+				value={option.value}
+				{name}
+				disabled={item_disabled}
+			/>
+			<span class="radio-control" aria-hidden="true"></span>
+			<span class="radio-label-text">{option.label}</span>
+		</label>
+	{/each}
 </div>
 
 <style>
-    /* Hidden input ---------------------------------------------------- */
+	/* Hidden input ---------------------------------------------------- */
 
-    .radio-input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-        margin: 0;
-    }
+	.radio-input {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
+	}
 
-    /* Group ----------------------------------------------------------- */
+	/* Group ----------------------------------------------------------- */
 
-    .radio-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-    }
+	.radio-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
 
-    /* When labels are above/below, a row layout is more natural */
-    .radio-label-top,
-    .radio-label-bottom {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1.25rem;
-    }
+	/* When labels are above/below, a row layout is more natural */
+	.radio-label-top,
+	.radio-label-bottom {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+	}
 
-    /* Item ------------------------------------------------------------ */
+	/* Item ------------------------------------------------------------ */
 
-    .radio-item {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--radio-gap, 0.5rem);
-        cursor: pointer;
-        user-select: none;
-        line-height: 1.3;
-    }
+	.radio-item {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--radio-gap, 0.5rem);
+		cursor: pointer;
+		user-select: none;
+		line-height: 1.3;
+	}
 
-    /* Label positions - flex direction on each item */
-    .radio-label-right .radio-item { 
-        flex-direction: row; 
-    }
+	/* Label positions - flex direction on each item */
+	.radio-label-right .radio-item {
+		flex-direction: row;
+	}
 
-    .radio-label-left .radio-item { 
-        flex-direction: row-reverse; 
-    }
-    
-    .radio-label-top .radio-item { 
-        flex-direction: column-reverse; 
-        align-items: center; 
-    }
+	.radio-label-left .radio-item {
+		flex-direction: row-reverse;
+	}
 
-    .radio-label-bottom .radio-item { 
-        flex-direction: column; 
-        align-items: center; 
-    }
+	.radio-label-top .radio-item {
+		flex-direction: column-reverse;
+		align-items: center;
+	}
 
-    /* Control (custom radio circle) ----------------------------------- */
+	.radio-label-bottom .radio-item {
+		flex-direction: column;
+		align-items: center;
+	}
 
-    .radio-control {
-        position: relative;
-        flex-shrink: 0;
-        width: var(--radio-size, 18px);
-        height: var(--radio-size, 18px);
-        border-radius: var(--spk-radius-circle);
-        border: var(--spk-border) solid var(--spk-text-muted);
-        background: transparent;
-        transition: border-color var(--spk-duration-base) ease;
-    }
+	/* Control (custom radio circle) ----------------------------------- */
 
-    /* Inner dot */
-    .radio-control::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: var(--radio-dot, 8px);
-        height: var(--radio-dot, 8px);
-        border-radius: var(--spk-radius-circle);
-        transform: translate(-50%, -50%) scale(0);
-        transition: transform var(--spk-duration-base) var(--spk-ease-glide);
-    }
+	.radio-control {
+		position: relative;
+		flex-shrink: 0;
+		width: var(--radio-size, 18px);
+		height: var(--radio-size, 18px);
+		border-radius: var(--spk-radius-circle);
+		border: var(--spk-border) solid var(--spk-text-muted);
+		background: transparent;
+		transition: border-color var(--spk-duration-base) ease;
+	}
 
-    /* Checked state */
-    .radio-input:checked ~ .radio-control {
-        border-color: var(--radio-checked-color, var(--spk-accent));
-    }
+	/* Inner dot */
+	.radio-control::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: var(--radio-dot, 8px);
+		height: var(--radio-dot, 8px);
+		border-radius: var(--spk-radius-circle);
+		transform: translate(-50%, -50%) scale(0);
+		transition: transform var(--spk-duration-base) var(--spk-ease-glide);
+	}
 
-    .radio-input:checked ~ .radio-control::after {
-        transform: translate(-50%, -50%) scale(1);
-        background: var(--radio-checked-color, var(--spk-accent));
-    }
+	/* Checked state */
+	.radio-input:checked ~ .radio-control {
+		border-color: var(--radio-checked-color, var(--spk-accent));
+	}
 
-    /* Label text */
-    .radio-label-text {
-        font-size: var(--radio-font, 0.9rem);
-        font-weight: 500;
-        color: inherit;
-    }
+	.radio-input:checked ~ .radio-control::after {
+		transform: translate(-50%, -50%) scale(1);
+		background: var(--radio-checked-color, var(--spk-accent));
+	}
 
-    /* Sizes ----------------------------------------------------------- */
+	/* Label text */
+	.radio-label-text {
+		font-size: var(--radio-font, 0.9rem);
+		font-weight: 500;
+		color: inherit;
+	}
 
-    .radio-size-sm {
-        --radio-size: 14px;
-        --radio-dot: 6px;
-        --radio-font: 0.8rem;
-        --radio-gap: 0.4rem;
-    }
+	/* Sizes ----------------------------------------------------------- */
 
-    .radio-size-md {
-        --radio-size: 18px;
-        --radio-dot: 8px;
-        --radio-font: 0.9rem;
-        --radio-gap: 0.5rem;
-    }
+	.radio-size-sm {
+		--radio-size: 14px;
+		--radio-dot: 6px;
+		--radio-font: 0.8rem;
+		--radio-gap: 0.4rem;
+	}
 
-    .radio-size-lg {
-        --radio-size: 22px;
-        --radio-dot: 10px;
-        --radio-font: 1rem;
-        --radio-gap: 0.6rem;
-    }
+	.radio-size-md {
+		--radio-size: 18px;
+		--radio-dot: 8px;
+		--radio-font: 0.9rem;
+		--radio-gap: 0.5rem;
+	}
 
-    /* Palettes -------------------------------------------------------- */
+	.radio-size-lg {
+		--radio-size: 22px;
+		--radio-dot: 10px;
+		--radio-font: 1rem;
+		--radio-gap: 0.6rem;
+	}
 
-    .radio-palette-accent { 
-        --radio-checked-color: var(--spk-accent);
-    }
+	/* Palettes -------------------------------------------------------- */
 
-    .radio-palette-tone { 
-        --radio-checked-color: var(--spk-text); 
-    }
+	.radio-palette-accent {
+		--radio-checked-color: var(--spk-accent);
+	}
 
-    /* Disabled -------------------------------------------------------- */
+	.radio-palette-tone {
+		--radio-checked-color: var(--spk-text);
+	}
 
-    /* Whole group disabled */
-    .radio-disabled {
-        opacity: var(--spk-opacity-disabled);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
+	/* Disabled -------------------------------------------------------- */
 
-    /* Single item disabled (only when group is not disabled, to avoid double opacity) */
-    .radio-item-disabled {
-        opacity: var(--spk-opacity-disabled);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
+	/* Whole group disabled */
+	.radio-disabled {
+		opacity: var(--spk-opacity-disabled);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 
-    /* Focus visible - keyboard nav ------------------------------------ */
+	/* Single item disabled (only when group is not disabled, to avoid double opacity) */
+	.radio-item-disabled {
+		opacity: var(--spk-opacity-disabled);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 
-    .radio-input:focus-visible ~ .radio-control {
-        outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
-        outline-offset: var(--spk-focus-ring-offset);
-    }
+	/* Focus visible - keyboard nav ------------------------------------ */
+
+	.radio-input:focus-visible ~ .radio-control {
+		outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
+		outline-offset: var(--spk-focus-ring-offset);
+	}
 </style>

@@ -1,318 +1,334 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-    import { createVariant } from "../../utils/builder.js";
-    import { listItemConfig } from './listItem.config.js';
+	import type { Snippet } from 'svelte';
+	import { createVariant } from '../../utils/builder.js';
+	import { listItemConfig } from './listItem.config.js';
 
-    type Size = "sm" | "md" | "lg";
-    type Palette = "tone" | "accent" | "ghost" | "neutral" | "error" | "warning" | "success" | "info";
-    type Elevation = "none" | "subtle" | "hard";
+	type Variant = 'flat' | 'outlined' | 'ghost' | 'ambient';
+	type Size = 'sm' | 'md' | 'lg';
+	type Palette = 'tone' | 'accent' | 'neutral' | 'error' | 'warning' | 'success' | 'info';
+	type Elevation = 'none' | 'subtle' | 'hard';
 
-    interface Props {
-        label: string;
-        size?: Size;
-        palette?: Palette;
-        elevation?: Elevation;
-        rounded?: boolean;
-        active?: boolean;
-        leading?: Snippet;
-        trailing?: Snippet;
-        children?: Snippet;
-        onclick?: () => void;
-    }
+	interface Props {
+		label: string;
+		variant?: Variant;
+		size?: Size;
+		palette?: Palette;
+		elevation?: Elevation;
+		rounded?: boolean;
+		active?: boolean;
+		leading?: Snippet;
+		trailing?: Snippet;
+		children?: Snippet;
+		onclick?: () => void;
+	}
 
-    let {
-        label,
-        size = "md",
-        palette = "tone",
-        elevation = "none",
-        rounded = false,
-        active = false,
-        leading,
-        trailing,
-        children,
-        onclick,
-    }: Props = $props();
+	let {
+		label,
+		variant = 'flat',
+		size = 'md',
+		palette = 'tone',
+		elevation = 'none',
+		rounded = false,
+		active = false,
+		leading,
+		trailing,
+		children,
+		onclick
+	}: Props = $props();
 
-    const resolve = createVariant(listItemConfig);
-    const wrapper_classes = $derived(
-        resolve({
-            size,
-            palette,
-            elevation,
-            rounded: rounded ? true : undefined,
-            active: active ? true : undefined,
-        }).trim()
-    );
+	const resolve = createVariant(listItemConfig);
+	const wrapper_classes = $derived(
+		resolve({
+			variant,
+			size,
+			palette,
+			elevation,
+			rounded: rounded ? true : undefined,
+			active: active ? true : undefined
+		}).trim()
+	);
 </script>
 
 {#snippet content()}
-    {#if leading}
-        <div class="leading">
-            {@render leading()}
-        </div>
-    {/if}
+	{#if leading}
+		<div class="leading">
+			{@render leading()}
+		</div>
+	{/if}
 
-    <div class="supporting-text">
-        <div class="main-supporting">
-            {label}
-        </div>
-        {#if children}
-            <div class="extra-supporting">
-                {@render children()}
-            </div>
-        {/if}
-    </div>
+	<div class="supporting-text">
+		<div class="main-supporting">
+			{label}
+		</div>
+		{#if children}
+			<div class="extra-supporting">
+				{@render children()}
+			</div>
+		{/if}
+	</div>
 
-    {#if trailing}
-        <div class="trailing">
-            {@render trailing()}
-        </div>
-    {/if}
+	{#if trailing}
+		<div class="trailing">
+			{@render trailing()}
+		</div>
+	{/if}
 {/snippet}
 
 {#if onclick}
-    <button class="{wrapper_classes}" {onclick}>
-        {@render content()}
-    </button>
+	<button class={wrapper_classes} {onclick}>
+		{@render content()}
+	</button>
 {:else}
-    <div class="{wrapper_classes}">
-        {@render content()}
-    </div>
+	<div class={wrapper_classes}>
+		{@render content()}
+	</div>
 {/if}
 
 <style>
-    /* Reset button styles */
-    button.list-item {
-        font: inherit;
-        text-align: inherit;
-        width: 100%;
-        cursor: pointer;
-    }
+	/* Reset button styles */
+	button.list-item {
+		font: inherit;
+		text-align: inherit;
+		width: 100%;
+		cursor: pointer;
+	}
 
-    button.list-item:focus { outline: none; }
-    button.list-item:focus-visible {
-        outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
-        outline-offset: var(--spk-focus-ring-offset);
-    }
+	button.list-item:focus {
+		outline: none;
+	}
+	button.list-item:focus-visible {
+		outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
+		outline-offset: var(--spk-focus-ring-offset);
+	}
 
-    /* Base */
-    .list-item {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        border: var(--spk-border) solid transparent;
-        transition: background var(--spk-duration-base) ease, border-color var(--spk-duration-base) ease, box-shadow var(--spk-duration-base) ease;
-    }
+	/* Base */
+	.list-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		border: var(--spk-border) solid transparent;
+		transition:
+			background var(--spk-duration-base) ease,
+			border-color var(--spk-duration-base) ease,
+			box-shadow var(--spk-duration-base) ease;
+	}
 
-    /* Palette - tone ---------------------------------------------------- */
+	/* Palette variables */
 
-    .list-item-tone {
-        background: var(--spk-tone);
-        color: var(--spk-text);
-    }
+	.list-item-palette-tone {
+		--li-bg: var(--spk-tone);
+		--li-text: var(--spk-text);
+		--li-hover: var(--spk-tone-hover);
+		--li-ghost-hover: var(--spk-tone-ghost-hover);
+		--li-border: var(--spk-accent);
+	}
 
-    button.list-item-tone:hover {
-        background: var(--spk-tone-hover);
-    }
+	.list-item-palette-accent {
+		--li-bg: var(--spk-accent);
+		--li-text: var(--spk-text-accent);
+		--li-hover: var(--spk-accent-hover);
+		--li-ghost-hover: var(--spk-accent-ghost-hover);
+		--li-border: var(--spk-accent-muted);
+	}
 
-    button.list-item-tone.list-item-active {
-        border-color: var(--spk-accent);
-    }
+	.list-item-palette-error {
+		--li-bg: var(--spk-error);
+		--li-text: var(--spk-text-error);
+		--li-hover: var(--spk-error-hover);
+		--li-ghost-hover: var(--spk-error-ghost-hover);
+		--li-border: var(--spk-error-muted);
+	}
 
-    /* Palette - accent -------------------------------------------------- */
+	.list-item-palette-warning {
+		--li-bg: var(--spk-warning);
+		--li-text: var(--spk-text-warning);
+		--li-hover: var(--spk-warning-hover);
+		--li-ghost-hover: var(--spk-warning-ghost-hover);
+		--li-border: var(--spk-warning-muted);
+	}
 
-    .list-item-accent {
-        background: var(--spk-accent);
-        color: var(--spk-text-accent);
-    }
+	.list-item-palette-success {
+		--li-bg: var(--spk-success);
+		--li-text: var(--spk-text-success);
+		--li-hover: var(--spk-success-hover);
+		--li-ghost-hover: var(--spk-success-ghost-hover);
+		--li-border: var(--spk-success-muted);
+	}
 
-    button.list-item-accent:hover {
-        background: var(--spk-accent-hover);
-    }
+	.list-item-palette-info {
+		--li-bg: var(--spk-info);
+		--li-text: var(--spk-text-info);
+		--li-hover: var(--spk-info-hover);
+		--li-ghost-hover: var(--spk-info-ghost-hover);
+		--li-border: var(--spk-info-muted);
+	}
 
-    button.list-item-accent.list-item-active {
-        border-color: var(--spk-accent-muted);
-    }
+	.list-item-palette-neutral {
+		--li-bg: var(--spk-neutral);
+		--li-text: var(--spk-text-neutral);
+		--li-hover: var(--spk-neutral-hover);
+		--li-ghost-hover: var(--spk-neutral-ghost-hover);
+		--li-border: var(--spk-neutral-muted);
+	}
 
-    /* Palette - ghost (adapts to context via currentColor) -------------- */
+	/* Variant - flat (solid fill, current default look) ----------------- */
 
-    .list-item-ghost {
-        background: color-mix(in srgb, currentColor 8%, transparent);
-        color: inherit;
-    }
+	.list-item-flat {
+		background: var(--li-bg);
+		color: var(--li-text);
+	}
 
-    button.list-item-ghost:hover {
-        background: color-mix(in srgb, currentColor 15%, transparent);
-    }
+	button.list-item-flat:hover {
+		background: var(--li-hover);
+	}
 
-    button.list-item-ghost.list-item-active {
-        border-color: color-mix(in srgb, currentColor 30%, transparent);
-    }
+	button.list-item-flat.list-item-active {
+		border-color: var(--li-border);
+	}
 
-    /* Palette - error --------------------------------------------------- */
+	/* Variant - outlined (transparent fill, palette-coloured border) ---- */
 
-    .list-item-error {
-        background: var(--spk-error);
-        color: var(--spk-text-error);
-    }
+	.list-item-outlined {
+		background: transparent;
+		color: var(--spk-text);
+		border-color: var(--li-bg);
+	}
 
-    button.list-item-error:hover {
-        background: var(--spk-error-hover);
-    }
+	button.list-item-outlined:hover {
+		background: var(--li-hover);
+	}
 
-    button.list-item-error.list-item-active {
-        border-color: var(--spk-error-muted);
-    }
+	button.list-item-outlined.list-item-active {
+		border-color: var(--li-border);
+	}
 
-    /* Palette - warning ------------------------------------------------- */
+	/* Variant - ghost (transparent fill palette-coloured) */
 
-    .list-item-warning {
-        background: var(--spk-warning);
-        color: var(--spk-text-warning);
-    }
+	.list-item-ghost {
+		background: transparent;
+		color: var(--spk-text);
+		padding: 0.25rem;
+		border: none;
+		border-left: var(--spk-border) solid transparent;
+		border-right: var(--spk-border) solid transparent;
+	}
 
-    button.list-item-warning:hover {
-        background: var(--spk-warning-hover);
-    }
+	button.list-item-ghost.list-item-active {
+		border-left-color: var(--li-border);
+	}
 
-    button.list-item-warning.list-item-active {
-        border-color: var(--spk-warning-muted);
-    }
+	button.list-item-ghost:hover {
+		background: var(--li-ghost-hover);
+	}
 
-    /* Palette - success ------------------------------------------------- */
+	.list-item-ghost.list-item-active.list-item-rounded {
+		border-radius: 0 var(--spk-radius-soft) var(--spk-radius-soft) 0;
+	}
 
-    .list-item-success {
-        background: var(--spk-success);
-        color: var(--spk-text-success);
-    }
+	/* Variant - ambient (adapts to context via currentColor, ignores palette) */
 
-    button.list-item-success:hover {
-        background: var(--spk-success-hover);
-    }
+	.list-item-ambient {
+		background: color-mix(in srgb, currentColor 8%, transparent);
+		color: inherit;
+	}
 
-    button.list-item-success.list-item-active {
-        border-color: var(--spk-success-muted);
-    }
+	button.list-item-ambient:hover {
+		background: color-mix(in srgb, currentColor 15%, transparent);
+	}
 
-    /* Palette - info ---------------------------------------------------- */
+	button.list-item-ambient.list-item-active {
+		border-color: color-mix(in srgb, currentColor 30%, transparent);
+	}
 
-    .list-item-info {
-        background: var(--spk-info);
-        color: var(--spk-text-info);
-    }
+	/* Elevation --------------------------------------------------------- */
 
-    button.list-item-info:hover {
-        background: var(--spk-info-hover);
-    }
+	.list-item-elevation-subtle {
+		box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
+	}
 
-    button.list-item-info.list-item-active {
-        border-color: var(--spk-info-muted);
-    }
+	.list-item-elevation-hard {
+		box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
+	}
 
-    /* Palette - neutral ------------------------------------------------- */
+	/* Rounded ----------------------------------------------------------- */
 
-    .list-item-neutral {
-        background: var(--spk-neutral);
-        color: var(--spk-text-neutral);
-    }
+	.list-item-rounded {
+		border-radius: var(--spk-radius-soft);
+	}
 
-    button.list-item-neutral:hover {
-        background: var(--spk-neutral-hover);
-    }
+	/* Inner elements ---------------------------------------------------- */
 
-    button.list-item-neutral.list-item-active {
-        border-color: var(--spk-neutral-muted);
-    }
+	.leading {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+	}
 
-    /* Elevation --------------------------------------------------------- */
+	.trailing {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		margin-left: auto;
+	}
 
-    .list-item-elevation-subtle {
-        box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
-    }
+	.supporting-text {
+		flex: 1;
+		min-width: 0;
+	}
 
-    .list-item-elevation-hard {
-        box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
-    }
+	.main-supporting {
+		font-weight: 600;
+		line-height: 1.2;
+	}
 
-    /* Rounded ----------------------------------------------------------- */
+	.extra-supporting {
+		font-size: 0.8em;
+		opacity: var(--spk-opacity-muted);
+		margin-top: 0.1rem;
+		white-space: pre-line;
+	}
 
-    .list-item-rounded {
-        border-radius: var(--spk-radius-soft);
-    }
+	/* Sizes ------------------------------------------------------------- */
 
-    /* Inner elements ---------------------------------------------------- */
+	/* small */
+	.list-item-sm {
+		padding: 0.35rem 0.6rem;
+	}
 
-    .leading {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-    }
+	.list-item-sm .main-supporting {
+		font-weight: 500;
+		font-size: 0.8rem;
+	}
 
-    .trailing {
-        display: flex;
-        align-items: center;
-        flex-shrink: 0;
-        margin-left: auto;
-    }
+	.list-item-sm .extra-supporting {
+		font-size: 0.7rem;
+	}
 
-    .supporting-text {
-        flex: 1;
-        min-width: 0;
-    }
+	/* medium */
+	.list-item-md {
+		padding: 0.6rem 0.9rem;
+	}
 
-    .main-supporting {
-        font-weight: 600;
-        line-height: 1.2;
-    }
+	.list-item-md .main-supporting {
+		font-weight: 600;
+	}
 
-    .extra-supporting {
-        font-size: 0.8em;
-        opacity: var(--spk-opacity-muted);
-        margin-top: 0.1rem;
-        white-space: pre-line;
-    }
+	.list-item-md .extra-supporting {
+		font-size: 0.8em;
+	}
 
-    /* Sizes ------------------------------------------------------------- */
+	/* large */
+	.list-item-lg {
+		padding: 0.9rem 1.25rem;
+		font-size: 1.05rem;
+	}
 
-    /* small */
-    .list-item-sm {
-        padding: 0.35rem 0.6rem;
-    }
+	.list-item-lg .main-supporting {
+		font-weight: 700;
+		font-size: 1.1rem;
+	}
 
-    .list-item-sm .main-supporting {
-        font-weight: 500;
-        font-size: 0.8rem;
-    }
-
-    .list-item-sm .extra-supporting {
-        font-size: 0.7rem;
-    }
-
-    /* medium */
-    .list-item-md {
-        padding: 0.6rem 0.9rem;
-    }
-
-    .list-item-md .main-supporting {
-        font-weight: 600;
-    }
-
-    .list-item-md .extra-supporting {
-        font-size: 0.8em;
-    }
-
-    /* large */
-    .list-item-lg {
-        padding: 0.9rem 1.25rem;
-        font-size: 1.05rem;
-    }
-
-    .list-item-lg .main-supporting {
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
-
-    .list-item-lg .extra-supporting {
-        font-size: 0.9em;
-    }
+	.list-item-lg .extra-supporting {
+		font-size: 0.9em;
+	}
 </style>

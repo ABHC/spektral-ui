@@ -1,233 +1,232 @@
 <script lang="ts">
-    import { createVariant } from '../../utils/builder.js';
-    import { checkboxGroupConfig } from './checkboxgroup.config.js';
+	import { createVariant } from '../../utils/builder.js';
+	import { checkboxGroupConfig } from './checkboxgroup.config.js';
 
-    type Palette = "accent" | "tone";
-    type Size = "sm" | "md" | "lg";
-    type LabelPosition = "right" | "left" | "top" | "bottom";
+	type Palette = 'accent' | 'tone';
+	type Size = 'sm' | 'md' | 'lg';
+	type LabelPosition = 'right' | 'left' | 'top' | 'bottom';
 
-    interface Option {
-        value: string;
-        label: string;
-        disabled?: boolean;
-    }
+	interface Option {
+		value: string;
+		label: string;
+		disabled?: boolean;
+	}
 
-    interface Props {
-        value?: string[];
-        options?: Option[];
-        name?: string;
-        palette?: Palette;
-        size?: Size;
-        label_position?: LabelPosition;
-        disabled?: boolean;
-        aria_label?: string;
-    }
+	interface Props {
+		value?: string[];
+		options?: Option[];
+		name?: string;
+		palette?: Palette;
+		size?: Size;
+		label_position?: LabelPosition;
+		disabled?: boolean;
+		aria_label?: string;
+	}
 
-    let {
-        value = $bindable([]),
-        options = [],
-        name,
-        palette = "accent",
-        size = "md",
-        label_position = "right",
-        disabled = false,
-        aria_label,
-    }: Props = $props();
+	let {
+		value = $bindable([]),
+		options = [],
+		name,
+		palette = 'accent',
+		size = 'md',
+		label_position = 'right',
+		disabled = false,
+		aria_label
+	}: Props = $props();
 
-    const resolve = createVariant(checkboxGroupConfig);
+	const resolve = createVariant(checkboxGroupConfig);
 
-    const group_classes = $derived(
-        resolve({
-            palette,
-            size,
-            label_position,
-            disabled: disabled ? true : undefined,
-        }).trim()
-    );
+	const group_classes = $derived(
+		resolve({
+			palette,
+			size,
+			label_position,
+			disabled: disabled ? true : undefined
+		}).trim()
+	);
 </script>
 
 <div class={group_classes} role="group" aria-label={aria_label}>
-    {#each options as option}
-        {@const item_disabled = disabled || !!option.disabled}
-        <label
-            class="checkbox-item"
-            class:checkbox-item-disabled={!disabled && !!option.disabled}
-        >
-            <input
-                type="checkbox"
-                class="checkbox-input"
-                bind:group={value}
-                value={option.value}
-                {name}
-                disabled={item_disabled}
-            />
-            <span class="checkbox-control" aria-hidden="true"></span>
-            <span class="checkbox-label-text">{option.label}</span>
-        </label>
-    {/each}
+	{#each options as option (option.value)}
+		{@const item_disabled = disabled || !!option.disabled}
+		<label class="checkbox-item" class:checkbox-item-disabled={!disabled && !!option.disabled}>
+			<input
+				type="checkbox"
+				class="checkbox-input"
+				bind:group={value}
+				value={option.value}
+				{name}
+				disabled={item_disabled}
+			/>
+			<span class="checkbox-control" aria-hidden="true"></span>
+			<span class="checkbox-label-text">{option.label}</span>
+		</label>
+	{/each}
 </div>
 
 <style>
-    /* Hidden input -------------------------------------------------------- */
+	/* Hidden input -------------------------------------------------------- */
 
-    .checkbox-input {
-        position: absolute;
-        opacity: 0;
-        width: 0;
-        height: 0;
-        margin: 0;
-    }
+	.checkbox-input {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+		margin: 0;
+	}
 
-    /* Group --------------------------------------------------------------- */
+	/* Group --------------------------------------------------------------- */
 
-    .checkbox-group {
-        display: flex;
-        flex-direction: column;
-        gap: 0.6rem;
-    }
+	.checkbox-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
 
-    /* When labels are above/below, a row layout is more natural */
-    .checkbox-label-top,
-    .checkbox-label-bottom {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1.25rem;
-    }
+	/* When labels are above/below, a row layout is more natural */
+	.checkbox-label-top,
+	.checkbox-label-bottom {
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+	}
 
-    /* Item ---------------------------------------------------------------- */
+	/* Item ---------------------------------------------------------------- */
 
-    .checkbox-item {
-        display: inline-flex;
-        align-items: center;
-        gap: var(--checkbox-gap, 0.5rem);
-        cursor: pointer;
-        user-select: none;
-        line-height: 1.3;
-    }
+	.checkbox-item {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--checkbox-gap, 0.5rem);
+		cursor: pointer;
+		user-select: none;
+		line-height: 1.3;
+	}
 
-    /* Label positions - flex direction on each item */
-    .checkbox-label-right .checkbox-item {
-        flex-direction: row;
-    }
+	/* Label positions - flex direction on each item */
+	.checkbox-label-right .checkbox-item {
+		flex-direction: row;
+	}
 
-    .checkbox-label-left .checkbox-item {
-        flex-direction: row-reverse;
-    }
+	.checkbox-label-left .checkbox-item {
+		flex-direction: row-reverse;
+	}
 
-    .checkbox-label-top .checkbox-item {
-        flex-direction: column-reverse;
-        align-items: center;
-    }
+	.checkbox-label-top .checkbox-item {
+		flex-direction: column-reverse;
+		align-items: center;
+	}
 
-    .checkbox-label-bottom .checkbox-item {
-        flex-direction: column;
-        align-items: center;
-    }
+	.checkbox-label-bottom .checkbox-item {
+		flex-direction: column;
+		align-items: center;
+	}
 
-    /* Control (custom checkbox square) ------------------------------------ */
+	/* Control (custom checkbox square) ------------------------------------ */
 
-    .checkbox-control {
-        position: relative;
-        flex-shrink: 0;
-        width: var(--checkbox-size, 18px);
-        height: var(--checkbox-size, 18px);
-        border-radius: var(--spk-radius-edge);
-        border: var(--spk-border) solid var(--spk-text-muted);
-        background: transparent;
-        transition: border-color var(--spk-duration-base) ease, background var(--spk-duration-base) ease;
-    }
+	.checkbox-control {
+		position: relative;
+		flex-shrink: 0;
+		width: var(--checkbox-size, 18px);
+		height: var(--checkbox-size, 18px);
+		border-radius: var(--spk-radius-edge);
+		border: var(--spk-border) solid var(--spk-text-muted);
+		background: transparent;
+		transition:
+			border-color var(--spk-duration-base) ease,
+			background var(--spk-duration-base) ease;
+	}
 
-    /* Checkmark */
-    .checkbox-control::after {
-        content: '';
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        width: var(--checkbox-check-w, 5px);
-        height: var(--checkbox-check-h, 9px);
-        border: var(--spk-border) solid transparent;
-        border-top: none;
-        border-left: none;
-        transform: translate(-50%, -50%) rotate(45deg) scale(0);
-        transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
-    }
+	/* Checkmark */
+	.checkbox-control::after {
+		content: '';
+		position: absolute;
+		top: 45%;
+		left: 50%;
+		width: var(--checkbox-check-w, 5px);
+		height: var(--checkbox-check-h, 9px);
+		border: var(--spk-border) solid transparent;
+		border-top: none;
+		border-left: none;
+		transform: translate(-50%, -50%) rotate(45deg) scale(0);
+		transition: transform var(--spk-duration-quick) var(--spk-ease-glide);
+	}
 
-    /* Checked state */
-    .checkbox-input:checked ~ .checkbox-control {
-        border-color: var(--checkbox-checked-color, var(--spk-accent));
-        background: var(--checkbox-checked-color, var(--spk-accent));
-    }
+	/* Checked state */
+	.checkbox-input:checked ~ .checkbox-control {
+		border-color: var(--checkbox-checked-color, var(--spk-accent));
+		background: var(--checkbox-checked-color, var(--spk-accent));
+	}
 
-    .checkbox-input:checked ~ .checkbox-control::after {
-        border-color: var(--checkbox-check-color, white);
-        transform: translate(-50%, -50%) rotate(45deg) scale(1);
-    }
+	.checkbox-input:checked ~ .checkbox-control::after {
+		border-color: var(--checkbox-check-color, white);
+		transform: translate(-50%, -50%) rotate(45deg) scale(1);
+	}
 
-    /* Label text */
-    .checkbox-label-text {
-        font-size: var(--checkbox-font, 0.9rem);
-        font-weight: 500;
-        color: inherit;
-    }
+	/* Label text */
+	.checkbox-label-text {
+		font-size: var(--checkbox-font, 0.9rem);
+		font-weight: 500;
+		color: inherit;
+	}
 
-    /* Sizes --------------------------------------------------------------- */
+	/* Sizes --------------------------------------------------------------- */
 
-    .checkbox-size-sm {
-        --checkbox-size: 14px;
-        --checkbox-check-w: 4px;
-        --checkbox-check-h: 7px;
-        --checkbox-font: 0.8rem;
-        --checkbox-gap: 0.4rem;
-    }
+	.checkbox-size-sm {
+		--checkbox-size: 14px;
+		--checkbox-check-w: 4px;
+		--checkbox-check-h: 7px;
+		--checkbox-font: 0.8rem;
+		--checkbox-gap: 0.4rem;
+	}
 
-    .checkbox-size-md {
-        --checkbox-size: 18px;
-        --checkbox-check-w: 5px;
-        --checkbox-check-h: 9px;
-        --checkbox-font: 0.9rem;
-        --checkbox-gap: 0.5rem;
-    }
+	.checkbox-size-md {
+		--checkbox-size: 18px;
+		--checkbox-check-w: 5px;
+		--checkbox-check-h: 9px;
+		--checkbox-font: 0.9rem;
+		--checkbox-gap: 0.5rem;
+	}
 
-    .checkbox-size-lg {
-        --checkbox-size: 22px;
-        --checkbox-check-w: 6px;
-        --checkbox-check-h: 11px;
-        --checkbox-font: 1rem;
-        --checkbox-gap: 0.6rem;
-    }
+	.checkbox-size-lg {
+		--checkbox-size: 22px;
+		--checkbox-check-w: 6px;
+		--checkbox-check-h: 11px;
+		--checkbox-font: 1rem;
+		--checkbox-gap: 0.6rem;
+	}
 
-    /* Palettes ------------------------------------------------------------ */
+	/* Palettes ------------------------------------------------------------ */
 
-    .checkbox-palette-accent {
-        --checkbox-checked-color: var(--spk-accent);
-        --checkbox-check-color: var(--spk-text-accent);
-    }
+	.checkbox-palette-accent {
+		--checkbox-checked-color: var(--spk-accent);
+		--checkbox-check-color: var(--spk-text-accent);
+	}
 
-    .checkbox-palette-tone {
-        --checkbox-checked-color: var(--spk-text);
-        --checkbox-check-color: var(--spk-tone-bg);
-    }
+	.checkbox-palette-tone {
+		--checkbox-checked-color: var(--spk-text);
+		--checkbox-check-color: var(--spk-tone-bg);
+	}
 
-    /* Disabled ------------------------------------------------------------ */
+	/* Disabled ------------------------------------------------------------ */
 
-    /* Whole group disabled */
-    .checkbox-disabled {
-        opacity: var(--spk-opacity-disabled);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
+	/* Whole group disabled */
+	.checkbox-disabled {
+		opacity: var(--spk-opacity-disabled);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 
-    /* Single item disabled (only when group is not disabled, to avoid double opacity) */
-    .checkbox-item-disabled {
-        opacity: var(--spk-opacity-disabled);
-        cursor: not-allowed;
-        pointer-events: none;
-    }
+	/* Single item disabled (only when group is not disabled, to avoid double opacity) */
+	.checkbox-item-disabled {
+		opacity: var(--spk-opacity-disabled);
+		cursor: not-allowed;
+		pointer-events: none;
+	}
 
-    /* Focus visible - keyboard nav ---------------------------------------- */
+	/* Focus visible - keyboard nav ---------------------------------------- */
 
-    .checkbox-input:focus-visible ~ .checkbox-control {
-        outline: 2px solid var(--spk-accent);
-        outline-offset: 3px;
-    }
+	.checkbox-input:focus-visible ~ .checkbox-control {
+		outline: 2px solid var(--spk-accent);
+		outline-offset: 3px;
+	}
 </style>
