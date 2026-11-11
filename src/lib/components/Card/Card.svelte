@@ -1,166 +1,170 @@
 <script lang="ts">
-    import type { Snippet } from "svelte";
-    import { createVariant } from "../../utils/builder.js";
-    import { cardConfig, defaultCardConfig } from "./card.config.js";
+	import type { Snippet } from 'svelte';
+	import { createVariant } from '../../utils/builder.js';
+	import { cardConfig, defaultCardConfig } from './card.config.js';
 
-    // Types ------------------------------------------------------------------
+	// Types ------------------------------------------------------------------
 
-    type Variant = "flat" | "outlined" | "ghost";
-    type Elevation = "none" | "subtle" | "hard";
+	type Variant = 'flat' | 'outlined' | 'ghost';
+	type Elevation = 'none' | 'subtle' | 'hard';
 
-    // Props ------------------------------------------------------------------
+	// Props ------------------------------------------------------------------
 
-    interface Props {
-        variant?: Variant;
-        elevation?: Elevation;
-        width?: string;
-        rounded?: boolean;
-        href?: string;
-        leading?: Snippet;
-        children?: Snippet;
-        trailing?: Snippet;
-    }
+	interface Props {
+		variant?: Variant;
+		elevation?: Elevation;
+		width?: string;
+		rounded?: boolean;
+		href?: string;
+		leading?: Snippet;
+		children?: Snippet;
+		trailing?: Snippet;
+	}
 
-    let {
-        variant = defaultCardConfig.variant,
-        elevation = defaultCardConfig.elevation,
-        width = undefined,
-        rounded = defaultCardConfig.rounded,
-        href = undefined,
-        leading,
-        children,
-        trailing,
-    }: Props = $props();
+	let {
+		variant = defaultCardConfig.variant,
+		elevation = defaultCardConfig.elevation,
+		width = undefined,
+		rounded = defaultCardConfig.rounded,
+		href = undefined,
+		leading,
+		children,
+		trailing
+	}: Props = $props();
 
-    // Helpers ----------------------------------------------------------------
+	// Helpers ----------------------------------------------------------------
 
-    const resolve = createVariant(cardConfig);
+	const resolve = createVariant(cardConfig);
 
-    const classes = $derived(resolve({ variant, rounded, elevation }));
+	const classes = $derived(resolve({ variant, rounded, elevation }));
 
-    const style = $derived(width ? `width: ${width};` : undefined);
+	const style = $derived(width ? `width: ${width};` : undefined);
 </script>
 
 <!-- Card inner markup (shared between <div> and <a> roots) ------------------- -->
 
 {#snippet card_inner()}
-    {#if leading}
-        <div class="card-leading">
-            {@render leading()}
-        </div>
-    {/if}
+	{#if leading}
+		<div class="card-leading">
+			{@render leading()}
+		</div>
+	{/if}
 
-    {#if children}
-        <div class="card-body">
-            {@render children()}
-        </div>
-    {/if}
+	{#if children}
+		<div class="card-body">
+			{@render children()}
+		</div>
+	{/if}
 
-    {#if trailing}
-        <div class="card-trailing">
-            {@render trailing()}
-        </div>
-    {/if}
+	{#if trailing}
+		<div class="card-trailing">
+			{@render trailing()}
+		</div>
+	{/if}
 {/snippet}
 
 <!-- Root element -------------------------------------------------------------- -->
 
 {#if href}
-    <a {href} class={classes} {style}>
-        {@render card_inner()}
-    </a>
+	<a {href} class={classes} {style}>
+		{@render card_inner()}
+	</a>
 {:else}
-    <div class={classes} {style}>
-        {@render card_inner()}
-    </div>
+	<div class={classes} {style}>
+		{@render card_inner()}
+	</div>
 {/if}
 
 <style>
-    /* Base ----------------------------------------------------------------- */
+	/* Base ----------------------------------------------------------------- */
 
-    .card {
-        --card-padding: 1.25rem;
+	.card {
+		--card-padding: 1.25rem;
 
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-        color: var(--spk-text);
-        text-decoration: none; /* reset if <a> */
-    }
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+		color: var(--spk-text);
+		text-decoration: none; /* reset if <a> */
+	}
 
-    a.card:focus { outline: none; }
-    a.card:focus-visible {
-        outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
-        outline-offset: var(--spk-focus-ring-offset);
-    }
+	a.card:focus {
+		outline: none;
+	}
+	a.card:focus-visible {
+		outline: var(--spk-focus-ring-width) solid var(--spk-focus-ring);
+		outline-offset: var(--spk-focus-ring-offset);
+	}
 
-    /* Variants ------------------------------------------------------------- */
+	/* Variants ------------------------------------------------------------- */
 
-    .card-flat {
-        background: var(--spk-tone);
-    }
+	.card-flat {
+		background: var(--spk-tone);
+	}
 
-    .card-outlined {
-        background: transparent;
-        border: var(--spk-border) solid var(--spk-tone-hover);
-    }
+	.card-outlined {
+		background: transparent;
+		border: var(--spk-border) solid var(--spk-tone-hover);
+	}
 
-    .card-ghost {
-        background: transparent;
-    }
+	.card-ghost {
+		background: transparent;
+	}
 
-    /* Rounded -------------------------------------------------------------- */
+	/* Rounded -------------------------------------------------------------- */
 
-    .card-rounded {
-        border-radius: var(--spk-radius-round);
-    }
+	.card-rounded {
+		border-radius: var(--spk-radius-round);
+	}
 
-    /* Elevation ------------------------------------------------------------ */
+	/* Elevation ------------------------------------------------------------ */
 
-    .card-elevation-none {
-        box-shadow: none;
-    }
+	.card-elevation-none {
+		box-shadow: none;
+	}
 
-    .card-elevation-subtle {
-        box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
-    }
+	.card-elevation-subtle {
+		box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
+	}
 
-    .card-elevation-hard {
-        box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
-        transition: box-shadow var(--spk-duration-quick) ease, transform var(--spk-duration-quick) ease;
-    }
+	.card-elevation-hard {
+		box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
+		transition:
+			box-shadow var(--spk-duration-quick) ease,
+			transform var(--spk-duration-quick) ease;
+	}
 
-    /* Hover - link cards only ---------------------------------------------- */
+	/* Hover - link cards only ---------------------------------------------- */
 
-    a.card-outlined:hover {
-        border-color: var(--spk-accent);
-        transition: border-color var(--spk-duration-base) ease;
-    }
+	a.card-outlined:hover {
+		border-color: var(--spk-accent);
+		transition: border-color var(--spk-duration-base) ease;
+	}
 
-    /* Zones ---------------------------------------------------------------- */
+	/* Zones ---------------------------------------------------------------- */
 
-    .card-leading {
-        flex-shrink: 0;
-        overflow: hidden;
-        border-bottom: var(--spk-border) solid var(--spk-tone-hover);
-    }
+	.card-leading {
+		flex-shrink: 0;
+		overflow: hidden;
+		border-bottom: var(--spk-border) solid var(--spk-tone-hover);
+	}
 
-    /* Rounded top corners on the header (ex: if pics included) */
-    .card-rounded .card-leading {
-        border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0;
-    }
+	/* Rounded top corners on the header (ex: if pics included) */
+	.card-rounded .card-leading {
+		border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0;
+	}
 
-    .card-body {
-        flex: 1;
-        padding: var(--card-padding);
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
+	.card-body {
+		flex: 1;
+		padding: var(--card-padding);
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
 
-    .card-trailing {
-        flex-shrink: 0;
-        overflow: hidden;
-        border-top: var(--spk-border) solid var(--spk-tone-hover);
-    }
+	.card-trailing {
+		flex-shrink: 0;
+		overflow: hidden;
+		border-top: var(--spk-border) solid var(--spk-tone-hover);
+	}
 </style>

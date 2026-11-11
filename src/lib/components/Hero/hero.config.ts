@@ -9,7 +9,7 @@
     "main-right"  : stack(cell_1, cell_2) | cell_3 (2/3).
     "grid-2x2"    : cell_1..cell_4, 2x2 wrap.
 */
-export type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-right" | "grid-2x2";
+export type Layout = 'single' | 'two-cols' | 'two-rows' | 'main-left' | 'main-right' | 'grid-2x2';
 
 /*
     Semantic colour palette - drives background/text on the root section.
@@ -18,7 +18,7 @@ export type Layout = "single" | "two-cols" | "two-rows" | "main-left" | "main-ri
     "accent"      : --spk-accent background, --spk-text-accent text.
     "accentbg"    : --spk-accent-bg background, --spk-text text.
 */
-export type Palette = "transparent" | "tone" | "accent" | "accentbg";
+export type Palette = 'transparent' | 'tone' | 'accent' | 'accentbg';
 
 /*
     Decorative layer rendered above the pattern, below the content.
@@ -27,7 +27,7 @@ export type Palette = "transparent" | "tone" | "accent" | "accentbg";
     "blur" : backdrop-filter blur.
     "fade" : bottom gradient fade to --spk-tone-bg.
 */
-export type Effect = "none" | "glow" | "blur" | "fade";
+export type Effect = 'none' | 'glow' | 'blur' | 'fade';
 
 /*
     Mask shape applied to the pattern layer.
@@ -35,12 +35,12 @@ export type Effect = "none" | "glow" | "blur" | "fade";
     "ellipse" : centered radial mask.
     "fade"    : linear gradient mask along pattern_mask_direction.
 */
-export type Mask = "none" | "ellipse" | "fade";
+export type Mask = 'none' | 'ellipse' | 'fade';
 
 /*
     Direction of the linear mask gradient when pattern_mask is "fade".
 */
-export type MaskDirection = "top" | "bottom" | "left" | "right";
+export type MaskDirection = 'top' | 'bottom' | 'left' | 'right';
 
 // Config interface -----------------------------------------------------------
 
@@ -56,33 +56,33 @@ export type MaskDirection = "top" | "bottom" | "left" | "right";
     collapsed_reverse : Below 640px, flips cell order (column-reverse instead of column).
 */
 export interface HeroConfig {
-    layout: Layout;
-    palette: Palette;
-    pattern_color: string;
-    pattern_opacity: number;
-    pattern_effect: Effect;
-    pattern_effect_opacity: number;
-    pattern_mask: Mask;
-    pattern_mask_direction: MaskDirection;
-    pattern_mask_size: number;
-    height: string;
-    gap: string;
-    collapsed_reverse: boolean;
+	layout: Layout;
+	palette: Palette;
+	pattern_color: string;
+	pattern_opacity: number;
+	pattern_effect: Effect;
+	pattern_effect_opacity: number;
+	pattern_mask: Mask;
+	pattern_mask_direction: MaskDirection;
+	pattern_mask_size: number;
+	height: string;
+	gap: string;
+	collapsed_reverse: boolean;
 }
 
 // Defaults
 
 export const defaultHeroConfig: HeroConfig = {
-    layout: "single",
-    palette: "transparent",
-    pattern_color: "white",
-    pattern_opacity: 0.6,
-    pattern_effect: "none",
-    pattern_effect_opacity: 1,
-    pattern_mask: "none",
-    pattern_mask_direction: "bottom",
-    pattern_mask_size: 70,
-    height: "85dvh",
-    gap: "0",
-    collapsed_reverse: false,
+	layout: 'single',
+	palette: 'transparent',
+	pattern_color: 'white',
+	pattern_opacity: 0.6,
+	pattern_effect: 'none',
+	pattern_effect_opacity: 1,
+	pattern_mask: 'none',
+	pattern_mask_direction: 'bottom',
+	pattern_mask_size: 70,
+	height: '85dvh',
+	gap: '0',
+	collapsed_reverse: false
 };

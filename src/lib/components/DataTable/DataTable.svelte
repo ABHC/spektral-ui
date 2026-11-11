@@ -1,345 +1,344 @@
 <script lang="ts">
-    import type { Snippet } from "svelte";
-    import { createVariant } from "../../utils/builder.js";
-    import { dataTableConfig, defaultDataTableConfig } from "./dataTable.config.js";
+	import type { Snippet } from 'svelte';
+	import { createVariant } from '../../utils/builder.js';
+	import { dataTableConfig, defaultDataTableConfig } from './dataTable.config.js';
 
-    // Types ----------------------------------------------------------------
+	// Types ----------------------------------------------------------------
 
-    type Variant = "flat" | "outlined" | "ghost";
-    type Palette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
-    type Size = "sm" | "md" | "lg";
-    type Elevation = "none" | "subtle" | "hard";
+	type Variant = 'flat' | 'outlined' | 'ghost';
+	type Palette = 'accent' | 'tone' | 'neutral' | 'error' | 'warning' | 'success' | 'info';
+	type Size = 'sm' | 'md' | 'lg';
+	type Elevation = 'none' | 'subtle' | 'hard';
 
-    interface Column {
-        key: string;
-        label: string;
-        width?: string;
-        cell?: Snippet<[any]>;
-    }
+	interface Column {
+		key: string;
+		label: string;
+		width?: string;
+		cell?: Snippet<[unknown]>;
+	}
 
-    // Props ----------------------------------------------------------------
+	// Props ----------------------------------------------------------------
 
-    interface Props {
-        columns: Column[];
-        rows: Record<string, any>[];
-        variant?: Variant;
-        palette?: Palette;
-        size?: Size;
-        elevation?: Elevation;
-        rounded?: boolean;
-    }
+	interface Props {
+		columns: Column[];
+		rows: Record<string, unknown>[];
+		variant?: Variant;
+		palette?: Palette;
+		size?: Size;
+		elevation?: Elevation;
+		rounded?: boolean;
+	}
 
-    let {
-        columns,
-        rows,
-        variant = defaultDataTableConfig.variant,
-        palette = defaultDataTableConfig.palette,
-        size = defaultDataTableConfig.size,
-        elevation = defaultDataTableConfig.elevation,
-        rounded = defaultDataTableConfig.rounded,
-    }: Props = $props();
+	let {
+		columns,
+		rows,
+		variant = defaultDataTableConfig.variant,
+		palette = defaultDataTableConfig.palette,
+		size = defaultDataTableConfig.size,
+		elevation = defaultDataTableConfig.elevation,
+		rounded = defaultDataTableConfig.rounded
+	}: Props = $props();
 
-    // Helpers --------------------------------------------------------------
+	// Helpers --------------------------------------------------------------
 
-    const resolve = createVariant(dataTableConfig);
+	const resolve = createVariant(dataTableConfig);
 
-    const classes = $derived(
-        resolve({
-            variant,
-            palette,
-            size,
-            elevation,
-            rounded: rounded ? true : undefined,
-        }).trim()
-    );
+	const classes = $derived(
+		resolve({
+			variant,
+			palette,
+			size,
+			elevation,
+			rounded: rounded ? true : undefined
+		}).trim()
+	);
 
-    // True as soon as one column declares a width: we then switch the
-    // table to fixed layout and emit a <colgroup> so widths are honored.
-    const has_widths = $derived(columns.some((c) => c.width != null));
+	// True as soon as one column declares a width: we then switch the
+	// table to fixed layout and emit a <colgroup> so widths are honored.
+	const has_widths = $derived(columns.some((c) => c.width != null));
 </script>
 
 <!-- Desktop: standard table -->
 <table class="{classes} data-table-desktop" class:data-table-fixed={has_widths}>
-    {#if has_widths}
-        <colgroup>
-            {#each columns as col}
-                <col style={col.width ? `width: ${col.width}` : undefined} />
-            {/each}
-        </colgroup>
-    {/if}
-    <thead>
-        <tr>
-            {#each columns as col}
-                <th>{col.label}</th>
-            {/each}
-        </tr>
-    </thead>
-    <tbody>
-        {#each rows as row}
-            <tr>
-                {#each columns as col}
-                    <td>
-                        {#if col.cell}
-                            {@render col.cell(row[col.key])}
-                        {:else}
-                            {row[col.key] ?? ""}
-                        {/if}
-                    </td>
-                {/each}
-            </tr>
-        {/each}
-    </tbody>
+	{#if has_widths}
+		<colgroup>
+			{#each columns as col (col.key)}
+				<col style={col.width ? `width: ${col.width}` : undefined} />
+			{/each}
+		</colgroup>
+	{/if}
+	<thead>
+		<tr>
+			{#each columns as col (col.key)}
+				<th>{col.label}</th>
+			{/each}
+		</tr>
+	</thead>
+	<tbody>
+		{#each rows as row, i (i)}
+			<tr>
+				{#each columns as col (col.key)}
+					<td>
+						{#if col.cell}
+							{@render col.cell(row[col.key])}
+						{:else}
+							{row[col.key] ?? ''}
+						{/if}
+					</td>
+				{/each}
+			</tr>
+		{/each}
+	</tbody>
 </table>
 
 <!-- Mobile: stacked cards -->
 <div class="{classes} data-table-mobile">
-    {#each rows as row}
-        <div class="data-table-card">
-            {#each columns as col}
-                <div class="data-table-card-row">
-                    <span class="data-table-card-label">{col.label}</span>
-                    <span class="data-table-card-value">
-                        {#if col.cell}
-                            {@render col.cell(row[col.key])}
-                        {:else}
-                            {row[col.key] ?? ""}
-                        {/if}
-                    </span>
-                </div>
-            {/each}
-        </div>
-    {/each}
+	{#each rows as row, i (i)}
+		<div class="data-table-card">
+			{#each columns as col (col.key)}
+				<div class="data-table-card-row">
+					<span class="data-table-card-label">{col.label}</span>
+					<span class="data-table-card-value">
+						{#if col.cell}
+							{@render col.cell(row[col.key])}
+						{:else}
+							{row[col.key] ?? ''}
+						{/if}
+					</span>
+				</div>
+			{/each}
+		</div>
+	{/each}
 </div>
 
 <style>
-    /* Base --------------------------------------------------------------- */
+	/* Base --------------------------------------------------------------- */
 
-    .data-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        font-family: var(--spk-font-body);
-        color: var(--spk-text);
-    }
+	.data-table {
+		width: 100%;
+		border-collapse: separate;
+		border-spacing: 0;
+		font-family: var(--spk-font-body);
+		color: var(--spk-text);
+	}
 
-    .data-table-fixed {
-        table-layout: fixed;
-    }
+	.data-table-fixed {
+		table-layout: fixed;
+	}
 
-    /* Palette ------------------------------------------------------------ */
+	/* Palette ------------------------------------------------------------ */
 
-    .data-table-palette-accent {
-        --dt-border: var(--spk-accent);
-        --dt-header-bg: var(--spk-accent);
-        --dt-header-text: var(--spk-text-accent);
-        --dt-row-bg: var(--spk-accent-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-accent {
+		--dt-border: var(--spk-accent);
+		--dt-header-bg: var(--spk-accent);
+		--dt-header-text: var(--spk-text-accent);
+		--dt-row-bg: var(--spk-accent-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-tone {
-        --dt-border: var(--spk-tone-hover);
-        --dt-header-bg: var(--spk-tone-hover);
-        --dt-header-text: var(--spk-text);
-        --dt-row-bg: var(--spk-tone);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-tone {
+		--dt-border: var(--spk-tone-hover);
+		--dt-header-bg: var(--spk-tone-hover);
+		--dt-header-text: var(--spk-text);
+		--dt-row-bg: var(--spk-tone);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-neutral {
-        --dt-border: var(--spk-neutral);
-        --dt-header-bg: var(--spk-neutral);
-        --dt-header-text: var(--spk-text-neutral);
-        --dt-row-bg: var(--spk-neutral-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-neutral {
+		--dt-border: var(--spk-neutral);
+		--dt-header-bg: var(--spk-neutral);
+		--dt-header-text: var(--spk-text-neutral);
+		--dt-row-bg: var(--spk-neutral-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-error {
-        --dt-border: var(--spk-error);
-        --dt-header-bg: var(--spk-error);
-        --dt-header-text: var(--spk-text-error);
-        --dt-row-bg: var(--spk-error-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-error {
+		--dt-border: var(--spk-error);
+		--dt-header-bg: var(--spk-error);
+		--dt-header-text: var(--spk-text-error);
+		--dt-row-bg: var(--spk-error-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-warning {
-        --dt-border: var(--spk-warning);
-        --dt-header-bg: var(--spk-warning);
-        --dt-header-text: var(--spk-text-warning);
-        --dt-row-bg: var(--spk-warning-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-warning {
+		--dt-border: var(--spk-warning);
+		--dt-header-bg: var(--spk-warning);
+		--dt-header-text: var(--spk-text-warning);
+		--dt-row-bg: var(--spk-warning-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-success {
-        --dt-border: var(--spk-success);
-        --dt-header-bg: var(--spk-success);
-        --dt-header-text: var(--spk-text-success);
-        --dt-row-bg: var(--spk-success-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-success {
+		--dt-border: var(--spk-success);
+		--dt-header-bg: var(--spk-success);
+		--dt-header-text: var(--spk-text-success);
+		--dt-row-bg: var(--spk-success-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    .data-table-palette-info {
-        --dt-border: var(--spk-info);
-        --dt-header-bg: var(--spk-info);
-        --dt-header-text: var(--spk-text-info);
-        --dt-row-bg: var(--spk-info-bg);
-        --dt-hover: var(--spk-tone-ghost-hover);
-    }
+	.data-table-palette-info {
+		--dt-border: var(--spk-info);
+		--dt-header-bg: var(--spk-info);
+		--dt-header-text: var(--spk-text-info);
+		--dt-row-bg: var(--spk-info-bg);
+		--dt-hover: var(--spk-tone-ghost-hover);
+	}
 
-    /* Variants ----------------------------------------------------------- */
+	/* Variants ----------------------------------------------------------- */
 
-    .data-table-flat th {
-        background: var(--dt-header-bg);
-        color: var(--dt-header-text);
-    }
+	.data-table-flat th {
+		background: var(--dt-header-bg);
+		color: var(--dt-header-text);
+	}
 
-    .data-table-flat td {
-        border-top: var(--spk-border-thin) solid var(--dt-border);
-    }
+	.data-table-flat td {
+		border-top: var(--spk-border-thin) solid var(--dt-border);
+	}
 
-    .data-table-outlined {
-        border: var(--spk-border) solid var(--dt-border);
-    }
+	.data-table-outlined {
+		border: var(--spk-border) solid var(--dt-border);
+	}
 
-    .data-table-outlined th {
-        border-bottom: var(--spk-border) solid var(--dt-border);
-        color: var(--dt-header-text);
-        background: var(--dt-header-bg);
-    }
+	.data-table-outlined th {
+		border-bottom: var(--spk-border) solid var(--dt-border);
+		color: var(--dt-header-text);
+		background: var(--dt-header-bg);
+	}
 
-    .data-table-outlined td {
-        border-top: var(--spk-border-thin) solid var(--dt-border);
-    }
+	.data-table-outlined td {
+		border-top: var(--spk-border-thin) solid var(--dt-border);
+	}
 
-    .data-table-ghost th {
-        border-bottom: var(--spk-border) solid var(--dt-border);
-        color: var(--spk-text-muted);
-    }
+	.data-table-ghost th {
+		border-bottom: var(--spk-border) solid var(--dt-border);
+		color: var(--spk-text-muted);
+	}
 
-    .data-table-ghost td {
-        border-top: var(--spk-border-thin) solid var(--dt-border);
-    }
+	.data-table-ghost td {
+		border-top: var(--spk-border-thin) solid var(--dt-border);
+	}
 
-    /* Sizes -------------------------------------------------------------- */
+	/* Sizes -------------------------------------------------------------- */
 
-    .data-table-sm th,
-    .data-table-sm td {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.8rem;
-    }
+	.data-table-sm th,
+	.data-table-sm td {
+		padding: 0.35rem 0.6rem;
+		font-size: 0.8rem;
+	}
 
-    .data-table-md th,
-    .data-table-md td {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
-    }
+	.data-table-md th,
+	.data-table-md td {
+		padding: 0.5rem 0.75rem;
+		font-size: 0.85rem;
+	}
 
-    .data-table-lg th,
-    .data-table-lg td {
-        padding: 0.7rem 1rem;
-        font-size: 0.95rem;
-    }
+	.data-table-lg th,
+	.data-table-lg td {
+		padding: 0.7rem 1rem;
+		font-size: 0.95rem;
+	}
 
-    /* Header ------------------------------------------------------------- */
+	/* Header ------------------------------------------------------------- */
 
-    th {
-        text-align: left;
-        font-weight: 700;
-        font-family: var(--spk-font-heading);
-        text-transform: uppercase;
-        font-size: 0.75em;
-        letter-spacing: 0.5px;
-    }
+	th {
+		text-align: left;
+		font-weight: 700;
+		font-family: var(--spk-font-heading);
+		text-transform: uppercase;
+		font-size: 0.75em;
+		letter-spacing: 0.5px;
+	}
 
-    td {
-        vertical-align: top;
-    }
+	td {
+		vertical-align: top;
+	}
 
-    /* Rounded ------------------------------------------------------------ */
+	/* Rounded ------------------------------------------------------------ */
 
-    .data-table-rounded {
-        border-radius: var(--spk-radius-soft);
-        overflow: hidden;
-    }
+	.data-table-rounded {
+		border-radius: var(--spk-radius-soft);
+		overflow: hidden;
+	}
 
-    /* Elevation ---------------------------------------------------------- */
+	/* Elevation ---------------------------------------------------------- */
 
-    .data-table-elevation-subtle {
-        box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
-    }
+	.data-table-elevation-subtle {
+		box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
+	}
 
-    .data-table-elevation-hard {
-        box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
-    }
+	.data-table-elevation-hard {
+		box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
+	}
 
-    /* Hover -------------------------------------------------------------- */
+	/* Hover -------------------------------------------------------------- */
 
-    tbody tr:hover td {
-        background: var(--dt-hover);
-    }
+	tbody tr:hover td {
+		background: var(--dt-hover);
+	}
 
-    /* Responsive --------------------------------------------------------- */
+	/* Responsive --------------------------------------------------------- */
 
-    .data-table-desktop {
-        display: table;
-    }
+	.data-table-desktop {
+		display: table;
+	}
 
-    .data-table-mobile {
-        display: none;
-    }
+	.data-table-mobile {
+		display: none;
+	}
 
-    @media (max-width: 640px) {
-        .data-table-desktop {
-            display: none;
-        }
+	@media (max-width: 640px) {
+		.data-table-desktop {
+			display: none;
+		}
 
-        .data-table-mobile {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
+		.data-table-mobile {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+		}
 
-        .data-table-flat.data-table-mobile {
-            background: var(--dt-row-bg);
-        }
+		.data-table-flat.data-table-mobile {
+			background: var(--dt-row-bg);
+		}
 
+		.data-table-card {
+			overflow: hidden;
+		}
 
-        .data-table-card {
-            overflow: hidden;
-        }
+		.data-table-card-row {
+			display: flex;
+			justify-content: space-between;
+			gap: 0.5rem;
+			padding: 0.5rem 0.75rem;
+		}
 
-        .data-table-card-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-        }
+		.data-table-card-row + .data-table-card-row {
+			border-top: var(--spk-border-thin) solid var(--dt-border);
+		}
 
-        .data-table-card-row + .data-table-card-row {
-            border-top: var(--spk-border-thin) solid var(--dt-border);
-        }
+		.data-table-card-label {
+			font-weight: 700;
+			font-family: var(--spk-font-heading);
+			text-transform: uppercase;
+			font-size: 0.7em;
+			letter-spacing: 0.5px;
+			color: var(--spk-text-muted);
+			flex-shrink: 0;
+		}
 
-        .data-table-card-label {
-            font-weight: 700;
-            font-family: var(--spk-font-heading);
-            text-transform: uppercase;
-            font-size: 0.7em;
-            letter-spacing: 0.5px;
-            color: var(--spk-text-muted);
-            flex-shrink: 0;
-        }
+		.data-table-card-value {
+			text-align: right;
+		}
 
-        .data-table-card-value {
-            text-align: right;
-        }
+		/* Mobile sizes */
+		.data-table-sm .data-table-card-row {
+			padding: 0.3rem 0.5rem;
+			font-size: 0.8rem;
+		}
 
-        /* Mobile sizes */
-        .data-table-sm .data-table-card-row {
-            padding: 0.3rem 0.5rem;
-            font-size: 0.8rem;
-        }
-
-        .data-table-lg .data-table-card-row {
-            padding: 0.7rem 1rem;
-            font-size: 0.95rem;
-        }
-    }
+		.data-table-lg .data-table-card-row {
+			padding: 0.7rem 1rem;
+			font-size: 0.95rem;
+		}
+	}
 </style>

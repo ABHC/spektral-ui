@@ -24,36 +24,36 @@
     footer   : Bottom zone - padded, top border, flex row.
 */
 
-export type Elevation = "none" | "subtle" | "hard";
+export type Elevation = 'none' | 'subtle' | 'hard';
 
 export interface ModalConfig {
-    palette: "tone" | "accent";
-    rounded: boolean;
-    elevation: Elevation;
+	palette: 'tone' | 'accent';
+	rounded: boolean;
+	elevation: Elevation;
 }
 
 export const defaultModalConfig: ModalConfig = {
-    palette: "tone",
-    rounded: false,
-    elevation: "none",
+	palette: 'tone',
+	rounded: false,
+	elevation: 'none'
 };
 
 export const modalConfig = {
-    base: "modal-dialog",
+	base: 'modal-dialog',
 
-    variants: {
-        palette: {
-            tone:   "modal-palette-tone",
-            accent: "modal-palette-accent",
-            accentbg: "modal-palette-accentbg",
-        },
-        rounded: {
-            true: "modal-rounded",
-        },
-        elevation: {
-            none:   "modal-elevation-none",
-            subtle: "modal-elevation-subtle",
-            hard:   "modal-elevation-hard",
-        },
-    },
+	variants: {
+		palette: {
+			tone: 'modal-palette-tone',
+			accent: 'modal-palette-accent',
+			accentbg: 'modal-palette-accentbg'
+		},
+		rounded: {
+			true: 'modal-rounded'
+		},
+		elevation: {
+			none: 'modal-elevation-none',
+			subtle: 'modal-elevation-subtle',
+			hard: 'modal-elevation-hard'
+		}
+	}
 };

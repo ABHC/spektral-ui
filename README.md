@@ -23,12 +23,12 @@ Then use components anywhere:
 
 ```svelte
 <script>
-  import { Button, Card, Badge } from '@abhc/spektral-ui';
+	import { Button, Card, Badge } from '@abhc/spektral-ui';
 </script>
 
 <Card>
-  <Badge palette="success">New</Badge>
-  <Button palette="accent">Get started</Button>
+	<Badge palette="success">New</Badge>
+	<Button palette="accent">Get started</Button>
 </Card>
 ```
 
@@ -37,67 +37,73 @@ Then use components anywhere:
 40+ components across layout, controls, overlays, feedback and content.
 
 ### Layout
-| Component | Description |
-|-----------|-------------|
-| `Header` | App header shell |
-| `Footer` | App footer shell |
-| `Nav` | Navigation bar |
-| `Hero` | Full-width section with layout presets, palette, SVG pattern backgrounds and mask effects |
-| `TileGrid` | Responsive grid with pattern background support |
-| `Explorer` / `ExplorerGroup` / `ExplorerLink` | File-tree style sidebar navigation |
+
+| Component                                     | Description                                                                               |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `Header`                                      | App header shell                                                                          |
+| `Footer`                                      | App footer shell                                                                          |
+| `Nav`                                         | Navigation bar                                                                            |
+| `Hero`                                        | Full-width section with layout presets, palette, SVG pattern backgrounds and mask effects |
+| `TileGrid`                                    | Responsive grid with pattern background support                                           |
+| `Explorer` / `ExplorerGroup` / `ExplorerLink` | File-tree style sidebar navigation                                                        |
 
 ### Controls
-| Component | Description |
-|-----------|-------------|
-| `Button` | Multi-variant button (flat, outlined, ghost, naked) with animation and direction options |
-| `Badge` | Inline label with palette, size, elevation and optional trailing action |
-| `Input` | Text input |
-| `Textarea` | Multiline text input |
-| `Select` | Dropdown select built on Popover |
-| `CheckboxGroup` | Checkbox list |
-| `RadioGroup` | Radio button list |
-| `Switch` | Toggle switch |
-| `Slider` | Range slider |
-| `SearchField` | Search input with clear action |
-| `ColorPicker` | OKLCH color picker with hex input |
-| `Selector` / `ControlBar` | Segmented control / tab bar |
+
+| Component                 | Description                                                                              |
+| ------------------------- | ---------------------------------------------------------------------------------------- |
+| `Button`                  | Multi-variant button (flat, outlined, ghost, naked) with animation and direction options |
+| `Badge`                   | Inline label with palette, size, elevation and optional trailing action                  |
+| `Input`                   | Text input                                                                               |
+| `Textarea`                | Multiline text input                                                                     |
+| `Select`                  | Dropdown select built on Popover                                                         |
+| `CheckboxGroup`           | Checkbox list                                                                            |
+| `RadioGroup`              | Radio button list                                                                        |
+| `Switch`                  | Toggle switch                                                                            |
+| `Slider`                  | Range slider                                                                             |
+| `SearchField`             | Search input with clear action                                                           |
+| `ColorPicker`             | OKLCH color picker with hex input                                                        |
+| `Selector` / `ControlBar` | Segmented control / tab bar                                                              |
 
 ### Overlays
-| Component | Description |
-|-----------|-------------|
-| `Drawer` | Side panel overlay |
-| `Modal` | Dialog overlay |
+
+| Component | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| `Drawer`  | Side panel overlay                                           |
+| `Modal`   | Dialog overlay                                               |
 | `Popover` | Anchored floating panel with direction and alignment options |
-| `Tooltip` | Hover tooltip with direction and size variants |
-| `Command` | Command palette / search modal |
+| `Tooltip` | Hover tooltip with direction and size variants               |
+| `Command` | Command palette / search modal                               |
 
 ### Feedback
-| Component | Description |
-|-----------|-------------|
-| `Alert` | Toast/notification with semantic variants and viewport positioning |
-| `Callout` | Highlighted text block |
-| `Progress` | Progress bar |
+
+| Component  | Description                                                        |
+| ---------- | ------------------------------------------------------------------ |
+| `Alert`    | Toast/notification with semantic variants and viewport positioning |
+| `Callout`  | Highlighted text block                                             |
+| `Progress` | Progress bar                                                       |
 
 ### Content
-| Component | Description |
-|-----------|-------------|
-| `Card` | Content container with variant, elevation and rounding options |
-| `ListItem` | Structured list row |
-| `Accordion` / `AccordionHeader` | Collapsible content sections |
-| `DataTable` | Sortable data table |
-| `CodeBlock` | Syntax-highlighted code with copy, filename, tabs and terminal variants |
-| `Avatar` | User avatar with fallback initials |
-| `Headline` | Display heading with palette and size variants |
-| `Timeline` / `TimelineItem` | Timeline layout |
-| `Marquee` | Scrolling content strip |
-| `Support` | "Built with Spektral" attribution badge |
-| `SwatchRow` | Color swatch display row |
+
+| Component                       | Description                                                             |
+| ------------------------------- | ----------------------------------------------------------------------- |
+| `Card`                          | Content container with variant, elevation and rounding options          |
+| `ListItem`                      | Structured list row                                                     |
+| `Accordion` / `AccordionHeader` | Collapsible content sections                                            |
+| `DataTable`                     | Sortable data table                                                     |
+| `CodeBlock`                     | Syntax-highlighted code with copy, filename, tabs and terminal variants |
+| `Avatar`                        | User avatar with fallback initials                                      |
+| `Headline`                      | Display heading with palette and size variants                          |
+| `Timeline` / `TimelineItem`     | Timeline layout                                                         |
+| `Marquee`                       | Scrolling content strip                                                 |
+| `Support`                       | "Built with Spektral" attribution badge                                 |
+| `SwatchRow`                     | Color swatch display row                                                |
 
 ### Branding
-| Component | Description |
-|-----------|-------------|
-| `LogoSpektral` | Spektral UI logo asset |
-| `Support` | "Built with Spektral" attribution badge |
+
+| Component      | Description                             |
+| -------------- | --------------------------------------- |
+| `LogoSpektral` | Spektral UI logo asset                  |
+| `Support`      | "Built with Spektral" attribution badge |
 
 ## Prop system
 
@@ -141,12 +147,11 @@ This loads the package defaults first, bundled by Vite.
 ```svelte
 <!-- src/routes/+layout.svelte -->
 <svelte:head>
-    <link rel="stylesheet" href="/tokens.css" />
+	<link rel="stylesheet" href="/tokens.css" />
 </svelte:head>
 ```
 
 Because `<svelte:head>` links are evaluated after the Vite bundle, your file always loads last — its values override the package defaults through normal CSS cascade.
-
 
 ## Utilities
 
@@ -176,21 +181,35 @@ All component prop types are also exported from the main entry point, so you nev
 ```ts
 // Data shapes (passed as arrays / objects to components)
 import type { CommandItem, CommandGroup } from '@abhc/spektral-ui';
-import type { BadgeItem }                 from '@abhc/spektral-ui';
-import type { Swatch }                    from '@abhc/spektral-ui';
-import type { Tile, TileMedia }           from '@abhc/spektral-ui';
-import type { Columns, HeroSpan }         from '@abhc/spektral-ui';
+import type { BadgeItem } from '@abhc/spektral-ui';
+import type { Swatch } from '@abhc/spektral-ui';
+import type { Tile, TileMedia } from '@abhc/spektral-ui';
+import type { Columns, HeroSpan } from '@abhc/spektral-ui';
 
 // Prop union types (palette, direction, size…)
-import type { Elevation }                                          from '@abhc/spektral-ui';
-import type { PopoverPalette, PopoverElevation,
-              PopoverDirection, PopoverAlign }                     from '@abhc/spektral-ui';
-import type { SearchFieldSize, SearchFieldPalette }                from '@abhc/spektral-ui';
-import type { TooltipPalette, TooltipElevation,
-              TooltipDirection, TooltipAlign, TooltipSize }        from '@abhc/spektral-ui';
-import type { TimelineVariant, TimelinePalette, TimelineSize,
-              TimelineElevation, TimelineOrientation,
-              TimelineConnectorStyle }                             from '@abhc/spektral-ui';
+import type { Elevation } from '@abhc/spektral-ui';
+import type {
+	PopoverPalette,
+	PopoverElevation,
+	PopoverDirection,
+	PopoverAlign
+} from '@abhc/spektral-ui';
+import type { SearchFieldSize, SearchFieldPalette } from '@abhc/spektral-ui';
+import type {
+	TooltipPalette,
+	TooltipElevation,
+	TooltipDirection,
+	TooltipAlign,
+	TooltipSize
+} from '@abhc/spektral-ui';
+import type {
+	TimelineVariant,
+	TimelinePalette,
+	TimelineSize,
+	TimelineElevation,
+	TimelineOrientation,
+	TimelineConnectorStyle
+} from '@abhc/spektral-ui';
 ```
 
 ## Requirements
@@ -208,4 +227,4 @@ GPL-3.0 — see [LICENSE](./LICENSE).
 
 ## AI Usage
 
-AI (primarily Claude Code) was used during the development of this package. However, it's not 'vibe-coded' and the generated code is always human reviewed and tested before being pushed to the repository.  
+AI (primarily Claude Code) was used during the development of this package. However, it's not 'vibe-coded' and the generated code is always human reviewed and tested before being pushed to the repository.

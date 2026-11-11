@@ -1,267 +1,270 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
-    import { createVariant } from "../../utils/builder.js";
-    import { navConfig } from "./nav.config.js";
+	import type { Snippet } from 'svelte';
+	import { createVariant } from '../../utils/builder.js';
+	import { navConfig } from './nav.config.js';
 
-    type Position = "fixed" | "floating";
-    type Direction = "top" | "bottom" | "left" | "right";
-    type Palette = "accent" | "tone";
-    type Elevation = "none" | "subtle" | "hard";
+	type Position = 'fixed' | 'floating';
+	type Direction = 'top' | 'bottom' | 'left' | 'right';
+	type Palette = 'accent' | 'tone';
+	type Elevation = 'none' | 'subtle' | 'hard';
 
-    interface Props {
-        position?: Position;
-        direction?: Direction;
-        palette?: Palette;
-        rounded?: boolean;
-        elevation?: Elevation;
-        offset?: string;
-        leading?: Snippet;
-        trailing?: Snippet;
-        children: Snippet;
-    }
+	interface Props {
+		position?: Position;
+		direction?: Direction;
+		palette?: Palette;
+		rounded?: boolean;
+		elevation?: Elevation;
+		offset?: string;
+		leading?: Snippet;
+		trailing?: Snippet;
+		children: Snippet;
+	}
 
-    let {
-        position = "fixed",
-        direction = "left",
-        palette = "accent",
-        rounded = false,
-        elevation = "none",
-        offset = "0px",
-        leading,
-        trailing,
-        children,
-    }: Props = $props();
+	let {
+		position = 'fixed',
+		direction = 'left',
+		palette = 'accent',
+		rounded = false,
+		elevation = 'none',
+		offset = '0px',
+		leading,
+		trailing,
+		children
+	}: Props = $props();
 
-    // Layout helper
-    const is_column = $derived(direction === "left" || direction === "right");
+	// Layout helper
+	const is_column = $derived(direction === 'left' || direction === 'right');
 
-    // Variant resolution
-    const resolve = createVariant(navConfig);
-    const wrapper_classes = $derived(
-        resolve({
-            position,
-            direction,
-            palette,
-            rounded: rounded ? true : undefined,
-            elevation: elevation !== "none" ? elevation : undefined,
-        }).trim()
-    );
+	// Variant resolution
+	const resolve = createVariant(navConfig);
+	const wrapper_classes = $derived(
+		resolve({
+			position,
+			direction,
+			palette,
+			rounded: rounded ? true : undefined,
+			elevation: elevation !== 'none' ? elevation : undefined
+		}).trim()
+	);
 </script>
 
 <nav
-    class="{wrapper_classes} {is_column ? 'nav-layout-column' : 'nav-layout-row'}"
-    style="--nav-offset: {offset}"
-    aria-label="Navigation"
+	class="{wrapper_classes} {is_column ? 'nav-layout-column' : 'nav-layout-row'}"
+	style="--nav-offset: {offset}"
+	aria-label="Navigation"
 >
-    {#if leading}
-        <div class="nav-leading">
-            {@render leading()}
-        </div>
-    {/if}
+	{#if leading}
+		<div class="nav-leading">
+			{@render leading()}
+		</div>
+	{/if}
 
-    <div class="nav-items">
-        {@render children()}
-    </div>
+	<div class="nav-items">
+		{@render children()}
+	</div>
 
-    {#if trailing}
-        <div class="nav-trailing">
-            {@render trailing()}
-        </div>
-    {/if}
+	{#if trailing}
+		<div class="nav-trailing">
+			{@render trailing()}
+		</div>
+	{/if}
 </nav>
 
 <style>
-    /* Base wrapper -------------------------------------------------------- */
-    .nav-component {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        transition: background var(--spk-duration-slow) ease, box-shadow var(--spk-duration-slow) ease;
-        z-index: var(--spk-z-sticky);
-    }
+	/* Base wrapper -------------------------------------------------------- */
+	.nav-component {
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		transition:
+			background var(--spk-duration-slow) ease,
+			box-shadow var(--spk-duration-slow) ease;
+		z-index: var(--spk-z-sticky);
+	}
 
-    /* Rounded ------------------------------------------------------------- */
-    .nav-rounded { border-radius: var(--spk-radius-round); }
+	/* Rounded ------------------------------------------------------------- */
+	.nav-rounded {
+		border-radius: var(--spk-radius-round);
+	}
 
-    /* Top / bottom bars only round the inner edge */
-    .nav-direction-top.nav-rounded    { 
-            border-radius: 0 0 var(--spk-radius-round) var(--spk-radius-round); 
-    }
-    
-    .nav-direction-bottom.nav-rounded { 
-        border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0; 
-    }
+	/* Top / bottom bars only round the inner edge */
+	.nav-direction-top.nav-rounded {
+		border-radius: 0 0 var(--spk-radius-round) var(--spk-radius-round);
+	}
 
-    /* Layouts & Itemps ---------------------------------------------------- */
+	.nav-direction-bottom.nav-rounded {
+		border-radius: var(--spk-radius-round) var(--spk-radius-round) 0 0;
+	}
 
-    /* Layout directions */
-    .nav-layout-column {
-        flex-direction: column;
-        padding: 0.5rem 0.5rem;
-    }
+	/* Layouts & Itemps ---------------------------------------------------- */
 
-    .nav-layout-row {
-        flex-direction: row;
-    }
+	/* Layout directions */
+	.nav-layout-column {
+		flex-direction: column;
+		padding: 0.5rem 0.5rem;
+	}
 
-    /* leading / trailing slots always stack perpendicular to the nav axis */
-    .nav-leading,
-    .nav-trailing {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: auto;
-        flex-shrink: 0;
-        margin: 0 8px;
-    }
+	.nav-layout-row {
+		flex-direction: row;
+	}
 
-    @media (max-width: 639px) {
-        .nav-leading,
-        .nav-trailing {
-            margin: 0 4px;
-        }
-    }
+	/* leading / trailing slots always stack perpendicular to the nav axis */
+	.nav-leading,
+	.nav-trailing {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: auto;
+		flex-shrink: 0;
+		margin: 0 8px;
+	}
 
-    /* Items container inherits the parent direction */
-    .nav-items {
-        display:     flex;
-        align-items: center;
-        gap:         10px;
-    }
+	@media (max-width: 639px) {
+		.nav-leading,
+		.nav-trailing {
+			margin: 0 4px;
+		}
+	}
 
-    .nav-layout-column .nav-items {
-        flex-direction: column;
-        justify-content: center;
-        width: fit-content;
-    }
+	/* Items container inherits the parent direction */
+	.nav-items {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
 
-    /* In column mode, all buttons stretch to the width of the widest one */
-    .nav-layout-column .nav-items :global(.btn-ghost) {
-        width: 100%;
-    }
+	.nav-layout-column .nav-items {
+		flex-direction: column;
+		justify-content: center;
+		width: fit-content;
+	}
 
-    /* Column + rect only: space icon and label apart */
-    .nav-layout-column .nav-items :global(.btn-ghost:not(.btn-column)) {
-        justify-content: flex-start;
-        gap: 1rem;
-    }
+	/* In column mode, all buttons stretch to the width of the widest one */
+	.nav-layout-column .nav-items :global(.btn-ghost) {
+		width: 100%;
+	}
 
-    .nav-layout-row .nav-items {
-        flex-direction: row;
-        justify-content: space-evenly;
-        width: 100%;
-    }
+	/* Column + rect only: space icon and label apart */
+	.nav-layout-column .nav-items :global(.btn-ghost:not(.btn-column)) {
+		justify-content: flex-start;
+		gap: 1rem;
+	}
 
-    .nav-layout-row .nav-items :global(.btn-ghost:not(.btn-column)) {
-        gap: 0.6rem;
-    }
+	.nav-layout-row .nav-items {
+		flex-direction: row;
+		justify-content: space-evenly;
+		width: 100%;
+	}
 
-    /* nav-icon / nav-label layout inside ghost buttons */
-    .nav-items :global(.nav-icon) {
-        line-height: 1;
-    }
+	.nav-layout-row .nav-items :global(.btn-ghost:not(.btn-column)) {
+		gap: 0.6rem;
+	}
 
-    .nav-items :global(.nav-label) {
-        font-family: var(--spk-font-heading);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        line-height: 1;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        max-width: 100%;
-    }
+	/* nav-icon / nav-label layout inside ghost buttons */
+	.nav-items :global(.nav-icon) {
+		line-height: 1;
+	}
 
-    /* Padding zones - keep items off the edges --------------------------- */
-    .nav-direction-top .nav-items,
-    .nav-direction-bottom .nav-items { 
-        padding: 0.5rem 0.5rem; 
-    }
+	.nav-items :global(.nav-label) {
+		font-family: var(--spk-font-heading);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.4px;
+		line-height: 1;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 100%;
+	}
 
-    .nav-direction-left.nav-items,
-    .nav-direction-right .nav-items { 
-        padding: 0.5rem 0;       
-    }
+	/* Padding zones - keep items off the edges --------------------------- */
+	.nav-direction-top .nav-items,
+	.nav-direction-bottom .nav-items {
+		padding: 0.5rem 0.5rem;
+	}
 
-    /* Positionning -------------------------------------------------------- */
+	.nav-direction-left.nav-items,
+	.nav-direction-right .nav-items {
+		padding: 0.5rem 0;
+	}
 
-    .nav-fixed { 
-        position: fixed;  
-    }
+	/* Positionning -------------------------------------------------------- */
 
-    .nav-floating { 
-        position: sticky; 
-        width: fit-content;
-    }
+	.nav-fixed {
+		position: fixed;
+	}
 
-    /* Direction anchors ---------------------------------------------------- */
+	.nav-floating {
+		position: sticky;
+		width: fit-content;
+	}
 
-    /* fixed mode */
-    .nav-direction-left.nav-fixed {
-        top: 50%;
-        left: 1rem;
-        transform: translateY(-50%);
-    }
+	/* Direction anchors ---------------------------------------------------- */
 
-    .nav-direction-right.nav-fixed {
-        top: 50%;
-        right: 1rem;
-        transform: translateY(-50%);
-    }
+	/* fixed mode */
+	.nav-direction-left.nav-fixed {
+		top: 50%;
+		left: 1rem;
+		transform: translateY(-50%);
+	}
 
-    .nav-direction-top.nav-fixed {
-        top: var(--nav-offset, 0);
-        left: 0;
-        right: 0;
-        width: 100%;
-    }
+	.nav-direction-right.nav-fixed {
+		top: 50%;
+		right: 1rem;
+		transform: translateY(-50%);
+	}
 
-    .nav-direction-bottom.nav-fixed {
-        bottom: var(--nav-offset, 0);
-        left: 0;
-        right: 0;
-        width: 100%;
-    }
+	.nav-direction-top.nav-fixed {
+		top: var(--nav-offset, 0);
+		left: 0;
+		right: 0;
+		width: 100%;
+	}
 
-    /* floating (sticky) mode */
-    .nav-direction-left.nav-floating,
-    .nav-direction-right.nav-floating {
-        /* Stick to the top of the scroll container, vertically centred via  */
-        /* align-self on the parent flex column */
-        align-self: flex-start;
-        top: 1rem;
-    }
+	.nav-direction-bottom.nav-fixed {
+		bottom: var(--nav-offset, 0);
+		left: 0;
+		right: 0;
+		width: 100%;
+	}
 
-    .nav-direction-top.nav-floating {
-        top: 0;
-        width: 100%;
-    }
+	/* floating (sticky) mode */
+	.nav-direction-left.nav-floating,
+	.nav-direction-right.nav-floating {
+		/* Stick to the top of the scroll container, vertically centred via  */
+		/* align-self on the parent flex column */
+		align-self: flex-start;
+		top: 1rem;
+	}
 
-    .nav-direction-bottom.nav-floating {
-        bottom: 0;
-        width: 100%;
-    }
+	.nav-direction-top.nav-floating {
+		top: 0;
+		width: 100%;
+	}
 
-    /* Palette -------------------------------------------------------------- */
+	.nav-direction-bottom.nav-floating {
+		bottom: 0;
+		width: 100%;
+	}
 
-    /* accent */
-    .nav-palette-accent {
-        background: var(--spk-accent);
-    }
+	/* Palette -------------------------------------------------------------- */
 
-    /* tone */
-    .nav-palette-tone {
-        background: var(--spk-tone);
-    }
+	/* accent */
+	.nav-palette-accent {
+		background: var(--spk-accent);
+	}
 
-    /* Elevation ------------------------------------------------------------ */
+	/* tone */
+	.nav-palette-tone {
+		background: var(--spk-tone);
+	}
 
-    .nav-elevation-subtle {
-        box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
-    }
+	/* Elevation ------------------------------------------------------------ */
 
-    .nav-elevation-hard {
-        box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
-    }
+	.nav-elevation-subtle {
+		box-shadow: var(--spk-elevation-subtle) var(--spk-shadow-subtle);
+	}
 
+	.nav-elevation-hard {
+		box-shadow: var(--spk-elevation-hard) var(--spk-shadow-hard);
+	}
 </style>

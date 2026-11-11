@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { createVariant } from "../../utils/builder.js";
+	import { createVariant } from '../../utils/builder.js';
 	import {
 		avatarConfig,
 		type AvatarSize,
 		type AvatarStatus,
 		type AvatarPalette,
 		type AvatarShape,
-		type AvatarElevation,
-	} from "./avatar.config.js";
+		type AvatarElevation
+	} from './avatar.config.js';
 
 	interface Props {
 		size?: AvatarSize;
@@ -22,15 +22,15 @@
 	}
 
 	let {
-		size = "md",
+		size = 'md',
 		status = undefined,
-		palette = "accent",
-		shape = "rounded",
-		elevation = "none",
+		palette = 'accent',
+		shape = 'rounded',
+		elevation = 'none',
 		src = undefined,
-		alt = "",
+		alt = '',
 		label = undefined,
-		onclick = undefined,
+		onclick = undefined
 	}: Props = $props();
 
 	// Helpers ----------------------------------------------------------------
@@ -40,9 +40,7 @@
 	const avatar_classes = $derived(resolve({ size, palette, shape, elevation }));
 	const status_class = $derived(resolve({ status }));
 
-	const dot_classes = $derived(
-		status != undefined ? `state-dot ${status_class}`.trim() : ""
-	);
+	const dot_classes = $derived(status != undefined ? `state-dot ${status_class}`.trim() : '');
 
 	const truncated_label = $derived(label?.slice(0, 3).toUpperCase());
 </script>

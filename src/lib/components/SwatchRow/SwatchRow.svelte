@@ -1,150 +1,144 @@
 <script lang="ts">
-    import { createVariant } from "../../utils/builder.js";
-    import { swatchRowConfig, defaultSwatchRowConfig } from "./swatchRow.config.js";
-    import type { Swatch } from "./swatchRow.config.js";
-    import { hexToOklch } from "../../utils/colors.js";
-    import CopyButton from "../Button/CopyButton.svelte";
+	import { createVariant } from '../../utils/builder.js';
+	import { swatchRowConfig, defaultSwatchRowConfig } from './swatchRow.config.js';
+	import type { Swatch } from './swatchRow.config.js';
+	import { hexToOklch } from '../../utils/colors.js';
+	import CopyButton from '../Button/CopyButton.svelte';
 
-    // Props
+	// Props
 
-    interface Props {
-        swatches: Swatch[];
-        compact?: boolean;
-        rounded?: boolean;
-    }
+	interface Props {
+		swatches: Swatch[];
+		compact?: boolean;
+		rounded?: boolean;
+	}
 
-    let {
-        swatches,
-        compact = defaultSwatchRowConfig.compact,
-        rounded = defaultSwatchRowConfig.rounded
-    }: Props = $props();
+	let {
+		swatches,
+		compact = defaultSwatchRowConfig.compact,
+		rounded = defaultSwatchRowConfig.rounded
+	}: Props = $props();
 
-    // Helpers
+	// Helpers
 
-    const resolve = createVariant(swatchRowConfig);
-    const classes = $derived(resolve({ compact, rounded }));
+	const resolve = createVariant(swatchRowConfig);
+	const classes = $derived(resolve({ compact, rounded }));
 
-    function formatOklch(hex: string): string | null {
-        if (!hex || hex.startsWith("rgba")) return null;
-        const oklch = hexToOklch(hex);
-        if (!oklch) return null;
-        return `${(oklch.l * 100).toFixed(0)} ${oklch.c.toFixed(3)} ${oklch.h.toFixed(0)}`;
-    }
+	function formatOklch(hex: string): string | null {
+		if (!hex || hex.startsWith('rgba')) return null;
+		const oklch = hexToOklch(hex);
+		if (!oklch) return null;
+		return `${(oklch.l * 100).toFixed(0)} ${oklch.c.toFixed(3)} ${oklch.h.toFixed(0)}`;
+	}
 </script>
 
 <div class={classes}>
-    {#each swatches as swatch}
-        {@const oklch = formatOklch(swatch.value)}
-        <div class="sw" style="background: {swatch.bg}; color: {swatch.color};">
-            {#if swatch.isText}
-                <span class="sw-aa">Aa</span>
-            {/if}
-            <span class="sw-label">{swatch.label}</span>
-            <span class="sw-value-row">
-                <span class="sw-hex">{swatch.value}</span>
-                <CopyButton 
-                    to_copy={swatch.value} 
-                    rounded={rounded}
-                />
-            </span>
-            {#if oklch}
-                <span class="sw-value-row">
-                    <span class="sw-oklch">{oklch}</span>
-                    <CopyButton 
-                        to_copy={oklch} 
-                        rounded={rounded}
-                    />
-                </span>
-            {/if}
-        </div>
-    {/each}
+	{#each swatches as swatch (swatch.label)}
+		{@const oklch = formatOklch(swatch.value)}
+		<div class="sw" style="background: {swatch.bg}; color: {swatch.color};">
+			{#if swatch.isText}
+				<span class="sw-aa">Aa</span>
+			{/if}
+			<span class="sw-label">{swatch.label}</span>
+			<span class="sw-value-row">
+				<span class="sw-hex">{swatch.value}</span>
+				<CopyButton to_copy={swatch.value} {rounded} />
+			</span>
+			{#if oklch}
+				<span class="sw-value-row">
+					<span class="sw-oklch">{oklch}</span>
+					<CopyButton to_copy={oklch} {rounded} />
+				</span>
+			{/if}
+		</div>
+	{/each}
 </div>
 
 <style>
-    .swatch-row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-        gap: 5px;
-    }
+	.swatch-row {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+		gap: 5px;
+	}
 
-    .sw {
-        min-width: 0;
-        padding: 7px 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        gap: 2px;
-        border: var(--spk-border-thin) solid var(--spk-tone-ghost-hover);
-        overflow: hidden;
-    }
+	.sw {
+		min-width: 0;
+		padding: 7px 8px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		gap: 2px;
+		border: var(--spk-border-thin) solid var(--spk-tone-ghost-hover);
+		overflow: hidden;
+	}
 
-    .sw-aa {
-        font-size: 1.1rem;
-        font-weight: 700;
-        line-height: 1;
-        margin-bottom: 2px;
-    }
+	.sw-aa {
+		font-size: 1.1rem;
+		font-weight: 700;
+		line-height: 1;
+		margin-bottom: 2px;
+	}
 
-    .sw-label {
-        font-size: 0.55rem;
-        font-weight: 600;
-        opacity: var(--spk-opacity-muted);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+	.sw-label {
+		font-size: 0.55rem;
+		font-weight: 600;
+		opacity: var(--spk-opacity-muted);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 
-    .sw-value-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 2px;
-    }
+	.sw-value-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2px;
+	}
 
-    .sw-hex {
-        font-size: 0.55rem;
-        font-weight: 700;
-        font-family: monospace;
-    }
+	.sw-hex {
+		font-size: 0.55rem;
+		font-weight: 700;
+		font-family: monospace;
+	}
 
-    .sw-oklch {
-        font-size: 0.55rem;
-        font-weight: 700;
-        font-family: monospace;
-        opacity: var(--spk-opacity-faded);
-    }
+	.sw-oklch {
+		font-size: 0.55rem;
+		font-weight: 700;
+		font-family: monospace;
+		opacity: var(--spk-opacity-faded);
+	}
 
-    /* Compact --------------------------------------------------------- */
+	/* Compact --------------------------------------------------------- */
 
-    .swatch-row-compact {
-        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-    }
+	.swatch-row-compact {
+		grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+	}
 
-    .swatch-row-compact .sw {
-        padding: 4px 5px;
-        gap: 1px;
-    }
+	.swatch-row-compact .sw {
+		padding: 4px 5px;
+		gap: 1px;
+	}
 
-    .swatch-row-compact .sw-aa {
-        font-size: 0.85rem;
-        margin-bottom: 1px;
-    }
+	.swatch-row-compact .sw-aa {
+		font-size: 0.85rem;
+		margin-bottom: 1px;
+	}
 
-    .swatch-row-compact .sw-label {
-        font-size: 0.5rem;
-    }
+	.swatch-row-compact .sw-label {
+		font-size: 0.5rem;
+	}
 
-    .swatch-row-compact .sw-hex {
-        font-size: 0.5rem;
-    }
+	.swatch-row-compact .sw-hex {
+		font-size: 0.5rem;
+	}
 
-    .swatch-row-compact .sw-oklch {
-        font-size: 0.45rem;
-    }
+	.swatch-row-compact .sw-oklch {
+		font-size: 0.45rem;
+	}
 
-    /* Rounded --------------------------------------------------------- */
+	/* Rounded --------------------------------------------------------- */
 
-    .swatch-row-rounded .sw {
-        border-radius: var(--spk-radius-edge);
-    }
+	.swatch-row-rounded .sw {
+		border-radius: var(--spk-radius-edge);
+	}
 </style>

@@ -8,10 +8,7 @@
     Accepts any string so callers can pass arbitrary CSS bg-position values.
 */
 export type ImagePosition =
-    | "center" | "top" | "bottom"
-    | "top-right" | "top-left" | "top-center"
-    | "right" | "left"
-    | string;
+	'center' | 'top' | 'bottom' | 'top-right' | 'top-left' | 'top-center' | 'right' | 'left' | string;
 
 /*
     How a tile displays its `src` image, layered on top of its variant/palette card:
@@ -21,19 +18,19 @@ export type ImagePosition =
     A tile with no `src` always renders as a plain flat/outlined card regardless
     of this value.
 */
-export type TileImageDisplay = "background" | "preview";
+export type TileImageDisplay = 'background' | 'preview';
 
 /*
     Base card look, shared vocabulary with Accordion/Timeline.
     "flat" : filled background using the resolved palette token.
     "outlined" : transparent background, border using the resolved palette token.
 */
-export type TileVariant = "flat" | "outlined";
+export type TileVariant = 'flat' | 'outlined';
 
 /*
     Semantic palette resolved to the matching --spk-* tokens for background/border/hover.
 */
-export type TilePalette = "accent" | "tone" | "neutral" | "error" | "warning" | "success" | "info";
+export type TilePalette = 'accent' | 'tone' | 'neutral' | 'error' | 'warning' | 'success' | 'info';
 
 /*
     Number of grid columns on desktop (>= 1024px).
@@ -50,7 +47,7 @@ export type Columns = 1 | 2 | 3 | 4 | 5 | 6;
     "half" → span 2 columns (⅔ of a 3-col grid, full row on a 2-col grid)
     "full" → span all columns (full row regardless of column count)
 */
-export type HeroSpan = "half" | "full";
+export type HeroSpan = 'half' | 'full';
 
 /*
     Elevation level applied to a tile.
@@ -58,12 +55,12 @@ export type HeroSpan = "half" | "full";
     "subtle" → light shadow
     "hard" → strong shadow
 */
-export type TileGridElevation = "none" | "subtle" | "hard";
+export type TileGridElevation = 'none' | 'subtle' | 'hard';
 
 /*
     Visual effect overlaying the whole grid (decorative layer behind the tiles).
 */
-export type TileGridEffect = "none" | "glow" | "blur" | "fade";
+export type TileGridEffect = 'none' | 'glow' | 'blur' | 'fade';
 
 /*
     Aspect ratio applied to a *normal* tile.
@@ -82,13 +79,13 @@ export type TileGridEffect = "none" | "glow" | "blur" | "fade";
     back to being sized like a normal tile (this ratio applies again); at columns=2,
     half spans the whole row just like full does, so it takes full's fixed 8/3 ratio.
 */
-export type TileAspectRatio = "square" | "portrait" | "video" | "wide" | "auto" | string;
+export type TileAspectRatio = 'square' | 'portrait' | 'video' | 'wide' | 'auto' | string;
 
 const ASPECT_RATIO_PRESETS = {
-    square: "1 / 1",
-    portrait: "3 / 4",
-    video: "16 / 9",
-    wide: "21 / 9",
+	square: '1 / 1',
+	portrait: '3 / 4',
+	video: '16 / 9',
+	wide: '21 / 9'
 } as const;
 
 /*
@@ -96,11 +93,11 @@ const ASPECT_RATIO_PRESETS = {
     CSS value. Shared by TileGrid (grid-wide default) and Tile (per-tile override).
 */
 export function resolveAspectRatio(aspect_ratio: TileAspectRatio): string {
-    if (aspect_ratio === "auto") return "auto";
-    if (aspect_ratio in ASPECT_RATIO_PRESETS) {
-        return ASPECT_RATIO_PRESETS[aspect_ratio as keyof typeof ASPECT_RATIO_PRESETS];
-    }
-    return aspect_ratio;
+	if (aspect_ratio === 'auto') return 'auto';
+	if (aspect_ratio in ASPECT_RATIO_PRESETS) {
+		return ASPECT_RATIO_PRESETS[aspect_ratio as keyof typeof ASPECT_RATIO_PRESETS];
+	}
+	return aspect_ratio;
 }
 
 /*
@@ -108,12 +105,12 @@ export function resolveAspectRatio(aspect_ratio: TileAspectRatio): string {
     "ellipse" → centered radial mask
     "fade"    → linear gradient mask along `pattern_mask_direction`
 */
-export type TileGridMask = "none" | "ellipse" | "fade";
+export type TileGridMask = 'none' | 'ellipse' | 'fade';
 
 /*
     Direction of the linear mask gradient when `pattern_mask` is "fade".
 */
-export type TileGridMaskDirection = "top" | "bottom" | "left" | "right";
+export type TileGridMaskDirection = 'top' | 'bottom' | 'left' | 'right';
 
 // Context ----------------------------------------------------------------------
 
@@ -129,19 +126,19 @@ export type TileGridMaskDirection = "top" | "bottom" | "left" | "right";
     a Tile renders go through context.
 */
 
-export const TILEGRID_KEY = Symbol("tilegrid");
+export const TILEGRID_KEY = Symbol('tilegrid');
 
 export interface TileGridContext {
-    readonly image: TileImageDisplay;
-    readonly image_position: ImagePosition;
-    readonly image_size: string | undefined;
-    readonly variant: TileVariant;
-    readonly palette: TilePalette;
-    readonly hero_span: HeroSpan;
-    readonly rounded: boolean;
-    readonly elevation: TileGridElevation;
-    readonly elevation_persist: boolean;
-    readonly aspect_ratio: TileAspectRatio;
+	readonly image: TileImageDisplay;
+	readonly image_position: ImagePosition;
+	readonly image_size: string | undefined;
+	readonly variant: TileVariant;
+	readonly palette: TilePalette;
+	readonly hero_span: HeroSpan;
+	readonly rounded: boolean;
+	readonly elevation: TileGridElevation;
+	readonly elevation_persist: boolean;
+	readonly aspect_ratio: TileAspectRatio;
 }
 
 // Config interface ---------------------------------------------------------
@@ -163,31 +160,31 @@ export interface TileGridContext {
 */
 
 export interface TileGridConfig {
-    image: TileImageDisplay;
-    image_position: ImagePosition;
-    variant: TileVariant;
-    palette: TilePalette;
-    columns: Columns;
-    hero_span: HeroSpan;
-    gap: string;
-    rounded: boolean;
-    elevation: TileGridElevation;
-    elevation_persist: boolean;
-    aspect_ratio: TileAspectRatio;
+	image: TileImageDisplay;
+	image_position: ImagePosition;
+	variant: TileVariant;
+	palette: TilePalette;
+	columns: Columns;
+	hero_span: HeroSpan;
+	gap: string;
+	rounded: boolean;
+	elevation: TileGridElevation;
+	elevation_persist: boolean;
+	aspect_ratio: TileAspectRatio;
 }
 
 // Defaults
 
 export const defaultTileGridConfig: TileGridConfig = {
-    image: "background",
-    image_position: "center",
-    variant: "flat",
-    palette: "tone",
-    columns: 3,
-    hero_span: "half",
-    gap: "1.5rem",
-    rounded: false,
-    elevation: "none",
-    elevation_persist: false,
-    aspect_ratio: "4/3",
+	image: 'background',
+	image_position: 'center',
+	variant: 'flat',
+	palette: 'tone',
+	columns: 3,
+	hero_span: 'half',
+	gap: '1.5rem',
+	rounded: false,
+	elevation: 'none',
+	elevation_persist: false,
+	aspect_ratio: '4/3'
 };

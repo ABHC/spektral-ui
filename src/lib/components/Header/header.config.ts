@@ -2,21 +2,21 @@
 // Controls wrapper-level CSS classes only.
 // injected by the component at runtime.
 export const headerConfig = {
-    base: "header-base",
+	base: 'header-base',
 
-    variants: {
-        // Colour palette mode.
-        // accent → background: --spk-accent, buttons inherit --spk-text-accent
-        // tone → background: --card, buttons inherit --spk-text
-        palette: {
-            accent: "header-palette-accent",
-            tone: "header-palette-tone",
-        },
+	variants: {
+		// Colour palette mode.
+		// accent → background: --spk-accent, buttons inherit --spk-text-accent
+		// tone → background: --card, buttons inherit --spk-text
+		palette: {
+			accent: 'header-palette-accent',
+			tone: 'header-palette-tone'
+		},
 
-        // Whether the header container has rounded corners.
-        // rounded=true adds nav-rounded; omitted = no border-radius.
-        rounded: {
-            true: "header-rounded",
-        },
-    }
+		// Whether the header container has rounded corners.
+		// rounded=true adds nav-rounded; omitted = no border-radius.
+		rounded: {
+			true: 'header-rounded'
+		}
+	}
 };
